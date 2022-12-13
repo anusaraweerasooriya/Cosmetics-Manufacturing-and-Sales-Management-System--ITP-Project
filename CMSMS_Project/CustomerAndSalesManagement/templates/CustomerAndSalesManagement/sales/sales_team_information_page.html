@@ -1,0 +1,68 @@
+{% extends 'CustomerAndSalesManagement/sales/sales_base.html' %}
+{% load static %}
+
+{% block title %}
+      Sales Team Information
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Team Information </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card" >
+
+         <div class="row align-items-center">
+            <div class="col-6 mx-auto">
+                <div class="card shadow border" style="padding: 20px">
+                    <div class="text-center">
+                        <h4 class="text">Team Details</h4>
+                    </div>
+                    <hr>
+                    <table class="table">
+                        <tr>
+                            <th>Team ID</th>
+                            <td>{{ team.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Team Name</th>
+                            <td>{{ team.team_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Team Description</th>
+                            <td>{{ team.team_description }}</td>
+                        </tr>
+                        <tr>
+                            <th>Team Employees</th>
+                            <td>
+                                {% for employee in employees %}
+                                    {{ employee }}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Current Task</th>
+                            {% if task != null %}
+                                <td>{{ task.task_name }}</td>
+                            {% else %}
+                                <td>Currently not assigned to a task</td>
+                            {% endif %}
+                        </tr>
+                    </table>
+
+                    <a href="{% url 'sales_teams_management' %}" class="btn btn-warning">Back to Sales Team</a>
+                </div>
+            </div>
+          </div>
+
+    </section>
+
+
+
+
+{% endblock content %}

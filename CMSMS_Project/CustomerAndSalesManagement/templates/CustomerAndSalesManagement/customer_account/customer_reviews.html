@@ -1,0 +1,39 @@
+{% extends 'CustomerAndSalesManagement/customer_account/customer_dashboard_main.html' %}
+{% load static %}
+{% block content2 %}
+    <div class="text">Review a Product</div>
+
+     <section style="padding: 30px;height:680px;overflow:auto">
+        <div class="container" style="padding-left: 100px; padding-right: 100px;">
+            {% for review in reviews %}
+            <div class="card bg-light shadow border-0" style="padding: 10px;">
+                <h6 class="text-secondary">Reviewed on {{ review.added_date}}</h6>
+                <hr>
+                <div class="row" >
+                    <div class="col-9 list-inline">
+                        <ul class="list-inline">
+                             <li class="list-inline-item">
+                                 <img src="{{ review.product.image_url.url }}" class="img-thumbnail"  style="width: 90px; height: 90px;" alt="">
+                             </li>
+                             <li class="list-inline-item" style="vertical-align: top">
+                                 <h6><strong>{{ review.product.name }}</strong></h6>
+                                 {% if review.value == 'up' %}
+                                     <h6 class="">You have given a positive feedback.</h6>
+                                 {% else %}
+                                     <h6 class="">You have given a negative feedback.</h6>
+                                 {% endif %}
+                                 <div style="max-width: 500px;">
+                                    <p>{{ review.text_review}}</p>
+                                 </div>
+                             </li>
+                         </ul>
+                    </div>
+                    <div class="col-3" style="padding-top: 40px; padding-right: 10px;">
+                        <a href="{% url 'customer_edit_review' review.id %}" class="btn btn-success d-grid">Update Review</a>
+                    </div>
+                </div>
+            </div><br>
+            {% endfor %}
+        </div>
+     </section>
+{% endblock content2 %}

@@ -1,0 +1,117 @@
+{% extends 'CustomerAndSalesManagement/customer_main.html' %}
+{% load static %}
+{% block title %}
+    Customer Login
+{% endblock title %}
+{% block content %}
+    	<style>
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
+		.user_card {
+			width: 350px;
+			margin-top: auto;
+			margin-bottom: auto;
+			background: #d75d01;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+
+		.form_container {
+			margin-top: 20px;
+		}
+
+		#form-title{
+			color: #fff;
+
+		}
+
+		.login_btn {
+			width: 100%;
+			background: #33ccff !important;
+			color: white !important;
+		}
+		.login_btn:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.login_container {
+			padding: 0 2rem;
+		}
+		.input-group-text {
+			background: #016b4b !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+
+		#messages{
+			background-color: grey;
+			color: #fff;
+			padding: 10px;
+			margin-top: 10px;
+		}
+	</style>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/customer_registration.css' %}">
+
+    <div class="col-lg-6 col-xl-6 mx-auto">
+            <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
+              <div class="card-img-left d-none d-md-flex">
+                <!-- Background image for card set in CSS! -->
+              </div>
+              <div class="card-body p-4 p-sm-5">
+                <h5 class="card-title text-center mb-5 fw-light fs-5">Login</h5>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                  <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+                          <input type="text" name="username" placeholder="Username..." class="form-control">
+
+                  </div>
+
+                  <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+                          <input type="password" name="password" placeholder="Password..." class="form-control" >
+
+                  </div>
+
+                  <div class="d-grid mb-2">
+                    <input class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" value="Login" type="submit" name="Login Customer">
+                  </div>
+
+                  <a class="d-block text-center mt-2 small" href="{% url 'customer_register' %}">Don't have an account? Sign Up</a>
+                  <a class="d-block text-center mt-2 small" href="{% url 'reset_password' %}">Forgot your password? Sign Up</a>
+
+                  <hr class="my-4">
+                     {{form.errors}}
+
+                </form>
+              </div>
+
+            </div>
+          </div>
+
+
+
+
+{% endblock content %}

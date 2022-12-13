@@ -1,0 +1,70 @@
+{% extends 'CustomerAndSalesManagement/customer_account/customer_dashboard_main.html' %}
+{% load static %}
+{% block content2 %}
+    <div class="text">My Profile</div>
+
+     <section style="padding: 30px;height:680px;overflow:auto">
+        <div class="container" style="padding-left: 100px; padding-right: 100px;">
+            <div class="row">
+                <div class="col-4">
+                    <div class="card border-0 shadow">
+                        <img class="img-fluid" src="{{ customer.image_url }}" alt="" style="height: auto; max-width: 100%;">
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="card border-0 shadow" style="padding: 10px">
+                        <h4>Profile details</h4>
+                        <h6>
+                            <span class="badge bg-warning">Verified Account &nbsp;
+                                <i class="bi bi-check-square"></i>
+                            </span>
+                        </h6>
+                        <hr>
+                        <ul class="list-inline">
+                             <li class="list-inline-item">
+                                 <h6><strong>Full Name: </strong></h6>
+                             </li>
+                             <li class="list-inline-item" style="vertical-align: top">
+                                 <h6>{{ customer.first_name }} {{ customer.last_name }}</h6>
+                             </li>
+                        </ul>
+                        <ul class="list-inline">
+                             <li class="list-inline-item">
+                                 <h6><strong>Email Address: </strong></h6>
+                             </li>
+                             <li class="list-inline-item" style="vertical-align: top">
+                                 <h6>{{ customer.email }}</h6>
+                             </li>
+                        </ul>
+                        <ul class="list-inline">
+                             <li class="list-inline-item">
+                                 <h6><strong>Birth Day: </strong></h6>
+                             </li>
+                             <li class="list-inline-item" style="vertical-align: top">
+                                 <h6>{{ customer.birth_date }}</h6>
+                             </li>
+                         </ul>
+                        <ul class="list-inline">
+                             <li class="list-inline-item">
+                                 <h6><strong>Gender: </strong></h6>
+                             </li>
+                             <li class="list-inline-item" style="vertical-align: top">
+                                 <h6>{{ customer.gender }}</h6>
+                             </li>
+                         </ul>
+                        <a href="{% url 'customer_edit_profile' %}" class="btn btn-success">
+                            <i class="bi bi-pencil-square"></i> &nbsp;
+                            Edit Profile
+                        </a>&nbsp;
+                        <a href="{% url 'reset_password' %}" class="btn btn-info">
+                            <i class="bi bi-pencil-lock"></i> &nbsp;
+                            Reset Password
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
+
+
+{% endblock content2 %}

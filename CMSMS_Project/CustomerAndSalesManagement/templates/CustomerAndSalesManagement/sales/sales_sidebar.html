@@ -1,0 +1,103 @@
+{% load static %}
+
+<div class="sidebar close">
+
+    <div class="logo-details">
+      <i class='bx bxl-slack'></i>
+      <span class="logo_name">GLAMOUR</span>
+    </div>
+
+    <ul class="nav-links">
+            <li>
+        <a href="{% url 'CS_dashboard' %}">
+          <i class='bx bxs-dashboard' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'CS_dashboard' %}">Dashboard</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="{% url 'sales_products' %}">
+            <i class='bx bxs-basket'></i>
+            <span class="link_name">Products</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{% url 'sales_products' %}">Products</a></li>
+          <li><a href="{% url 'create_product' %}">Add New Products</a></li>
+          <li><a href="{% url 'update_products' %}">Update Products</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="{% url 'sales_teams_management' %}">
+            <i class='bx bxs-group' ></i>
+            <span class="link_name">Sales Teams</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{% url 'sales_teams_management' %}">Sales Teams</a></li>
+          <li><a href="{% url 'create_sales_team' %}">Add New Sales Team</a></li>
+          <li><a href="{% url 'update_sales_teams' %}">Manage Sales Teams</a></li>
+        </ul>
+      </li>
+     <li>
+        <div class="iocn-link">
+          <a href="{% url 'sales_tasks_management' %}">
+            <i class='bx bx-task' ></i>
+            <span class="link_name">Sales Tasks</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{% url 'sales_tasks_management' %}">Sales Tasks</a></li>
+          <li><a href="{% url 'create_sales_task' %}">Add New Sales Task</a></li>
+          <li><a href="{% url 'update_sales_tasks' %}">Manage Sales Tasks</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="{% url 'customer_management' %}">
+            <i class='bx bxs-user'></i>
+            <span class="link_name">Customers</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{% url 'customer_management' %}">Customers</a></li>
+          <li><a href="#">Add New Customers</a></li>
+          <li><a href="#">Update Customers</a></li>
+          <li><a href="#">Customer Requests</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bxs-pie-chart-alt-2' ></i>
+          <span class="link_name">Analytics</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Analytics</a></li>
+        </ul>
+      </li>
+
+
+      {% if user.is_authenticated %}
+        <li>
+          <div class="profile-details">
+            <div class="profile-content">
+              <img src="/images/avatar.png" alt="profileImg">
+            </div>
+            <div class="name-job">
+              <div class="profile_name">{{ request.user }}</div>
+              <div class="job">Manager</div>
+            </div>
+          </div>
+        </li>
+      {% endif %}
+
+    </ul>
+</div>

@@ -1,0 +1,126 @@
+{% extends 'CustomerAndSalesManagement/customer_account/customer_dashboard_main.html' %}
+{% load static %}
+{% block content2 %}
+    <div class="text">Order Details</div>
+
+    <section style="padding: 30px;height: 900px;overflow: auto">
+        <div class="container">
+            <div class="card bg-light shadow border-0" style="padding: 10px;">
+                <div class="row">
+                    <div class="col">
+                        <figure>
+                          <blockquote class="blockquote">
+                            <p>ORDER : #{{ order.id }}</p>
+                          </blockquote>
+                          <figcaption class="blockquote-footer">
+                            Placed on {{ order.date_ordered }}
+                          </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col text-end inline-block" >
+                        <ul class="list-inline">
+                          <li class="list-inline-item"><h4 style="color: #5c636a;">Total :</h4></li>
+                          <li class="list-inline-item"><h4>Rs.{{ order.get_cart_total }}</h4></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <br>
+            {% for item in order_items %}
+            <div class="card bg-light shadow border-0" style="padding: 10px;">
+                <div class="row">
+                    <figure>
+                          <blockquote class="blockquote">
+                            <p> <i class="bi bi-archive-fill"></i> &nbsp; Package Item : #{{ item_count }}</p>
+                          </blockquote>
+                          <figcaption class="blockquote-footer">
+                            Sold by Glamour Cosmetics
+                          </figcaption>
+                        <hr>
+                    </figure>
+                </div>
+                <div class="row">
+                    <div class="col list-inline">
+                         <ul class="list-inline">
+                             <li class="list-inline-item">
+                                 <img src="{{item.product.image_url.url}}" class="img-thumbnail"  style="width: 90px; height: 90px;" alt="">
+                             </li>
+                             <li class="list-inline-item" style="vertical-align: top">
+                                 <h5>{{ item.product.name }}</h5>
+                             </li>
+                         </ul>
+                    </div>
+                    <div class="col text-center">
+                        <h5>Rs. {{ item.product.selling_price }}</h5>
+                    </div>
+                    <div class="col text-center" >
+                        <ul class="list-inline">
+                          <li class="list-inline-item"><h5 style="color: #5c636a;">Qty :</h5></li>
+                          <li class="list-inline-item"><h5>{{ item.quantity }}</h5></li>
+                        </ul>
+                    </div>
+                    <div class="col text-end">
+                        {% if item.order.order_status == 'Delivered' %}
+                            {% if request.user.customer.id in item.product.get_reviewers %}
+                                <h4>
+                                    <span class="badge bg-success">
+                                        <i class="bi bi-clipboard-check"></i>&nbsp;
+                                        Reviewed
+                                    </span>
+                                </h4>
+                            {% else %}
+                                <a href="{% url 'customer_product_review' item.product.id order.id %}" class="btn btn-warning">Add a Review</a>
+                            {% endif %}
+                        {% else %}
+                            <h4>
+                                <span class="badge bg-info">
+                                    <i class="bi bi-clipboard-check"></i>&nbsp;
+                                    Order Confirmed
+                                </span>
+                            </h4>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <br>
+            {% endfor %}
+            <div class="row">
+                <div class="col">
+                    <div class="card  shadow border-0" style="padding: 10px;">
+                        <h5>Shipping Address</h5>
+                        <h5><span class="badge bg-success">{{ order.customer.first_name }} {{ order.customer.last_name }}</span></h5>
+                        {% if order.id == shipping_address.order.id %}
+                        <h6>{{ shipping_address}}</h6>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow border-0" style="padding: 10px;">
+                        <h5>Total Summary</h5>
+                        <br>
+                        <div class="row">
+                            <div class="col"><h6>Subtotal: </h6></div>
+                            <div class="col"><h6>Rs. {{ order.get_cart_discount|floatformat:2 }}</h6></div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><h6>Shipping Fee: </h6></div>
+                            <div class="col"><h6>Rs. 100.00</h6></div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><h6>Total Discount: </h6></div>
+                            <div class="col"><h6>Rs. {{ order.get_cart_discount|floatformat:2 }}</h6></div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col"><h6>Total: </h6></div>
+                            <div class="col"><h6>Rs. {{ order.net_total|floatformat:2 }}</h6></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock content2 %}

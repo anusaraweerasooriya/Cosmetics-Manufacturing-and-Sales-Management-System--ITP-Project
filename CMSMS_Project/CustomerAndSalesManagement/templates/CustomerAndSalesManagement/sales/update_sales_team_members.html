@@ -1,0 +1,55 @@
+{% extends 'CustomerAndSalesManagement/sales/sales_base.html' %}
+{% load static %}
+
+{% block title %}
+      ---page path---
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> --page title-- </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card" >
+         <div class="row align-items-center">
+            <div class="col-6 mx-auto">
+                <div class="card shadow border" style="padding: 20px">
+                    <div class="text-center">
+                        <h4 class="text">Updated Team Details</h4>
+                    </div>
+                    <hr>
+                    <table class="table">
+                        <tr>
+                            <th>Team ID</th>
+                            <td>{{ sales_team.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Team Name</th>
+                            <td>{{ sales_team.team_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Team Description</th>
+                            <td>{{ sales_team.team_description }}</td>
+                        </tr>
+                        <tr>
+                            <th>Team Description</th>
+                            <td>{{ sales_team.no_of_employees }}</td>
+                        </tr>
+                    </table>
+
+                    <a href="{% url 'update_team_members' sales_team.id sales_team.no_of_employees %}" class="btn btn-warning">Assign teams</a>
+                </div>
+            </div>
+          </div>
+
+    </section>
+
+
+
+
+{% endblock content %}

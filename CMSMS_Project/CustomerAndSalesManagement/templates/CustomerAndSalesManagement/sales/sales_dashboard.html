@@ -1,0 +1,254 @@
+{% extends 'CustomerAndSalesManagement/sales/sales_base.html' %}
+{% load static %}
+
+{% block title %}
+      Sales|Dashboard
+{% endblock %}
+
+
+{% block content %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    <style>
+        .order-card {
+            color: #fff;
+        }
+
+        .bg-c-blue {
+            background: linear-gradient(45deg,#4099ff,#73b4ff);
+        }
+
+        .bg-c-green {
+            background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+        }
+
+        .bg-c-yellow {
+            background: linear-gradient(45deg,#FFB64D,#ffcb80);
+        }
+
+        .bg-c-pink {
+            background: linear-gradient(45deg,#FF5370,#ff869a);
+        }
+
+
+        .card {
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+            box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+            border: none;
+            margin-bottom: 30px;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .card .card-block {
+            padding: 25px;
+        }
+
+        .order-card i {
+            font-size: 26px;
+        }
+
+        .f-left {
+            float: left;
+        }
+
+        .f-right {
+            float: right;
+        }
+    </style>
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Dashboard </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-c-blue shadow order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">Orders Received</h6>
+                                <h2 class="text-right" style="text-align: right;"><i class="fa fa-cart-plus f-left"></i><span>{{total_orders}}</span></h2>
+                                <p class="m-b-0">Completed Orders<span class="f-right">{{total_completed_orders}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-c-green shadow order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">Teams with tasks</h6>
+                                <h2 class="text-right" style="text-align: right;"><i class="fa fa-rocket f-left"></i><span>{{items_sold}}</span></h2>
+                                <p class="m-b-0">Completed tasks<span class="f-right">{{total_products}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-c-yellow shadow order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">Sales Tasks</h6>
+                                <h2 class="text-right" style="text-align: right;"><i class="fa fa-refresh f-left"></i><span>{{total_sales_tasks}}</span></h2>
+                                <p class="m-b-0">Completed Tasks<span class="f-right">{{total_completed_sales_tasks}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-c-pink shadow order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">Sales Income</h6>
+                                <h2 class="text-right" style="text-align: right;"><i class="fa fa-credit-card f-left"></i><span>Rs. {{total_sales}}</span></h2>
+                                <p class="m-b-0">Customers<span class="f-right">{{total_customers}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card" style="height: 27rem; width: 40rem">
+                            <canvas width="10" height="10" id="myAreaChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card" style="height: 27rem; width: 40rem">
+                            <canvas id="bar-chart" width="800" height="450"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </section>
+
+//Line chart for sales
+<script type="text/javascript">
+    var ctx = document.getElementById("myAreaChart");
+    var myLineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [{% for days in day_list %} '{{ days }}',  {% endfor %}],
+        datasets: [{
+          label: "Sales Income",
+          lineTension: 0.3,
+          backgroundColor: "rgba(78, 115, 223, 0.05)",
+          borderColor: "rgba(78, 115, 223, 1)",
+          pointRadius: 3,
+          pointBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointBorderColor: "rgba(78, 115, 223, 1)",
+          pointHoverRadius: 3,
+          pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+          pointHitRadius: 10,
+          pointBorderWidth: 2,
+          data: [{% for income in income_list %} '{{ income }}',  {% endfor %}],
+        }],
+      },
+      options: {
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            left: 10,
+            right: 25,
+            top: 25,
+            bottom: 0
+          }
+        },
+        scales: {
+          xAxes: [{
+            time: {
+              unit: 'date'
+            },
+            gridLines: {
+              display: false,
+              drawBorder: false
+            },
+            ticks: {
+              maxTicksLimit: 7
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              maxTicksLimit: 5,
+              padding: 10,
+              // Include a dollar sign in the ticks
+              callback: function(value, index, values) {
+                return '$' + number_format(value);
+              }
+            },
+            gridLines: {
+              color: "rgb(234, 236, 244)",
+              zeroLineColor: "rgb(234, 236, 244)",
+              drawBorder: false,
+              borderDash: [2],
+              zeroLineBorderDash: [2]
+            }
+          }],
+        },
+        legend: {
+          display: false
+        },
+        tooltips: {
+          backgroundColor: "rgb(255,255,255)",
+          bodyFontColor: "#858796",
+          titleMarginBottom: 10,
+          titleFontColor: '#6e707e',
+          titleFontSize: 14,
+          borderColor: '#dddfeb',
+          borderWidth: 1,
+          xPadding: 15,
+          yPadding: 15,
+          displayColors: false,
+          intersect: false,
+          mode: 'index',
+          caretPadding: 10,
+          callbacks: {
+            label: function(tooltipItem, chart) {
+              var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+              return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+            }
+          }
+        }
+      }
+    });
+</script>
+
+// Bar chart
+<script type="text/javascript">
+new Chart(document.getElementById("bar-chart"), {
+    type: 'bar',
+    data: {
+      labels: [{% for category in product_categories %} '{{ category }}',  {% endfor %}],
+      datasets: [
+        {
+          label: "No of Products",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: [{% for count in product_category_count %} '{{ count }}',  {% endfor %}]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Predicted world population (millions) in 2050'
+      }
+    }
+});
+</script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+{% endblock content %}

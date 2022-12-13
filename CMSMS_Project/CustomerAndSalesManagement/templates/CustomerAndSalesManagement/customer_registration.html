@@ -1,0 +1,117 @@
+{% extends 'CustomerAndSalesManagement/customer_main.html' %}
+{% load static %}
+{% block title %}
+   Registration
+{% endblock title %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static '/css/customer_registration.css' %}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <br><br><br>
+
+
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-10 col-xl-9 mx-auto">
+            <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
+              <div class="card-img-left d-none d-md-flex">
+                <!-- Background image for card set in CSS! -->
+              </div>
+              <div class="card-body p-4 p-sm-5">
+                <h5 class="card-title text-center mb-5 fw-light fs-5">Register</h5>
+                <form class="needs-validation" action="" method="POST" novalidate>
+                    {% csrf_token %}
+                      <div class="row">
+                          <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    {{form.first_name}}
+                                </div>
+                          </div>
+                          <div class="col">
+                              <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    {{form.last_name}}
+                                </div>
+                          </div>
+
+                      </div>
+
+                  <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							{{form.username}}
+                  </div>
+                  {% if form.username.errors %}
+                  <div class="alert alert-danger" role="alert">
+                      {{form.username.errors}}
+                  </div>
+                  {% endif %}
+
+
+                  <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
+							</div>
+							{{form.email}}
+                            <div class="invalid-feedback">
+
+                            </div>
+                  </div>
+                  {% if form.email.errors %}
+                  <div class="alert alert-danger" role="alert">
+                      {{form.email.errors}}
+                  </div>
+                  {% endif %}
+
+                  <hr>
+
+                  <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							{{form.password1}}
+
+                  </div>
+                  <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							{{form.password2}}
+                  </div>
+                  {% if form.password2.errors %}
+                  <div class="alert alert-danger" role="alert">
+                      {{form.password2.errors}}
+                  </div>
+                  {% endif %}
+
+                  <div class="d-grid mb-2">
+                    <input class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" value="Register" type="submit" name="Create Customer">
+                  </div>
+
+                  <a class="d-block text-center mt-2 small" href="{% url 'customer_login' %}">Have an account? Log In</a>
+
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+    </div>
+ <script>
+        var form_fields = document.getElementsByTagName('input')
+        form_fields[5].placeholder='Enter password...';
+		form_fields[6].placeholder='Re-enter Password...';
+
+        for (var field in form_fields){
+			form_fields[field].className += ' form-control'
+		}
+
+    </script>
+
+{% endblock content %}

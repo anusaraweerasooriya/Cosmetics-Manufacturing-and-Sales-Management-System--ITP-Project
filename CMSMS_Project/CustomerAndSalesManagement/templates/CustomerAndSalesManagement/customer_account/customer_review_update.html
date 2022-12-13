@@ -1,0 +1,29 @@
+{% extends 'CustomerAndSalesManagement/customer_account/customer_dashboard_main.html' %}
+{% load static %}
+{% block content2 %}
+    <div class="text">Update Reviews</div>
+
+     <section style="padding: 30px;height:680px;overflow:auto">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-8 mx-auto">
+                    <div class="card shadow border" style="padding: 20px">
+                        <div class="text-center">
+                            <h6 class="text">Update the Review </h6>
+                        </div>
+                        <form class="row g-3" action="" method="POST">
+                        {% csrf_token %}
+                            <div class="input-group mb-3">
+                                {{ form.value }}
+                            </div>
+                            <div class="input-group mb-3">
+                                {{ form.text_review }}
+                            </div>
+                            <input type="submit" class="btn btn-info" value="Update Review">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
+{% endblock content2 %}

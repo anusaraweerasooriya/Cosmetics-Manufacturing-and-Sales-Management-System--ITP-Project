@@ -1,0 +1,154 @@
+{% extends 'CustomerAndSalesManagement/sales/sales_base.html' %}
+{% load static %}
+
+{% block title %}
+      Sales Teams Management
+{% endblock %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static '/css/sales_card.css' %}">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
+<style>
+
+.page-item.active .page-link {
+    columns: #FFFFFFF;
+    background-color: #6c757d;
+    border: 1px solid #6c757d;
+}
+
+
+.pagination > li > a {
+    background-color: #FFFFFF;
+    color: #6c757d ;
+}
+
+</style>
+
+
+ <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Sales Teams </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-c-blue shadow order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">Total Teams</h6>
+                                <h2 class="text-right" style="text-align: right;"><i class="fa fa-user-friends f-left"></i><span>{{sales_teams_count}}</span></h2>
+                                <p class="m-b-0">Available Teams<span class="f-right">{{available_teams_count}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-c-green shadow order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">Team Members</h6>
+                                <h2 class="text-right" style="text-align: right;"><i class="fa fa-user-check f-left"></i><span>{{team_member_count}}</span></h2>
+                                <p class="m-b-0">Available members<span class="f-right">{{available_team_members}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-c-yellow shadow order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">Teams with tasks</h6>
+                                <h2 class="text-right" style="text-align: right;"><i class="fa fa-tasks f-left"></i><span>{{teams_with_tasks}}</span></h2>
+                                <p class="m-b-0">Completed Tasks<span class="f-right">{{completed_tasks}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-c-pink shadow order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">Sales Income</h6>
+                                <h2 class="text-right" style="text-align: right;"><i class="fa fa-credit-card f-left"></i><span>Rs. {{total_sales}}</span></h2>
+                                <p class="m-b-0">Customers<span class="f-right">{{total_customers}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </section>
+        <section>
+            <div class="container">
+            <div class="row">
+                <div class="col">
+                    <a href="{% url 'sales_teams_csv' %}" class="btn btn-success">Export CSV <i class="bx bxs-file-export"></i></a>
+                </div>
+                <div class="col">
+                    <div class="d-grid d-md-flex justify-content-md-end" style="padding-top: 0.2rem; padding-right: 0.2rem;">
+                        <a href="{% url 'create_sales_team' %}" class="btn btn-warning">ADD TEAM +</a>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row align-items-center">
+                <div class="col-12 mx-auto">
+                    <table class="table table-hover shadow-sm display" id="table_id">
+                      <thead class="table text-white" style="background:#1F3C88;">
+                        <tr>
+                            <th>Team</th>
+                            <th>Date Created</th>
+                            <th>Description</th>
+                            <th>Availability</th>
+                            <th>No of Employees</th>
+                            <th></th>
+                        </tr>
+                      </thead>
+                      <tbody style="background: #CEDDEF;">
+                        {% for team in sales_teams %}
+                            <tr>
+                                <td>{{ team.team_name }}</td>
+                                <td>{{ team.date_created }}</td>
+                                <td>{{ team.team_description }}</td>
+                                <td>{{ team.available }}</td>
+                                <td>{{ team.no_of_employees }}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-info"
+                                       href="{% url 'sales_team_information' team.id %}">View Team Info</a>&nbsp;
+                                    <a class="btn btn-sm btn-success"
+                                       href="{% url 'update_sales_team_form' team.id %}">Update</a>&nbsp;
+                                    <a class="btn btn-danger btn-sm btn-info"
+                                       href="{% url 'delete_sales_team' team.id %}">Delete</a>
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+         </div>
+
+        </section>
+
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $('#table_id').DataTable({
+            paging:true,
+            pageLength: 4,
+            LengthChange: true,
+            autoWidth: true,
+            searching: true,
+            bInfo: true,
+            bSort: true,
+        })
+    </script>
+
+
+{% endblock content %}

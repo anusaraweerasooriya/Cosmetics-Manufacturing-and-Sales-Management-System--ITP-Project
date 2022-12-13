@@ -1,0 +1,23 @@
+{% extends 'CustomerAndSalesManagement/customer_main.html' %}
+{% load static %}
+{% block title %}
+    Add Order Items
+{% endblock title %}
+{% block content %}
+    <br><br>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% for order_form in form_order %}
+            {{ order_form }}
+        {% endfor %}
+        {% for form in form_set  %}
+            {{ form }}
+            <hr>
+        {% endfor %}
+
+        <input type="submit" name="submit">
+    </form>
+
+
+{% endblock content %}

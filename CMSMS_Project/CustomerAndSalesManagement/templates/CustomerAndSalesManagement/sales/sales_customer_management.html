@@ -1,0 +1,89 @@
+{% extends 'CustomerAndSalesManagement/sales/sales_base.html' %}
+{% load static %}
+
+{% block title %}
+      Customers
+{% endblock %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static '/css/sales_card.css' %}">
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Customers </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card" >
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-c-pink shadow order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">Total Customers</h6>
+                                <h2 class="text-right" style="text-align: right;"><i class="fa fa-user f-left"></i><span>{{total_customers}}</span></h2>
+                                <p class="m-b-0">Customers<span class="f-right">{{total_customers}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <section>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-12 mx-auto">
+                        <table class="table table-hover shadow-sm" id="table_id">
+                          <thead class="table text-white" style="background:#1F3C88;">
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer</th>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th></th>
+                            </tr>
+                          </thead>
+                          <tbody style="background: #CEDDEF;">
+                            {% for customer in customers %}
+                                <tr>
+                                    <td>{{ customer.id }}</td>
+                                    <td><img class="rounded-circle" src="{{ customer.image_url }}" style="width: 2.5rem; height: 2.5rem;" alt="..."/></td>
+                                    <td>{{ customer.first_name }} {{ customer.last_name }}</td>
+                                    <td>{{ customer.username }}</td>
+                                    <td>{{ customer.email }}</td>
+                                    <td>{{ customer.mobile_number }}</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-info"
+                                           href="{% url 'customer_view' customer.id %}">view customer</a>&nbsp;
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $('#table_id').DataTable({
+            paging:true,
+            pageLength: 4,
+            LengthChange: true,
+            autoWidth: true,
+            searching: true,
+            bInfo: true,
+            bSort: true,
+        })
+    </script>
+
+{% endblock content %}

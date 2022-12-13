@@ -1,0 +1,51 @@
+{% extends 'CustomerAndSalesManagement/sales/sales_base.html' %}
+{% load static %}
+
+{% block title %}
+      ---page path---
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Delete Product </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+         <div class="row align-items-center">
+            <div class="col-6 mx-auto">
+                <div class="card shadow border" style="padding: 20px">
+                    <div class="text-center">
+                        <h4 class="text">Delete Product</h4>
+                    </div>
+                    <hr>
+                    <div class="row align-items-center">
+                        <div class="col-2 mx-auto">
+                            <img class="rounded-circle" src="{{ product.image_url.url }}" alt=""  style="width: 6rem; height: 6rem;">
+                        </div>
+                    </div>
+                    <br>
+                    <p>Are you sure you want to delete this product <strong>{{ product.name }}</strong>?</p><br>
+
+                    <form action="{% url 'delete_sales_products' product.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col d-grid">
+                                <a href="{% url 'update_products' %}" class="btn btn-info ">Cancel</a>
+                            </div>
+                            <div class="col d-grid">
+                                <input class="btn btn-warning" type="submit" name="Confirm">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock content %}

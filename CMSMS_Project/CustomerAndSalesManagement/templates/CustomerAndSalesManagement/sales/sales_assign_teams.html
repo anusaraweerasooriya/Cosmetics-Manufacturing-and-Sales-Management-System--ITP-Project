@@ -1,0 +1,48 @@
+{% extends 'CustomerAndSalesManagement/sales/sales_base.html' %}
+{% load static %}
+
+{% block title %}
+      ---page path---
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Manage Sales </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+<div class="container">
+            <div class="row align-items-center">
+                <div class="col-8 mx-auto">
+                    <div class="card shadow border" style="padding: 20px">
+                        <div class="text-center">
+                            <h4 class="text">Assign Team Members</h4>
+                        </div>
+                        <hr>
+                        <form class="row g-3" action="" method="POST" novalidate>
+                            {% csrf_token %}
+                            {{formset.management_form}}
+                            {% for form in formset %}
+                            <div class="input-group mb-3 form-check">
+                                {{ form.team_member }}
+                            </div>
+                            {% if form.team_member.errors %}
+                              <div class="alert alert-danger" role="alert">
+                                  {{form.team_member.errors}}
+                              </div>
+                            {% endif %}
+
+                            {% endfor %}
+                            <input type="submit" class="btn btn-success" value="Submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

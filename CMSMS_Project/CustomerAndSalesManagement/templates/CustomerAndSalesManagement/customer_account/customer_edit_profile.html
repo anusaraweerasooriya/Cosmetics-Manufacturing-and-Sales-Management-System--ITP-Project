@@ -1,0 +1,116 @@
+{% extends 'CustomerAndSalesManagement/customer_account/customer_dashboard_main.html' %}
+{% load static %}
+{% block title %}
+   Edit Profile
+{% endblock title %}
+{% block content2 %}
+    <style>
+        .input-group-text {
+          background: #037c5d !important;
+          color: white !important;
+          border: 0 !important;
+          height: 3rem;
+          width: 2.5rem;
+          border-radius: 0.25rem 0 0 0.25rem !important;
+        }
+    </style>
+
+
+
+    <div class="text">Edit Profile Details</div>
+
+     <section style="padding: 30px;height:900px;overflow:auto">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-8 mx-auto">
+                    <div class="card shadow border" style="padding: 20px">
+                        <div class="text-center">
+                            <h6 class="text">Update Details</h6>
+                        </div>
+                        <img src="{{ request.user.customer.image_url }}"
+                             class="image mx-auto d-block" style="width: 200px; height: 200px; border-radius:50%; position: relative;" alt="">
+
+                        <br>
+                        <form class="row g-3" action="{% url 'customer_edit_profile' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        </div>
+                                        {{ form.first_name }}
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        </div>
+                                        {{ form.last_name }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                {{ form.username }}
+                            </div>
+                            {% if form.username.errors %}
+                              <div class="alert alert-danger" role="alert">
+                                  {{form.username.errors}}
+                              </div>
+                            {% endif %}
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
+                                </div>
+                                {{ form.email }}
+                            </div>
+                            {% if form.email.errors %}
+                              <div class="alert alert-danger" role="alert">
+                                  {{form.email.errors}}
+                              </div>
+                            {% endif %}
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                </div>
+                                {{ form.mobile_number }}
+                            </div>
+                            {% if form.mobile_number.errors %}
+                              <div class="alert alert-danger" role="alert">
+                                  {{form.mobile_number.errors}}
+                              </div>
+                            {% endif %}
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                </div>
+                                {{ form.birth_date }}
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                </div>
+                                {{ form.gender }}
+                            </div>
+                            <div class="row">
+                                <div class="col mb-3" style="text-decoration-color: #5c636a">
+                                    {{ form.profile_picture }}
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-info" value="Submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
+
+
+{% endblock content2 %}

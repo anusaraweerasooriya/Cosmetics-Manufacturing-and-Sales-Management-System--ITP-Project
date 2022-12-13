@@ -1,0 +1,45 @@
+{% extends 'CustomerAndSalesManagement/customer_account/customer_dashboard_main.html' %}
+{% load static %}
+{% block content2 %}
+    <div class="text">My Orders</div>
+
+     <section style="padding: 30px;height:680px;overflow:auto">
+        <div class="container">
+            <table class="table table-hover shadow">
+              <thead class="table bg-light">
+                <tr>
+                    <th colspan="5"><h4>Recent Orders</h4></th>
+                </tr>
+              </thead>
+              <thead class="table-dark">
+                <tr>
+                    <th>Order id</th>
+                    <th>Placed On</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+              </thead>
+              <tbody class="bg-light">
+               {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.date_ordered }}</td>
+                    <td>
+                        {% for item in items %}
+                            {% if order.id == item.order.id %}
+                                <img class="rounded-circle" src="{{ item.product.image_url.url }}" alt="" style="width: 2.7rem; height: 2.7rem;">
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>Rs. {{ order.get_cart_total|floatformat:2}}</td>
+                    <td>
+                        <a href="{% url 'customer_order_details' order.id %}" class="btn btn-info">Manage</a>
+                    </td>
+                </tr>
+               {% endfor %}
+              </tbody>
+            </table>
+        </div>
+     </section>
+{% endblock content2 %}

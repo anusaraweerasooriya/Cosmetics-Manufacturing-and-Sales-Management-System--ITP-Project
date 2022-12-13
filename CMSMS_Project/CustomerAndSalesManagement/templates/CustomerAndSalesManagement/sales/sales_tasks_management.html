@@ -1,0 +1,130 @@
+{% extends 'CustomerAndSalesManagement/sales/sales_base.html' %}
+{% load static %}
+
+{% block title %}
+      Sales Tasks
+{% endblock %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static '/css/sales_card.css' %}">
+ <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Sales Tasks </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-c-blue shadow order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">Total Tasks</h6>
+                                <h2 class="text-right" style="text-align: right;"><i class="fa fa-tasks f-left"></i><span>{{total_tasks}}</span></h2>
+                                <p class="m-b-0">Available Teams<span class="f-right"></span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-c-green shadow order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">Completed Tasks</h6>
+                                <h2 class="text-right" style="text-align: right;"><i class="fa fa-check-square f-left"></i><span>{{completed_tasks}}</span></h2>
+                                <p class="m-b-0">Incomplete tasks<span class="f-right">{{incomplete_tasks}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-c-yellow shadow order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">Pending Tasks</h6>
+                                <h2 class="text-right" style="text-align: right;"><i class="fa fa-sync-alt f-left"></i><span>{{pending_tasks}}</span></h2>
+                                <p class="m-b-0">Completed Tasks<span class="f-right">{{completed_tasks}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-c-pink shadow order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">Assigned Tasks</h6>
+                                <h2 class="text-right" style="text-align: right;"><i class="fa fa-user-check f-left"></i><span>{{assigned_tasks}}</span></h2>
+                                <p class="m-b-0">Assigned teams<span class="f-right">{{ teams_with_tasks }}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <a href="{% url 'sales_task_csv' %}" class="btn btn-success">Export CSV <i class="bx bxs-file-export"></i></a>
+                    </div>
+                    <div class="col">
+                        <div class="d-grid d-md-flex justify-content-md-end" style="padding-top: 0.2rem; padding-right: 0.2rem;">
+                            <a href="{% url 'create_sales_task' %}" class="btn btn-warning">ADD TASK +</a>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row align-items-center">
+                    <div class="col-12 mx-auto">
+                        <table class="table table-hover shadow-sm" id="table_id">
+                          <thead class="table text-white" style="background:#1F3C88;">
+                            <tr>
+                                <th>Task</th>
+                                <th>Description</th>
+                                <th>Sales Team</th>
+                                <th>Progress</th>
+                                <th>Task Status</th>
+                                <th></th>
+                            </tr>
+                          </thead>
+                          <tbody style="background: #CEDDEF;">
+                            {% for task in tasks %}
+                                <tr>
+                                    <td>{{ task.task_name }}</td>
+                                    <td>{{ task.task_description }}</td>
+                                    <td>{{ task.sales_team }}</td>
+                                    <td>{{ task.progress }}%</td>
+                                    <td>{{ task.task_status }}</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-success"
+                                           href="{% url 'update_sales_tasks_form' task.id %}">Update</a>&nbsp;
+                                        <a class="btn btn-danger btn-sm btn-info"
+                                           href="{% url 'delete_sales_task' task.id %}">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $('#table_id').DataTable({
+            paging:true,
+            pageLength: 4,
+            LengthChange: true,
+            autoWidth: true,
+            searching: true,
+            bInfo: true,
+            bSort: true,
+        })
+    </script>
+
+{% endblock content %}

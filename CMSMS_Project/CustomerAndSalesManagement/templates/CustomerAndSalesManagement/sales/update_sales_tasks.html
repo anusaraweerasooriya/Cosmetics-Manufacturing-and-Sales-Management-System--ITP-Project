@@ -1,0 +1,77 @@
+{% extends 'CustomerAndSalesManagement/sales/sales_base.html' %}
+{% load static %}
+
+{% block title %}
+      Manage Sales tasks
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Manage Sales Tasks </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card" >
+        <br>
+        <section>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-12 mx-auto">
+               <table class="table table-hover shadow-sm" id="table_id">
+                          <thead class="table text-white" style="background:#1F3C88;">
+                            <tr>
+                                <th>Task</th>
+                                <th>Description</th>
+                                <th>Sales Team</th>
+                                <th>Progress</th>
+                                <th>Task Status</th>
+                                <th></th>
+                            </tr>
+                          </thead>
+                          <tbody style="background: #CEDDEF;">
+                            {% for task in sales_task %}
+                                <tr>
+                                    <td>{{ task.task_name }}</td>
+                                    <td>{{ task.task_description }}</td>
+                                    <td>{{ task.sales_team }}</td>
+                                    <td>{{ task.progress }}%</td>
+                                    <td>{{ task.task_status }}</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-success"
+                                           href="{% url 'update_sales_tasks_form' task.id %}">Update</a>&nbsp;
+                                        <a class="btn btn-danger btn-sm btn-info"
+                                           href="{% url 'delete_sales_task' task.id %}">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </section>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $('#table_id').DataTable({
+            paging:true,
+            pageLength: 4,
+            LengthChange: true,
+            autoWidth: true,
+            searching: true,
+            bInfo: true,
+            bSort: true,
+        })
+    </script>
+
+{% endblock content %}

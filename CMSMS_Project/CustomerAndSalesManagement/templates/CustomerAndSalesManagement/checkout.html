@@ -1,0 +1,256 @@
+{% extends 'CustomerAndSalesManagement/customer_main.html' %}
+{% load mathfilters %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}
+    Checkout Page
+{% endblock title %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static '/css/customer_checkout.css' %}">
+    <br><br><br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="box-element shadow" id="form-wrapper">
+                    <form id="form" action="">
+                        <div id="customer-info">
+                            <div class="form-field">
+                                <input required class="form-control" type="text"
+                                name="firstName" placeholder="First Name..">
+                                <input required class="form-control" type="text"
+                                name="lastName" placeholder="Last Name..">
+                            </div>
+                            <div class="form-field">
+                                <input required class="form-control" type="email"
+                                name="email" placeholder="Email..">
+                            </div>
+                        </div>
+
+                        <div id="shipping-info">
+                            <hr>
+                            <p>Shipping Information</p>
+                            <hr>
+                            <div class="form-field">
+                                <input class="form-control" type="text" name="address"
+                                placeholder="Address.." required>
+                            </div>
+                            <div class="form-field">
+                                <input class="form-control" type="text" name="city"
+                                placeholder="City.." required>
+                            </div>
+                             <div class="form-field" >
+<!--{#                                <input class="form-select" type="text" name="state"#}-->
+<!--{#                                placeholder="State..">#}-->
+
+                                 <select class="form-select" id="selector" onchange="selection()" aria-label="Default select example" name="state" required>
+                                    <option selected>Open this select menu</option>
+                                     {% for province in delivery_cost %}
+                                      <option value="{{ province.delivery_cost }}">{{ province.province }}</option>
+                                     {% endfor %}
+                                 </select>
+                                <script type="text/javascript">
+                                    var delivery_fee = function selection(){
+                                        var price;
+                                        const delivery_charge = document.getElementById("selector").selectedOptions[0].value;
+                                        price = delivery_charge
+                                        return price
+                                    }
+
+                                 </script>
+
+                            </div>
+                             <div class="form-field">
+                                <input class="form-control" type="text" name="zipcode"
+                                placeholder="Zip code.." required>
+                            </div>
+
+                        </div>
+                        <hr>
+                        <div class="d-grid gap-2">
+                            <input id="form-button" class="btn btn-success" type="submit" value="Continue">
+                        </div>
+                    </form>
+                </div>
+                <br>
+
+                <div class="box-element shadow hidden" id="payment-info">
+                    <small>Paypal Option</small>
+                    <div id="paypal-button-container"></div>
+                    <!--<button id="make-payment">Make Payment</button>-->
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="box-element shadow">
+                    <a href="{% url 'cart' %}" class="btn btn-outline-dark">&#x2190;Back to Cart</a>
+                    <hr>
+                        <h3>Order Summery</h3>
+                    <hr>
+
+                    {% for item in items %}
+                    <div class="checkout-row">
+                        <div style="flex: 2">
+                            <img src="{{ item.product.image_url.url }}" alt="" class="row-image">
+                        </div>
+                        <div style="flex: 2"><p>{{ item.product.name }}</p></div>
+                        <div style="flex: 2"><p>{{ item.product.selling_price }}</p></div>
+                        <div style="flex: 2"><p>{{ item.quantity }}</p></div>
+
+                    </div>
+                    {% endfor %}
+
+                    <h5>Items: {{ order.get_cart_items }}</h5>
+                    <h5>Saved: {{ order.get_cart_discount }}</h5>
+                    <h5 id="first">Cart Total: {{ order.get_cart_total|floatformat:2 }}</h5>
+                    <div class="hidden" id="delivery-info">
+                        <div>
+                         <h5 class="d-inline">Delivery charge: </h5>
+                         <h5 class="d-inline" id="delivery_charge"></h5>
+                        </div>
+                    </div>
+                    <hr>
+                    <h5 class="d-inline">Net Total: Rs. </h5><h5 class="d-inline" id="total" ></h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+<script src="https://www.paypal.com/sdk/js?client-id=ATjuwNUaDMoVz8c8posHexIgL_o4joM37PBXk0Ob3-yqtaumW5yORx6TjHOtl7MN4fBHgbdrj5oyJ6vX&currency=USD"></script>
+    <script>
+
+    var select = document.getElementById('selector');
+    var p = document.getElementById('test')
+
+    select.addEventListener('change', () => {
+      p.innerHTML = select.options[select.selectedIndex].value;
+
+    })
+
+
+     var total= '{{ order.get_cart_total|add:100|div:366 }}'
+
+                // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+            style:{
+                color: 'blue',
+                shape: 'rect',
+                height: 40,
+            },
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: parseFloat(total).toFixed(2)
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(orderData) {
+                    // Successful capture! For demo purposes:
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    submitFormData()
+                    // Replace the above to show a success message within this page, e.g.
+                    // const element = document.getElementById('paypal-button-container');
+                    // element.innerHTML = '';
+                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                    // Or go to another URL:  actions.redirect('thank_you.html');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+    </script>
+
+    <script type="text/javascript">
+
+        if(user !== 'AnonymousUser'){
+            document.getElementById('customer-info').innerHTML = ''
+        }
+
+        var form = document.getElementById('form')
+
+
+        form.addEventListener('submit', function (e){
+            e.preventDefault()
+
+            console.log(delivery_fee())
+            console.log('Checkout form is submitted')
+            document.getElementById("delivery_charge").innerHTML = delivery_fee();
+
+            document.getElementById("total").innerHTML = (parseFloat({{ order.get_cart_total }}) + parseFloat(delivery_fee())).toFixed(2);
+            document.getElementById('form-button').classList.add('hidden')
+            document.getElementById('payment-info').classList.remove('hidden')
+            document.getElementById('delivery-info').classList.remove('hidden')
+
+        })
+        /*
+        document.getElementById('make-payment').addEventListener('click', function (e){
+            submitFormData()
+        })
+
+         */
+
+        function submitFormData(){
+            console.log('Payment button clicked')
+
+            var userFormData = {
+                'firstName': null,
+                'lastName' : null,
+                'email': null,
+                'total': total,
+            }
+
+            var shippingInfo = {
+                'address': null,
+                'city': null,
+                'state': null,
+                'zipcode': null,
+            }
+
+            shippingInfo.address = form.address.value
+            shippingInfo.city = form.city.value
+            shippingInfo.state = form.state.value
+            shippingInfo.zipcode = form.zipcode.value
+
+            if(user === 'AnonymousUser'){
+                userFormData.firstName = form.firstName.value
+                userFormData.lastName = form.lastName.value
+                userFormData.email = form.email.value
+            }
+
+            console.log('ShippingInfo: ', shippingInfo)
+            console.log('User Info: ', userFormData)
+
+            var url = '/customer_sales/process_order/'
+            fetch(url,{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo})
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                alert('Transaction completed');
+                window.location.href = "{% url 'customer_products' %}"
+            })
+
+        }
+
+
+    </script>
+
+
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% extends 'CustomerAndSalesManagement/customer_main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Bulk Order Request
+{% endblock title %}
+{% block content %}
+    <br><br>
+        <section>
+          <div class="row align-items-center">
+            <div class="col-6 mx-auto">
+                <div class="card shadow border" style="padding: 20px">
+                    <div class="text-center">
+                        <h4 class="text">Cooperate Bulk Order Request</h4>
+                    </div>
+                    <hr>
+
+                    <form class="form" action="" method="post">
+                    {% csrf_token %}
+                        <div class="container">
+                            {{ form.company_name|as_crispy_field }}
+                        </div><br>
+                        <div class="container">
+                            {{ form.mobile_number|as_crispy_field }}
+                        </div><br>
+                        <div class="container">
+                            {{ form.email|as_crispy_field }}
+                        </div><br>
+                        <div class="container">
+                            {{ form.street_address|as_crispy_field }}
+                        </div><br>
+                        <div class="container">
+                            {{ form.city|as_crispy_field }}
+                        </div><br>
+                        <div class="container">
+                            {{ form.province|as_crispy_field }}
+                        </div><br>
+                        <div class="container">
+                            {{ form.zip_code|as_crispy_field }}
+                        </div><br>
+
+                         <div class="d-grid mb-2">
+                            <input class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" value="Proceed to Products" type="submit" name="Create Customer">
+                         </div>
+
+                    </form>
+                </div>
+            </div>
+          </div>
+        </section>
+    <br><br>
+{% endblock content %}

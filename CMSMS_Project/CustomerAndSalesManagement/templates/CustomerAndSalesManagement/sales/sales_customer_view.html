@@ -1,0 +1,108 @@
+{% extends 'CustomerAndSalesManagement/sales/sales_base.html' %}
+{% load static %}
+
+{% block title %}
+      Manage Customers| View customer
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Customer Information </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card" >
+        <section>
+             <div class="row">
+                <div class="col-6">
+                    <div class="card shadow border" style="padding: 20px">
+                        <div class="text-center">
+                            <h4 class="text" style="color: #0a1993">Customer Details</h4>
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <img class="rounded-circle" src="{{ customer.image_url }}" style="width: 10rem; height: 10rem;" alt="..."/>
+                            </div>
+                            <div class="col-8">
+                                <table>
+                                    <tr>
+                                        <td><h5>First Name </h5></td>
+                                        <td><h5><b>: {{ customer.first_name }}</b></h5></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h5>Last Name </h5></td>
+                                        <td><h5><b>: {{ customer.last_name }}</b></h5></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h5>User Name </h5></td>
+                                        <td><h5><b>: {{ customer.username }}</b></h5></td>
+                                    </tr>
+                                     <tr>
+                                        <td><h5>Email </h5></td>
+                                        <td><h5><b>: {{ customer.email }}</b></h5></td>
+                                    </tr>
+                                     <tr>
+                                        <td><h5>Mobile No </h5></td>
+                                        <td><h5><b>: {{ customer.mobile_number }}</b></h5></td>
+                                    </tr>
+                                     <tr>
+                                        <td><h5>Gender </h5></td>
+                                        <td><h5><b>: {{ customer.gender }}</b></h5></td>
+                                    </tr>
+                                     <tr>
+                                        <td><h5>Birth Date </h5></td>
+                                        <td><h5><b>: {{ customer.birth_date }}</b></h5></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                 <div class="col-6">
+                     <div class="card shadow border" style="padding: 20px">
+                         <table class="table table-hover shadow-sm">
+                          <thead class="table text-white" style="background:#1F3C88;">
+                            <tr>
+                                <th>ID</th>
+                                <th>Date Ordered</th>
+                                <th>Payment</th>
+                                <th>Transaction ID</th>
+                                <th>Order Satus</th>
+                                <th></th>
+                            </tr>
+                          </thead>
+                          <tbody style="background: #CEDDEF;">
+                            {% for order in orders %}
+                                <tr>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.date_ordered }}</td>
+                                    <td>
+                                        {% if order.complete == True %}
+                                            completed
+                                        {% else %}
+                                            pending
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ order.transaction_id }}</td>
+                                    <td>{{ order.order_status }}</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-success"
+                                           href="#">manage</a>&nbsp;
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                     </div>
+                 </div>
+             </div>
+        </section>
+    </section>
+
+{% endblock content %}

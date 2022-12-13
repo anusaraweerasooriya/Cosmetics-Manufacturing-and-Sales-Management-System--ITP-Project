@@ -1,0 +1,156 @@
+{% extends 'CustomerAndSalesManagement/sales/sales_base.html' %}
+{% load static %}
+
+{% block title %}
+      ---page path---
+{% endblock %}
+
+
+{% block content %}
+    <style>
+    	.input-group-text {
+			background: #016b4b !important;
+			color: white !important;
+			border: 0 !important;
+            height: 3rem;
+            width: 2.5rem;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+    </style>
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Products </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card" style="padding: 10px;">
+        <div class="container">
+            <div class="row ">
+                <div class="col-8 mx-auto">
+                    <div class="card shadow border" style="padding: 20px">
+                        <div class="text-center">
+                            <h4 class="text">Add a Product</h4>
+                        </div>
+                        <hr>
+                        <form class="row g-3" action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-file"></i></span>
+                                </div>
+                                {{ form.name }}
+                            </div>
+                            {% if form.name.errors %}
+                              <div class="alert alert-danger" role="alert">
+                                  {{form.name.errors}}
+                              </div>
+                            {% endif %}
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class='fas fa-dollar'></i></span>
+                                </div>
+                                {{ form.production_price }}
+                            </div>
+                            {% if form.production_price.errors %}
+                              <div class="alert alert-danger" role="alert">
+                                  {{form.production_price.errors}}
+                              </div>
+                            {% endif %}
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-dollar"></i></span>
+                                </div>
+                                {{ form.selling_price }}
+                            </div>
+                            {% if form.selling_price.errors %}
+                              <div class="alert alert-danger" role="alert">
+                                  {{form.selling_price.errors}}
+                              </div>
+                            {% endif %}
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class='fas fa-dollar'></i></span>
+                                </div>
+                                {{ form.retail_price }}
+                            </div>
+                            {% if form.retail_price.errors %}
+                              <div class="alert alert-danger" role="alert">
+                                  {{form.retail_price.errors}}
+                              </div>
+                            {% endif %}
+                             <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-sitemap"></i></span>
+                                </div>
+                                {{ form.category }}
+                            </div>
+                            {% if form.category.errors %}
+                              <div class="alert alert-danger" role="alert">
+                                  {{form.category.errors}}
+                              </div>
+                            {% endif %}
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-align-justify"></i></span>
+                                </div>
+                                {{ form.description }}
+                            </div>
+                             <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                </div>
+                                {{ form.product_image }}
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-tags"></i></span>
+                                </div>
+                                {{ form.tags }}
+                            </div>
+
+                            <input type="submit" class="btn btn-success" value="Submit">
+                        </form>
+                    </div>
+                </div>
+                <div class="col-4 ">
+                    <table class="table" id="table_id" style="margin-top: 0;">
+                      <thead class="table text-white" style="background:#1F3C88;">
+                            <tr>
+                                <th>Name</th>
+                                <th>Production price</th>
+                                <th>Retail price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for product in products %}
+                            <tr>
+                                <td>{{ product.product_name }}</td>
+                                <td>{{ product.Total_ProductCost }}</td>
+                                <td>{{ product.Total_RPAmount }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+     </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $('#table_id').DataTable({
+            paging: false,
+            pageLength: 4,
+            LengthChange: true,
+            autoWidth: true,
+            searching: true,
+            bInfo: false,
+            bSort: true,
+        })
+    </script>
+
+
+{% endblock content %}

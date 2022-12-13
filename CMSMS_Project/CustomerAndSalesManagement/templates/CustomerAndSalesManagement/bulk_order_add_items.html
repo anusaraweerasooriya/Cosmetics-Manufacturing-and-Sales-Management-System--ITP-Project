@@ -1,0 +1,45 @@
+{% extends 'CustomerAndSalesManagement/customer_main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Add items
+{% endblock title %}
+
+{% block content %}
+
+    <br><br>
+        <section>
+          <div class="row align-items-center">
+            <div class="col-6 mx-auto">
+                <div class="card shadow border" style="padding: 20px">
+                    <div class="text-center">
+                        <h4 class="text">Cooperate Bulk Order Request</h4>
+                    </div>
+                    <hr>
+
+                    <form action="" method="post" >
+                        {% csrf_token %}
+                            {{formset.management_form}}
+                            {% for form in formset %}
+                                <div class="input-group mb-3 form-check">
+                                    {{ form.product|as_crispy_field }} &nbsp;&nbsp;
+                                    {{ form.quantity|as_crispy_field }}
+                                </div>
+                            {% endfor %}
+                        <div class="d-grid mb-2">
+                            <input class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" value="Place the Order Request" type="submit" >
+                         </div>
+
+
+
+
+                    </form>
+
+
+                </div>
+            </div>
+          </div>
+        </section>
+
+{% endblock content %}
