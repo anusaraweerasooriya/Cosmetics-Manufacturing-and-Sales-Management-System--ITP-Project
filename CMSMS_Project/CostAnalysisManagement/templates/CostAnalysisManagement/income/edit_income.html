@@ -1,0 +1,46 @@
+{% extends 'CostAnalysisManagement/CA_partials/CA_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Update Income | CostAnalysis
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+<h1 align="center">Edit Income</h1>
+    <div class="row">
+      <div class="col-md-11">
+        <div class="col-lg-8 mx-auto">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="{% url 'income'%}">Income</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Edit Income
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+   <div class="container mt-md-4">
+        <div class="col-md-10 offset-1 alert alert-success">
+            <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <input type="submit" value="Submit" class="btn btn-success btn-lg btn-block">
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

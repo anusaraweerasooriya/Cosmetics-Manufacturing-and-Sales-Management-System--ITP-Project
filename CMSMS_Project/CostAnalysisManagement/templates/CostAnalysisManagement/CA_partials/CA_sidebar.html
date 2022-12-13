@@ -1,0 +1,140 @@
+{% load static %}
+<!--Sidebar -->
+<div class="sidebar close">
+
+    <div class="logo-details">
+      <i class='bx bxl-slack'></i>
+      <span class="logo_name">GLAMOUR</span>
+    </div>
+
+    <ul class="nav-links">
+      <li>
+        <a href="{% url 'CA_dashboard' %}">
+          <i class='bx bxs-dashboard' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'CA_dashboard' %}">Dashboard</a></li>
+        </ul>
+
+       <li>
+        <a href="#">
+          <i class='bx bxs-time-five' ></i>
+          <span class="link_name">Products</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Products</a></li>
+        </ul>
+      </li>
+
+      <li>
+         <div class="iocn-link">
+          <a href="#">
+            <i class='bx bxs-calendar-check' ></i>
+            <span class="link_name">Income</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+         </div>
+          <ul class="sub-menu ">
+              <li><a class="link_name" href="{% url 'income' %}">Income</a></li>
+              <li><a class="link_name" href="#">Add Income</a></li>
+          </ul>
+      </li>
+
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-money' ></i>
+            <span class="link_name">Expenses</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{% url 'index' %}">Expenses</a></li>
+          <li><a href="{% url 'add-expenses' %}">Add Expenses</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bxs-badge-dollar'></i>
+            <span class="link_name">Production Cost</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{% url 'production-cost' %}">Production Cost</a></li>
+          <li><a href="{% url 'add-procost' %}">Add Production Cost</a></li>
+        </ul>
+      </li>
+       <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bxs-coin' ></i>
+            <span class="link_name">Direct Material Cost</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{% url 'directmaterial-cost' %}">Direct Material Cost</a></li>
+          <li><a href="{% url 'add-directmaterial-cost' %}">Add Direct Cost</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bxs-coin-stack'></i>
+            <span class="link_name">Direct Labor Cost</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{% url 'directlabor-cost' %}">Direct Labor Cost</a></li>
+          <li><a href="{% url 'add-directlabor-cost' %}">Add Direct Labor Cost</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bxs-package'></i>
+            <span class="link_name">Factory OverHeads Cost</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{% url 'factoryoverheads-cost' %}">Factory OverHeads Cost</a></li>
+          <li><a href="{% url 'add-factoryoverheads-cost' %}">Add Factory OverHeads Cost</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-dollar'></i>
+            <span class="link_name">Retail Price</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{% url 'retail-price' %}">Retail Price</a></li>
+          <li><a href="{% url 'add-retail-price' %}">Add Retail Price</a></li>
+        </ul>
+      </li>
+
+
+      {% if user.is_authenticated %}
+        <li>
+          <div class="profile-details">
+            <div class="profile-content">
+              <img src="/images/avatar.png" alt="profileImg">
+            </div>
+            <div class="name-job">
+              <div class="profile_name">{{ request.user }}</div>
+              <div class="job">Manager</div>
+            </div>
+          </div>
+        </li>
+      {% endif %}
+
+    </ul>
+</div>
+<!-- End of Sidebar -->

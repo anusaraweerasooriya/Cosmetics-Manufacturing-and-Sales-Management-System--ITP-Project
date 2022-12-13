@@ -1,0 +1,94 @@
+{% extends 'CostAnalysisManagement/CA_partials/CA_base.html' %}
+{% load static %}
+
+{% block title %}
+  Factory Overheads Cost | CostAnalysis
+{% endblock %}
+
+{% block content %}
+
+<div class="home-content">
+    <div class="pagetitle">
+      <span class="text"></span>
+    </div>
+</div>
+<section class="scroll-card" >
+<main id="main" class="main">
+
+<div class="container mt-4">
+<div id="content-wrapper" class="d-flex flex-column">
+    <!-- Main Content -->
+    <div id="content">
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800"><i class='bx bx-menu'></i> Dashboard</h1>
+                <a href="#" class="d-none d-sm-inline-block shadow-sm"></a>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10 ">
+                 <div class="col-11 offset-1 alert alert-primary">
+                     <nav aria-label="breadcrumb">
+                          <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="">Factory Overheads Cost</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                My Factory Overheads Cost
+                                <a href="{% url 'add-factoryoverheads-cost' %}" class="btn btn-sm btn-warning">Add Factory Overheads Cost</a>
+                            </li>
+                          </ol>
+                     </nav>
+                 </div>
+                 <div class="container">
+                   <div class="col-11 offset-1 alert alert-primary">
+                        <form method="GET" role="search">
+                            {{fo_filter.form}}
+                        <button class="btn btn-sm btn-block btn-warning" type="submit">Filter <i class='bx bx-filter-alt'></i></button>
+                        <a class="btn btn-sm btn-block btn-primary" href="{% url 'foreport' %}">Export <i class="bx bxs-file-export"></i></a>
+                        </form>
+                   </div>
+
+                        <div class="col-11 offset-1 alert alert-link alert-primary">
+                            <h3>Direct Factory OverHeads Details</h3>
+                            <hr style="border-top:1px solid #000000; clear: both;"/>
+                            <table class="table table-bordered">
+                                <thead class="alert-warning">
+                                    <tr>
+                                        <th>Total Factory OverHeads Cost</th>
+                                        <th>Date</th>
+                                        <th>Category</th>
+                                        <th>Description</th>
+                                        <th>Action</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for cost in factory_overheads_cost %}
+                                    <tr>
+                                        <td>{{ cost.Total_FOAmount }}</td>
+                                        <td>{{ cost.date }} </td>
+                                        <td>{{ cost.category }}</td>
+                                        <td>{{ cost.description }}</td>
+                                        <td><a href="{% url 'update-factoryoverheads-cost' cost.id %}"><button type="button" class="btn btn-primary">Update</button></a></td>
+                                        <td><a href="{% url 'delete-factoryoverheads-cost' cost.id %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+
+                            </table>
+                        </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</main>
+</section>
+
+{% endblock %}
+
+

@@ -1,0 +1,94 @@
+{% extends 'CostAnalysisManagement/CA_partials/CA_base.html' %}
+{% load static %}
+{% block title %}
+    Income | CostAnalysis
+{% endblock %}
+{% block content %}
+
+<div class="home-content">
+    <div class="pagetitle">
+      <span class="text"></span>
+    </div>
+</div>
+
+<section class="scroll-card" >
+<main id="main" class="main">
+
+    <div class="container mt-4">
+     <div id="content-wrapper" class="d-flex flex-column">
+    <!-- Main Content -->
+      <div id="content">
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800"><i class='bx bx-menu'></i> Dashboard</h1>
+                <a href="#" class="d-none d-sm-inline-block shadow-sm"></a>
+            </div>
+              <div class="row ps-5">
+                <div class="col-md-10">
+                    <div class="col-11 offset-1 alert alert-success">
+                        <nav aria-label="breadcrumb">
+                          <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="">Income</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                 My Income
+
+                                 <a href="{% url 'add-income' %}" class="btn btn-sm btn-warning">Add Income</a>
+
+                            </li>
+                          </ol>
+                        </nav>
+                    </div>
+
+                </div>
+
+
+                <div class="container">
+                    <div class=" col-9 offset-1 alert alert-primary border-2 mt-3">
+                        <form method="GET" role="search">
+                            {{income_filter.form}}
+                            <button class="btn btn-sm btn-block btn-secondary" type="submit">Search <i class='bx bx-search-alt'></i></button>
+                            <a class="btn btn-sm btn-block btn-primary" href="{% url 'inreport' %}">Export <i class="bx bxs-file-export"></i></a>
+                      </form>
+                    </div>
+
+                    <div class="col-9 offset-1 alert alert-warning">
+                    <h3>Expense Details</h3>
+                    <hr style="border-top:1px solid #000000; clear: both;"/>
+                    <table class="col-10 table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Amount</th>
+                                <th>Due Date</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for cost in income %}
+
+                                <tr>
+                                    <td>{{cost.amount}}</td>
+                                    <td>{{cost.date}}</td>
+                                    <td><a href="{% url 'delete-income' cost.id %}"><button type="button" class="btn btn-sm btn-danger">Delete</button></a> </td>
+                                    <td><a href="{% url 'update-income' cost.id %}"><button type="button" class="btn btn-sm btn-success">Update</button></a> </td>
+                                </tr>
+
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+              </div>
+             </div>
+            </div>
+
+     </div>
+    </div>
+ </main>
+    </section>
+
+
+{% endblock content %}
