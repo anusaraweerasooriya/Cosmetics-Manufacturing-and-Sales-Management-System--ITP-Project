@@ -1,0 +1,87 @@
+{% load static %}
+
+<div class="sidebar close">
+
+    <div class="logo-details">
+      <i class='bx bxl-slack'></i>
+      <span class="logo_name">GLAMOUR</span>
+    </div>
+
+    <ul class="nav-links">
+      <li>
+        <a href="/employee/admin">
+          <i class='bx bxs-dashboard' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="/employee/admin">Dashboard</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="/employee/departments">
+            <i class='bx bxs-city' ></i>
+            <span class="link_name">Departments</span>
+          </a>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="/employee/departments">Departments</a></li>
+
+        </ul>
+      </li>
+      <li>
+        <a href="/employee/positions">
+          <i class='bx bxs-shopping-bag'></i>
+          <span class="link_name">Positions</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="/employee/positions">Positions</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/employee/employees">
+          <i class='bx bxs-id-card'></i>
+          <span class="link_name">Employees</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="/employee/employees">Employees</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/employee/attendance">
+          <i class='bx bxs-calendar-check' ></i>
+          <span class="link_name">Attendance</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="/employee/attendance">Attendance</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="/employee/leave">
+            <i class='bx bxs-comment-dots'></i>
+            <span class="link_name">Requests</span>
+          </a>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="/employee/leave">Requests</a></li>
+        </ul>
+      </li>
+
+
+      {% if user.is_authenticated %}
+        <li>
+          <div class="profile-details">
+            <div class="profile-content">
+              <img src="/images/avatar.png" alt="profileImg">
+            </div>
+            <div class="name-job">
+              <div class="profile_name">{{ request.user }}</div>
+              <div class="job">Manager</div>
+            </div>
+          </div>
+        </li>
+      {% endif %}
+
+    </ul>
+</div>

@@ -1,0 +1,86 @@
+
+{% extends "EmployeeManagement/base.html" %} {% load humanize %} {% block pageContent %}
+{% load static %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text">Dashboard</span>
+
+</div>
+
+
+
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+        <hr class="w-100">
+    </div>
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4-desktop mdc-layout-grid__cell--span-4-tablet">
+        <div class="mdc-card info-card info-card--success">
+            <div class="card-inner">
+                <h5 class="card-title">Departments</h5>
+                <h5 class="font-weight-light pb-2 mb-1 border-bottom border-dark">{{ total_department|intcomma }}</h5>
+                <p class="tx-12 text-muted">Over All Count of Departments</p>
+                <div class="card-icon-wrapper">
+                    <i class="material-icons">business</i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4-desktop mdc-layout-grid__cell--span-4-tablet">
+        <div class="mdc-card info-card info-card--primary">
+            <div class="card-inner">
+                <h5 class="card-title">Positions</h5>
+                <h5 class="font-weight-light pb-2 mb-1 border-bottom border-dark">{{ total_position|intcomma }}</h5>
+                <p class="tx-12 text-muted">Over All Count of Positions</p>
+                <div class="card-icon-wrapper">
+                    <i class="material-icons">list</i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4-desktop mdc-layout-grid__cell--span-4-tablet">
+        <div class="mdc-card info-card info-card--info">
+            <div class="card-inner">
+                <h5 class="card-title">Employees</h5>
+                <h5 class="font-weight-light pb-2 mb-1 border-bottom border-dark">{{ total_employee|intcomma }}</h5>
+                <p class="tx-12 text-muted">Over All Count of Employees</p>
+                <div class="card-icon-wrapper">
+                    <i class="material-icons">group</i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="width:500px; height:200px; margin-bottom: 500px;">
+        <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-7">
+           <canvas id="bar-chart" width="800" height="450"></canvas>
+        </div>
+    </div>
+
+
+<!--=============================================== Bar chart ==========================================-->
+
+<script>
+    new Chart(document.getElementById("bar-chart"), {
+    type: 'bar',
+    data: {
+      labels: [{% for list in department_list %} '{{list}}', {% endfor %}],
+      datasets: [
+        {
+          label: "Employee count",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: [{% for emp in employee_count %} '{{emp}}', {% endfor %}]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'No of employees'
+      }
+    }
+});
+</script>
+
+
+
+{% endblock pageContent %}

@@ -1,0 +1,88 @@
+{% extends 'DeliveryManagement/base/main.html' %}
+{% load static %}
+
+{% block title %}
+    Delivery | Dashboard
+{% endblock %}
+
+
+{% block content %}
+    <style>
+        .image-d {
+            background-image:url('{% static 'images/delivery.jpg' %}');
+            background-size: cover;
+        }
+    </style>
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Dashboard </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card"><br>
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="card" style="height: 27rem; width: 40rem; padding: 20px;">
+                        <canvas width="800" height="450" id="bar-chart"></canvas>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card image-d" style="height: 27rem; width: 40rem;">
+                    </div>
+                </div>
+            </div>
+         </div>
+
+      </section>
+
+
+
+
+
+
+
+
+
+
+
+
+    </section>
+
+    // Bar chart
+<script type="text/javascript">
+new Chart(document.getElementById("bar-chart"), {
+    type: 'bar',
+    data: {
+      labels: ['Need a Repair', 'In Good Condition'],
+      datasets: [
+        {
+          label: "Vehicles",
+          backgroundColor: ["#37E2D5", "#590696","#C70A80","#FBCB0A"],
+          data: ['{{ need_repair }}', {{ good_condition }}]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Predicted world population (millions) in 2050'
+      }
+    }
+});
+</script>
+
+    <!-- charts.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+
+{% include 'DeliveryManagement/base/footer.html' %}
+
+{% endblock content %}

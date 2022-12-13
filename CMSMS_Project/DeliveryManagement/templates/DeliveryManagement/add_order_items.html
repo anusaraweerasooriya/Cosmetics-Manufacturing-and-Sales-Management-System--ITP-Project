@@ -1,0 +1,62 @@
+{% extends 'DeliveryManagement/base/main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Delivery | Assign Vehicles
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Assign Vehicles </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card"><br>
+
+        <div class="row">
+            <div class="col-6">
+              <table class="table">
+                  <thead class="table text-white" style="background:#1F3C88;">
+                      <tr>
+                          <th>ID</th>
+                          <th>products</th>
+                          <th>Quantity</th>
+                          <th>Date Added</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in order_items %}
+                        <tr>
+                            <td>{{item.id}}</td>
+                            <td>{{item.product}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>{{item.date_added}}</td>
+                        </tr>
+                    {% endfor %}
+                  </tbody>
+              </table>
+            </div>
+            <div class="col-6">
+                <form class="form" action="" method="post">
+                    {% csrf_token %}
+                    {{form.orderID|as_crispy_field}}
+                    {{form.product|as_crispy_field}}
+                    {{form.quantity|as_crispy_field}}
+                    {{form.progress|as_crispy_field}}
+                    <input type="submit" class="btn btn-success" value="Submit">
+                </form>
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+{% endblock content %}

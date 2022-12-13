@@ -1,0 +1,51 @@
+{% extends 'DeliveryManagement/base/main.html' %}
+{% load static %}
+
+{% block title %}
+    Delivery | Vehicle Management
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text">Delete Driver</span>
+    </div>
+    <hr class="title-hr">
+
+
+    <section class="scroll-card"><br>
+
+
+        <main id="main" class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-lg-12 offset-xl-2 offset-lg-0">
+                    <div class="card p-4 mt-3">
+                        <form action="{% url 'DM_delete_driver' driver.id %}" method="post" class="alert alert-danger">
+                            {% csrf_token %}
+                            <div>
+                                <h4 class="alert-heading">Delete {{ title }}</h4>
+                                <p> Are you sure you want to delete '{{driver}}' from Drivers ? </p>
+                                <hr>
+                                <div class="float-end">
+                                    <a href="{% url 'DM_drivers' %}" class="btn btn-secondary">Cancel</a>
+                                    <input type="Submit" class="btn btn-danger " value="Confirm">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+    </section>
+
+{% include 'DeliveryManagement/base/footer.html' %}
+
+{% endblock content %}

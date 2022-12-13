@@ -1,0 +1,14 @@
+{% load static %}
+
+{% if user.is_authenticated %}
+  <nav class="navbar">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">Glamour Cosmetics</span>
+      <div class="d-flex align-items-center">
+        <a href="#">{{ request.user }}</a> /
+        <a href="{% url 'user-logout' %}" >Log out</a>
+      </div>
+    </div>
+  </nav>
+{% endif %}
+

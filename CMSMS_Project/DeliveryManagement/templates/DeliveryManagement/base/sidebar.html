@@ -1,0 +1,70 @@
+{%load static%}
+
+<div class="sidebar close">
+    <div class="logo-details">
+      <i class='bx bxl-slack'></i>
+      <span class="logo_name">GLAMOUR</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="{% url 'DM_dashboard' %}">
+          <i class='bx bxs-dashboard' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'DM_dashboard' %}">Dashboard</a></li>
+        </ul>
+      </li>
+    <li>
+        <a href="{% url 'DM_vehicles' %}">
+          <i class='bx bxs-dashboard' ></i>
+          <span class="link_name">Vehicle Management</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'DM_vehicles' %}">Vehicle Management</a></li>
+        </ul>
+      </li>
+    <li>
+        <a href="{% url 'DM_drivers' %}">
+          <i class='bx bxs-dashboard' ></i>
+          <span class="link_name">Driver Management</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'DM_drivers' %}">Driver Management</a></li>
+        </ul>
+      </li>
+
+
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bxs-dashboard' ></i>
+            <span class="link_name">Orders</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Orders</a></li>
+          <li><a href="{% url 'DM_rOrders' %}">Retail Orders</a></li>
+
+        </ul>
+      </li>
+
+      {% if user.is_authenticated %}
+        <li>
+          <div class="profile-details">
+            <div class="profile-content">
+              <img src="/images/avatar.png" alt="profileImg">
+            </div>
+            <div class="name-job">
+              <div class="profile_name">{{ request.user }}</div>
+              <div class="job">Delivery Manager</div>
+            </div>
+          </div>
+        </li>
+      {% endif %}
+
+      </ul>
+
+  </div>
+

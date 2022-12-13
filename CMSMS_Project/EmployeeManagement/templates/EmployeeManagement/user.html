@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+
+    <style>
+        h3 {text-align: center;}
+        h3{text-align: center;}
+        h2{text-align: center;}
+body {
+  background-image: url('img_girl.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-image:url({% static 'employee_information\images\1539422068182.jpg'%});
+}
+</style>
+</head>
+<!--<body style="background-image:url(https://media-exp1.licdn.com/dms/image/C511BAQFg8aB3Z0_4YQ/company-background_10000/0/1539422068182?e=2147483647&v=beta&t=6UyHnftfe2-a2Si8z52Bx8K2Kk_-EcgdbE7v0DsPlUw);">-->
+<body >
+<form method="post" name="myForm" action="/employee/employees1" onsubmit="return validateForm()">
+{% csrf_token %}
+
+  <font>
+      <font color="black" size="4" face="Footlight MT Light">
+    <div style="padding-left:20px">
+     <h1><i><center>Enter your E-ID</center></i></h1>
+  </font>
+<h3><input type="text" id="user_id" name="user_id"></h3>
+<h3><input type="submit" value="Login"></h3>
+</form>
+</body>
+</html>
+<script>
+    function validateForm() {
+      let x = document.forms["myForm"]["user_id"].value;
+      if (x == "") {
+        alert("Name must be filled out");
+        return false;
+      }
+    }
+</script>

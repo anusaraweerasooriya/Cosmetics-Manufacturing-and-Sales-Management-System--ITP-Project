@@ -1,0 +1,42 @@
+{% extends 'DeliveryManagement/base/main.html' %}
+{% load static %}
+
+{% block title %}
+    Delivery | Orders
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Driver Form </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card"><br>
+
+    <div class="container">
+       <form class="row g-3" action="" method="POST">
+            {% csrf_token %}
+        {{form}}<button class="btn btn-sm btn-info" btn-sm btn-block href="{% url 'DM_create_driver' %}">SUBMIT</button>
+
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    </section>
+
+{% include 'DeliveryManagement/base/footer.html' %}
+
+{% endblock content %}

@@ -1,0 +1,73 @@
+{% extends 'DeliveryManagement/base/main.html' %}
+{% load static %}
+
+{% block title %}
+    Delivery | Retail Orders
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Retail Orders </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card"><br>
+
+         <div class="container">
+
+        <table class="table">
+            <thead class="table text-white" style="background:#1F3C88;">
+            <tr>
+                <th>Order ID</th>
+                <th>Transaction ID</th>
+                <th>Customer</th>
+                <th>Date Ordered</th>
+                <th>Complete</th>
+                <th>Net Total</th>
+                <th>Order Status</th>
+                
+                <th></th>
+            </tr>
+            </thead>
+            {% for order in orders %}
+
+            <tr>
+                <td>{{order.id}}</td>
+                <td>{{order.transaction_id}}</td>
+                <td>{{order.customer}}</td>
+                <td>{{order.date_ordered}}</td>
+                <td>{{order.complete}}</td>
+                <td>{{order.net_total}}</td>
+                <td>{{order.order_status}}</td>
+
+
+                <td>
+                    <a class="btn btn-sm btn-success" href="{% url 'DM_add_order_items' order.id %}">Add Order Items</a>
+
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    </section>
+
+{% include 'DeliveryManagement/base/footer.html' %}
+
+{% endblock content %}
