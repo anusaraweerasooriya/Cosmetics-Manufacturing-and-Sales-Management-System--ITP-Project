@@ -1,0 +1,72 @@
+{% extends 'SM_partials/S_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Remove Supplier page{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-7 offset-md-3">
+
+                <div class="border border-5 bg-light col-md-8"><br/>
+                    <h4 class="text-center text-danger">ARE YOU SURE YOU WANT TO REMOVE THIS SUPPLIER PERMANENTLY??</h4>
+
+                    <form method="POST" class="p-4">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+
+                        <div class="row p-3">
+                        <div class="col-md-8">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">SUPPLIER ID</th>
+                                        <td>{{ item.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">FIRST NAME</th>
+                                        <td>{{ item.first_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">LAST NAME </th>
+                                        <td>{{ item.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">ADDRESS</th>
+                                        <td>{{ item.supplierinfo.address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">CONTACT NO</th>
+                                        <td>{{ item.supplierinfo.contact_no }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">EMAIL</th>
+                                        <td>{{ item.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">CATEGORY</th>
+                                        <td>{{ item.supplierinfo.product_category }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">USER NAME</th>
+                                        <td>{{ item.username }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                            <a class="btn btn-secondary" href="{% url 'SM_dashboard-Suppliers' %}">Cancel</a><hr>
+                        <input class="btn btn-danger" type="submit" value="Remove">
+
+
+                    </form>
+                </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

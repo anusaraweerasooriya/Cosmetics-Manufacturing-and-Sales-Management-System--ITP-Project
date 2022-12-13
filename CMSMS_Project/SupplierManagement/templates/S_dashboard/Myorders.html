@@ -1,0 +1,133 @@
+{% extends 'SM_partials/SM_base.html' %}
+{% block title %}My orders{% endblock %}
+
+{% block content %}
+
+    <div class="home-content">
+      <div class="pagetitle">
+                <span class="text"><i class='bx bx-menu'></i>My Orders</span>
+            </div>
+    </div>
+
+    <section class="scroll-card" >
+
+     <main class="col-11 ms-2">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+        <div class="card col-11">
+            <a href="{% url 'S_dashboard-MyOrders' %}" style="text-decoration: none">
+          <div class="card-body border border-success border-3 shadow-sm  rounded py-3">
+            <div class="d-flex justify-content-between px-md-2">
+              <div>
+                  <i class='bx bxs-rocket bx-tada h1' style='color:#b1d236' ></i>
+              </div>
+              <div class="text-end">
+                <h3 class="text-success">{{ sorders }}</h3>
+                <p class="mb-0 text-muted h6">All orders</p>
+              </div>
+            </div>
+          </div>
+            </a>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card col-11">
+            <a href="{% url 'S_dashboard-MyOrders-NewOrders' %}" style="text-decoration: none">
+          <div class="card-body border border-info border-3 shadow-sm  rounded py-3">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                  <i class='bx bxs-bell bx-tada h1' style='color:#3053a8'  ></i>
+              </div>
+              <div class="text-end">
+                <h3 class="text-primary">{{ neworders }}</h3>
+                <p class="mb-0 text-muted h5">New orders</p>
+              </div>
+            </div>
+          </div>
+            </a>
+        </div>
+      </div>
+    </div>
+
+        <div class="col-12">
+                    <div class="alert alert-secondary border-4 mt-3" role="alert">
+                        <form action="" method="get">
+                            <div class="row">
+                            <div class="col-2">
+                                <h4 class="text-dark"><i class='bx bx-filter-alt bx-tada' ></i> FILTER</h4>
+                            </div>
+                            <div class="col-10">
+                                <div class="row">
+                                <div class="col-9">
+                                <input type="text" class="form-control border-secondary" placeholder="Search" name="search_field">
+                                </div>
+                                <div class="col-3">
+                                <input type="submit" class="btn btn-secondary border-dark" value="Search">
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+   </div>
+
+
+
+    <div class="card-body">
+                        <p class="card-text">
+                           <div class="alert alert-success border-4 mt-3" role="alert">
+                            <div class="table-responsive">
+                                  <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">OrderID</th>
+                                          <th scope="col">Item</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Ordered Date</th>
+                                            <th scope="col">Send before</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                             {% for order in orders %}
+                                                 {% if order.SupplierID == user.supplierinfo %}
+                                                     {% if order.status == 'Ordered' %}
+                                                        <tr>
+                                                             <td>{{ forloop.counter }}</td>
+                                                             <td>{{ order.request_ID }}</td>
+                                                             <td>{{ order.itemName }}</td>
+                                                             <td>{{ order.quantity }}</td>
+                                                             <td>{{ order.order.orderedDate }}</td>
+                                                             <td>{{ order.due_Date }}</td>
+
+                                                             <td>
+                                                                     {% if order.order.viewed_status == 'new' %}
+                                                                         <a class="btn btn-info me-1" href="{% url 'S_dashboard-MyOrders-View' order.id %}" >
+                                                                             View
+                                                                         </a>
+                                                                     {% else %}
+                                                                         <a class="btn btn-secondary me-1" href="{% url 'S_dashboard-MyOrders-View' order.id %}" >
+                                                                             View
+                                                                         </a>
+                                                                     {% endif %}
+                                                             </td>
+                                                        </tr>         <
+                                                     {% endif %}
+                                                 {% endif %}
+                                             {% endfor %}
+                                      </tbody>
+                                  </table>
+                      </div>
+                </div>
+           </div>
+    </div>
+    </main>
+    </section>
+
+    <center>{% include 'WarehouseManagement/partials/footer.html' %}</center>
+{% endblock %}

@@ -1,0 +1,67 @@
+
+{% extends 'SM_partials/S_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Accept Order Request{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-4 offset-1">
+        <div class="alert alert-success border-4 border-dark mt-5" role="alert">
+                    <h3 class="h4 text-center">ORDER ACCEPT FORM</h3>
+                    <hr>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <br/><br/>
+                        <input class="btn btn-success btn-block col-12 border-dark" type="submit" value="Submit">
+
+                    </form>
+                </div>
+    </div>
+    <div class="col-5 offset-1">
+        <div class="alert alert-secondary border-4 mt-5" role="alert">
+
+                            <table class="table table-borderless">
+                                <thead>
+                                <br/><h3 class="h4 text-center">ORDER INFORMATION</h3><hr><br/><br/>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">REQUEST ID</th>
+                                        <td>{{ order.request_ID }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">ITEM</th>
+                                        <td>{{ order.itemName }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">QUANTITY</th>
+                                        <td>{{ order.quantity }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">DATE</th>
+                                        <td>{{ order.date }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">DUE DATE</th>
+                                        <td>{{ order.due_Date }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">NOTE</th>
+                                        <td>{{ order.Note }}</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                           <br/><br/>
+                </div>
+        </div>
+</div>
+
+{% endblock %}
+
+

@@ -1,0 +1,81 @@
+{% extends 'SM_partials/S_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Order view page{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-5">
+        <div class="container mt-4">
+        <div class="col-12 offset-md-1 mt-4">
+                <div class="card border border-secondary border-5 bg-light shadow p-3 mb-5 bg-white rounded">
+
+                            <table class="table table-borderless">
+                                <thead>
+                                <br/><span class="h4 text-center">ORDER INFORMATION</span><hr><br/><br/>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">REQUEST ID</th>
+                                        <td>{{ order.request_ID }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">ITEM</th>
+                                        <td>{{ order.itemName }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">QUANTITY</th>
+                                        <td>{{ order.quantity }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">PRICE</th>
+                                        <td>{{ order.invoice.price }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">DATE</th>
+                                        <td>{{ order.order.orderedDate }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">SHIP BEFORE</th>
+                                        <td>{{ order.due_Date }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">SHIP TO</th>
+                                        <td>{{ order.order.address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">FURTHER DETAILS</th>
+                                        <td>{{ order.order.further_details }}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                           <br/>
+                          <form method="POST">
+                              {% csrf_token %}
+                              <input type="submit" class="btn btn-success px-5" value="Mark as read">
+                          </form>
+                        </div>
+                    </div>
+
+        </div>
+    </div>
+    <div class="col-7">
+         <div class="container">
+              <div class="mt-5 col-11 offset-md-1">
+                <div class="card border border-muted border-5 bg-light shadow p-3 mb-5 bg-white rounded">
+                 <span class="h4 text-center">ATTACHMENTS</span><hr><br/>
+                 <img class="img-thumbnail" src="{{ order.order.payment_image.url }}" alt="Pay slip">
+                </div>
+                </div>
+              </div>
+         </div>
+    </div>
+
+
+    <br/><br/>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'SM_partials/SM_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Edit Profile page{% endblock %}
+
+{% block content %}
+
+     {% if user.groups.all.0.name == 'Supplier' %}
+
+         <div class="home-content">
+            <div class="pagetitle">
+                <span class="text"><i class='bx bx-menu'></i>Profile Update</span>
+            </div>
+        </div>
+
+         <section class="scroll-card" >
+         <div class="alert alert-success" role="alert">
+             <div class="col-10 offset-1 mt-5">
+                 <div class="border border-3 border-secondary bg-light rounded col-6 offset-3 mt-8"><br/>
+                            <h3 class="text-center">Profile Update Form</h3>
+                            <hr>
+                            <form method="POST" class="p-4" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ user_form|crispy }}
+                                {{ S_profile_form|crispy }}
+                                <input class="btn btn-success border-dark btn-block mt-5 col-12" type="submit" value="Update">
+
+                            </form>
+              </div>
+             </div>
+         </div>
+         </section>
+     {% else %}
+
+         <div class="home-content">
+            <div class="pagetitle">
+                <span class="text"><i class='bx bx-menu'></i>Profile Update</span>
+            </div>
+        </div>
+         <section class="scroll-card" >
+         <div class="alert alert-success" role="alert">
+              <div class="col-10 offset-1 mt-5">
+                 <div class="border border-3 border-secondary bg-light rounded col-6 offset-3 mt-3"><br/>
+                            <h3 class="text-center">Profile Update Form</h3>
+                            <hr>
+                            <form method="POST" class="p-4" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ user_form|crispy }}
+                                {{ profile_form|crispy }}
+                                <input class="btn btn-success border-dark btn-block mt-5 col-12" type="submit" value="Update">
+
+                            </form>
+                 </div>
+              </div>
+
+         </div>
+         </section>
+     {% endif %}
+
+{% endblock %}

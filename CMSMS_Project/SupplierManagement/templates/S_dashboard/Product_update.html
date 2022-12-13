@@ -1,0 +1,32 @@
+{% extends 'SM_partials/S_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Product Update page{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-5 offset-md-3">
+                <div class="card border border-5 border-secondary bg-light shadow p-3 mb-5 rounded">
+                    <br/><span class="h4 text-center text-info ">UPDATE HERE..</span><hr class="dark"><br/>
+                         <form method="POST" class="p-4">
+                             {% csrf_token %}
+                             {{ form|crispy }}
+
+                           <br/><br/>
+                               <div class="row">
+                                   <div class="col-6">
+                                       <a class="btn btn-secondary border-dark col-12" href="{% url 'S_dashboard-Products' %}">Cancel</a>
+                                   </div>
+                                   <div class="col-6">
+                                        <input class="btn btn-info border-dark col-11" type="submit" value="Update">
+                                   </div>
+                               </div>
+                         </form>
+                        </div>
+                    </div>
+                </div>
+</div>
+
+{% endblock %}

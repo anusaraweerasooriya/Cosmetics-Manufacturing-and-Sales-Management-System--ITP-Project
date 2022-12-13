@@ -1,0 +1,61 @@
+{% extends 'SM_partials/S_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}View order page{% endblock %}
+
+{% block content %}
+
+<div class="alert alert-info">
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-5 offset-md-3">
+                <div class="card border border-dark bg-light shadow p-3 mb-5 bg-white rounded">
+
+                            <table class="table table-borderless">
+                                <thead>
+                                <br/><span class="h4 text-center">ORDER INFORMATION</span><hr><br/><br/>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">REQUEST ID</th>
+                                        <td>{{ order.request_ID }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">SUPPLIER</th>
+                                        <td>{{ norder.SupplierID }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">ITEM</th>
+                                        <td>{{ order.itemName }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">QUANTITY</th>
+                                        <td>{{ order.quantity }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">DATE</th>
+                                        <td>{{ order.date }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">DUE DATE</th>
+                                        <td>{{ order.due_Date }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">NOTE</th>
+                                        <td>{{ norder.Note }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                           <br/><br/>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-secondary px-4" href="{% url 'SM_dashboard-WarehouseRequests' %}">
+                        <i class="ri-arrow-left-circle-fill"></i> Back</a>
+</div>
+
+</div>
+
+{% endblock %}

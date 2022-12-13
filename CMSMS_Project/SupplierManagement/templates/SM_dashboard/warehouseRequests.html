@@ -1,0 +1,171 @@
+{% extends 'SM_partials/SM_base.html' %}
+{% block title %}Warehouse Requests page{% endblock %}
+
+{% block content %}
+
+    <div class="home-content">
+      <div class="pagetitle">
+          <span class="text"><i class='bx bx-menu'></i>Warehouse Requests</span>
+      </div>
+    </div>
+
+    <section class="scroll-card" >
+
+     <main class="col-11 ms-2">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      </div>
+
+
+
+    <div class="container-fluid">
+  <section>
+    <div class="row">
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card border border-primary border-3 bg-light shadow">
+              <div class="card-body ">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div class="align-self-center">
+                    <i class='bx bx-task h1 text-primary'></i>
+                  </div>
+                  <div class="text-end">
+                    <h3 class="text-secondary">{{ requests_count }}</h3>
+                    <p class="mb-0 text-secondary h6">Total requests</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+        <div class="card border border-info border-3 bg-light shadow">
+          <div class="card-body">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                  <i class='bx bx-paper-plane bx-fade-up h1 text-info' ></i>
+              </div>
+              <div class="text-end">
+                <h3 class="text-secondary">{{ ordered }}</h3>
+                <p class="mb-0 text-secondary h6">Ordered</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+        <div class="card border border-warning border-3 bg-light shadow">
+          <div class="card-body">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                  <i class='bx bxs-cart bx-fade-left h1 text-warning' ></i>
+              </div>
+              <div class="text-end">
+                <h3 class="text-secondary">{{ notordered }}</h3>
+                <p class="mb-0 text-secondary h6">To Order</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+        <div class="card border border-success border-3 bg-light shadow">
+          <div class="card-body">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                <i class='bx bxs-package bx-tada h1 text-success' ></i>
+              </div>
+              <div class="text-end">
+                <h3 class="text-secondary">{{ received }}</h3>
+                <p class="mb-0 text-secondary h6">Received</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+   <div class="col-12">
+                    <div class="alert alert-success border-4 mt-2" role="alert">
+                        <form action="" method="get">
+                            <div class="row">
+                            <div class="col-2">
+                                <h4 class="text-dark"><i class='bx bx-filter-alt bx-tada' ></i> FILTER</h4>
+                            </div>
+                            <div class="col-10">
+                                <div class="row">
+                                <div class="col-8">
+                                <input type="text" class="form-control border-secondary" placeholder="Search" name="search_field">
+                                </div>
+                                <div class="col-2">
+                                <input type="submit" class="btn btn-secondary border-dark" value="Search">
+                                </div>
+                                <div class="col-2">
+                                     <input type="submit" class="btn btn bg-primary text-white col-12" value="Export" name="export"/>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+   </div>
+
+
+    <div class="alert alert-secondary border-4 mt-3" role="alert">
+                        <p class="card-text">
+                            <div class="table-responsive mt-3">
+                                  <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">RequestID</th>
+                                          <th scope="col">Type</th>
+                                          <th scope="col">Item</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Due date</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                             {% for whrequest in whrequests %}
+                                                 {% if whrequest.req_from == 'Supplier Manager' %}
+                                                 <tr>
+                                                     <td>{{ whrequest.request_ID }}</td>
+                                                     <td>{{ whrequest.type }}</td>
+                                                     <td>{{ whrequest.itemName }}</td>
+                                                     <td>{{ whrequest.quantity }}</td>
+                                                     <td>{{ whrequest.date }}</td>
+                                                     <td>{{ whrequest.due_Date }}</td>
+
+                                                     {% if whrequest.status == 'Pending' %}
+                                                         <td class= "fst-italic text-secondary">Not Ordered</td>
+                                                     {% elif whrequest.status == 'Accepted' %}
+                                                         <td class="fst-italic text-secondary">Ordered</td>
+                                                     {% else %}
+                                                        <td class= "fst-italic text-secondary">Completed</td>
+                                                     {% endif %}
+
+                                                     <td>
+                                                         {% if whrequest.status == 'Pending' %}
+                                                             <a class="btn btn-warning me-1" href="{% url 'SM_dashboard-RequestOrder' whrequest.id %}" >
+                                                                 Order now
+                                                             </a>
+                                                         {% else %}
+                                                              <a class="btn btn-info me-1" href="{% url 'SM_dashboard-whrequests-view' whrequest.id %}" >
+                                                                 View
+                                                             </a>
+                                                         {% endif %}
+                                                     </td>
+                                                 </tr>
+                                                 {% endif %}
+                                              {% endfor %}
+                                      </tbody>
+                                  </table>
+                      </div>
+    </div>
+
+    </main>
+    </section>
+
+{%  endblock %}

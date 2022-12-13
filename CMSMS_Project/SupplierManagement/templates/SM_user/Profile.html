@@ -1,0 +1,175 @@
+{% extends 'SM_partials/SM_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Profile page{% endblock %}
+
+{% block content %}
+
+{% if user.groups.all.0.name == 'Supplier' %}
+
+<div class="home-content">
+            <div class="pagetitle">
+                <span class="text"><i class='bx bx-menu'></i>Profile</span>
+            </div>
+</div>
+
+<section class="scroll-card" >
+<div class="col-8 offset-2 mt-4">
+  <section class="profile">
+  <header class="header">
+    <div class="details">
+      <img class="img-thumbnail rounded-circle" src="{{ user.supplierinfo.profile_image.url }}" alt="profile-image" style="max-height: 100px; min-width: 100px">
+      <h1 class="heading">{{ user.username }}</h1>
+      <div class="location">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12 ,2Z"></path>
+        </svg>
+        <p>{{ user.supplierinfo.address }}</p>
+      </div>
+      <div class="stats">
+        <div class="col-4">
+          <h4>{{ products }}</h4>
+          <p>Products</p>
+        </div>
+        <div class="col-4">
+          <h4>{{ orders }}</h4>
+          <p>Orders</p>
+        </div>
+        <div class="col-4">
+          <h4>{{ toreturn }}</h4>
+          <p>To refund</p>
+        </div>
+
+      </div>
+    </div>
+
+  </header>
+
+</section>
+    <div class="bg-light mt-3 border border-5">
+          <div class="panel-body bio-graph-info col-10 offset-1 mt-3 ">
+              <h1 class="text-center text-primary">BIO DATA</h1><hr><br/>
+              <div class="row">
+                  <div class="bio-row">
+                      <p><span>Username </span>: {{ user.username }}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>First Name </span>: {{ user.first_name }}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Last Name </span>: {{ user.last_name }}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Address </span>: {{ user.supplierinfo.address }}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Date joined</span>: {{ user.date_joined }}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Category </span>: {{ user.supplierinfo.product_category }}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Email </span>: {{ user.email }}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Phone </span>: {{ user.supplierinfo.contact_no }}</p>
+                  </div>
+
+
+              </div>
+              <div class="row">
+                  <div class="col-8"></div>
+                  <div class="col-1">
+                      <a class="btn btn-primary" href="{% url 'SM_user-UpdateProfile' %}">Edit</a>
+                  </div>
+                  <div class="col-3">
+                      <a class="btn btn-warning" href="{% url 'SM_user-ChangePassword' %}">Change password</a>
+                  </div>
+              </div>
+          </div>
+         <br/><br/>
+    </div>
+</div>
+
+<br/><br/>
+
+{% else %}
+
+    <div class="home-content">
+            <div class="pagetitle">
+                <span class="text"><i class='bx bx-menu'></i>Profile</span>
+            </div>
+    </div>
+
+<section class="scroll-card" >
+    <div class="col-8 offset-2 mt-4">
+  <section class="profile">
+  <header class="header">
+    <div class="details">
+      <img class="img-thumbnail rounded-circle" src="{{ user.profile.image.url }}" alt="profile-image" style="max-height: 100px; min-width: 100px">
+      <h1 class="heading">{{ user.username }}</h1>
+      <div class="location">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12 ,2Z"></path>
+        </svg>
+        <p>{{ user.profile.address }}</p>
+      </div>
+
+
+    </div>
+
+  </header>
+
+</section>
+    <div class="bg-light mt-3 border border-5">
+          <div class="panel-body bio-graph-info col-10 offset-1 mt-3 ">
+              <span>BIO DATA</span><hr><br/>
+              <div class="row">
+                  <span class="text-dark">About</span><br/>
+                  <p class="small fst-italic">
+                      {{ user.profile.bio }}
+                  </p>
+              </div><br/>
+              <div class="row">
+                  <div class="bio-row">
+                      <p><span class="text-dark">Username </span>: {{ user.username }}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span class="text-dark">First Name </span>: {{ user.first_name }}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span class="text-dark">Last Name </span>: {{ user.last_name }}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span class="text-dark">Address </span>: {{ user.profile.address }}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span class="text-dark">Email </span>: {{ user.email }}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span class="text-dark">Phone </span>: {{ user.profile.phone }}</p>
+                  </div>
+
+
+              </div>
+              <div class="row">
+                  <div class="col-8"></div>
+                  <div class="col-1">
+                      <a class="btn btn-primary" href="{% url 'SM_user-SMUpdateProfile' %}">Edit</a>
+                  </div>
+                  <div class="col-3">
+                      <a class="btn btn-warning" href="{% url 'SM_user-ChangePassword' %}">Change password</a>
+                  </div>
+              </div>
+          </div>
+         <br/><br/>
+    </div>
+</div>
+
+<br/><br/>
+</section>
+</section>
+{% endif %}
+
+{% endblock %}

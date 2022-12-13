@@ -1,0 +1,261 @@
+{#<div class="container-fluid">#}
+{#  <div class="row">#}
+{#    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">#}
+{#      <div class="position-sticky pt-3 sidebar-sticky">#}
+{#        <ul class="nav flex-column">#}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link active" aria-current="page" href="{% url 'SM_dashboard-SM_dashboard' %}">#}
+{#              <span data-feather="home" class="align-text-bottom"></span>#}
+{#                <h4><i class="ri-dashboard-3-line fa-lg"></i> Dashboard</h4>#}
+{#            </a>#}
+{#          </li>#}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" href="{% url 'SM_dashboard-Suppliers' %}">#}
+{#              <span data-feather="file" class="align-text-bottom"></span>#}
+{#              <h6><i class="ri-contacts-fill"></i>  Suppliers</h6>#}
+{#            </a>#}
+{#          </li>#}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" href="{% url 'SM_dashboard-NewSupplier' %}">#}
+{#              <span data-feather="shopping-cart" class="align-text-bottom"></span>#}
+{#                <h6><i class="ri-user-add-fill"></i>  New suppliers</h6>#}
+{#            </a>#}
+{#          </li>#}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" href="{% url 'SM_dashboard-WarehouseRequests' %}">#}
+{#              <span data-feather="shopping-cart" class="align-text-bottom"></span>#}
+{#                <h6><i class="ri-notification-3-fill"></i>  Warehouse requests</h6>#}
+{#            </a>#}
+{#          </li>#}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" href="{% url 'SM_dashboard-OrderRequests' %}">#}
+{#              <span data-feather="users" class="align-text-bottom"></span>#}
+{#              <h6><i class="ri-checkbox-multiple-line"></i>  Order requests</h6>#}
+{#            </a>#}
+{#          </li>#}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" href="{% url 'SM_dashbboard-OrderHistory' %}">#}
+{#              <span data-feather="bar-chart-2" class="align-text-bottom"></span>#}
+{#              <h6><i class="ri-contacts-fill"></i>  Order history</h6>#}
+{#            </a>#}
+{#          </li>#}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" href="#">#}
+{#              <span data-feather="layers" class="align-text-bottom"></span>#}
+{#              <h6><i class="ri-refund-2-line"></i> Refunded items</h6>#}
+{#            </a>#}
+{#          </li>#}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" href="{% url 'SM_user-Profile' %}">#}
+{#              <span data-feather="layers" class="align-text-bottom"></span>#}
+{#              <h6><box-icon name='user-circle' type='solid' ></box-icon> Profile</h6>#}
+{#            </a>#}
+{#          </li>#}
+{#        </ul>#}
+{##}
+{#        <h4 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">#}
+{#            <span>Saved reports</span>#}
+{#          <a class="link-secondary" href="#" aria-label="Add a new report">#}
+{#            <span data-feather="plus-circle" class="align-text-bottom"></span>#}
+{#          </a>#}
+{#        </h4>#}
+{#      </div>#}
+{#    </nav>#}
+{##}
+{#  </div>#}
+{#</div>#}
+
+{% load static %}
+
+{% if user.groups.all.0.name == "SupplierManager" %}
+<div class="sidebar close">
+
+    <div class="logo-details">
+      <i class='bx bxl-slack'></i>
+      <span class="logo_name">GLAMOUR</span>
+    </div>
+
+    <ul class="nav-links">
+      <li>
+        <a href="#">
+          <i class='bx bxs-dashboard' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'SM_dashboard-SM_dashboard' %}">Dashboard</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class="ri-contacts-fill"></i>
+            <span class="link_name">Suppliers</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Suppliers</a></li>
+          <li><a href="{% url 'SM_dashboard-Suppliers' %}">Suppliers</a></li>
+          <li><a href="{% url 'SM_dashboard-NewSupplier' %}">New Suppliers</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">
+          <i class="ri-notification-3-fill"></i>
+          <span class="link_name">Warehouse Requests</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'SM_dashboard-WarehouseRequests' %}">Warehouse Requests</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'SM_dashboard-OrderRequests' %}">
+          <i class='bx bx-chat' ></i>
+          <span class="link_name">Order Requests</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'SM_dashboard-OrderRequests' %}">Order Requests</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'S_dashboard-ToRefund' %}">
+          <i class='bx bxs-share'></i>
+          <span class="link_name">To Refund/Ship again</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'SM_dashbboard-OrderHistory' %}">Order history</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class="ri-refund-2-line"></i>
+            <span class="link_name">Refunded items</span>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="{% url 'SM_user-Profile' %}">
+            <i class='bx bxs-user' ></i>
+            <span class="link_name">Profile</span>
+          </a>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{% url 'SM_user-Profile' %}">Profile</a></li>
+        </ul>
+      </li>
+      <li>
+
+      {% if user.is_authenticated %}
+        <li>
+          <div class="profile-details">
+            <div class="profile-content">
+              <img src="/images/avatar.png" alt="profileImg">
+            </div>
+            <div class="name-job">
+              <div class="profile_name">{{ request.user }}</div>
+              <div class="job">Manager</div>
+            </div>
+          </div>
+        </li>
+      {% endif %}
+
+    </ul>
+</div>
+
+{% elif user.groups.all.0.name == "Supplier" %}
+
+    <div class="sidebar close">
+
+    <div class="logo-details">
+      <i class='bx bxl-slack'></i>
+      <span class="logo_name">GLAMOUR</span>
+    </div>
+
+    <ul class="nav-links">
+      <li>
+        <a href="#">
+          <i class='bx bxs-dashboard' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'S_dashboard-Supplier_dashboard' %}">Dashboard</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bxs-package' ></i>
+          <span class="link_name">My Products</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'S_dashboard-Products' %}">My Products</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'S_dashboard-Requests' %}">
+          <i class='bx bx-chat' ></i>
+          <span class="link_name">Order Requests</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'S_dashboard-Requests' %}">Order Requests</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'S_dashboard-MyOrders' %}">
+          <i class='bx bxs-bell-ring' ></i>
+          <span class="link_name">My Orders</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'S_dashboard-MyOrders' %}">My Orders</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'S_dashboard-ToRefund' %}">
+          <i class='bx bxs-share'></i>
+          <span class="link_name">To Refund/Ship again</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'S_dashboard-ToRefund' %}">To Refund/Ship again</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="{% url 'S_dashboard-Refunded' %}">
+            <i class='bx bxs-wallet' ></i>
+            <span class="link_name">Refunded items</span>
+          </a>
+          <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'S_dashboard-Refunded' %}">Refunded items</a></li>
+        </ul>
+        </div>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="{% url 'SM_user-Profile' %}">
+            <i class='bx bxs-user' ></i>
+            <span class="link_name">Profile</span>
+          </a>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{% url 'SM_user-Profile' %}">Profile</a></li>
+        </ul>
+      </li>
+      <li>
+      {% if user.is_authenticated %}
+        <li>
+          <div class="profile-details">
+            <div class="profile-content">
+              <img src="/images/avatar.png" alt="profileImg">
+            </div>
+            <div class="name-job">
+              <div class="profile_name">{{ request.user }}</div>
+              <div class="job">Supplier</div>
+            </div>
+          </div>
+        </li>
+      {% endif %}
+
+    </ul>
+</div>
+{% endif %}

@@ -1,0 +1,26 @@
+{% extends 'SM_partials/S_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Make Order page{% endblock %}
+
+{% block content %}
+        <div class="col-6 offset-3 mt-3">
+
+                <div class="alert alert-success border-4 mt-5" role="alert">
+                    <h3 class="text-center">MAKE ORDER NOW</h3>
+                    <hr>
+                    <form method="POST" class="p-4" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <input class="btn btn-success border-dark btn-block mt-5 col-12" type="submit" value="Send Request">
+
+                    </form>
+                </div>
+
+
+
+    </div>
+
+{% endblock %}
+

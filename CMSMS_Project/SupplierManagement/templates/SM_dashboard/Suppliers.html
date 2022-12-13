@@ -1,0 +1,163 @@
+{% extends 'SM_partials/SM_base.html' %}
+{% block title %}Suppliers page{% endblock %}
+
+{% block content %}
+
+    <div class="home-content">
+      <div class="pagetitle">
+          <span class="text"><i class='bx bx-menu'></i>Suppliers</span>
+
+      </div>
+
+    </div>
+    <section class="scroll-card" >
+
+     <main class="col-11 ms-2">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      </div>
+
+      <div class="row">
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+          <a href="{% url 'SM_dashboard-Suppliers' %}" style="text-decoration: none">
+            <div class="card">
+              <div class="card-body border border-danger border-3 shadow-sm  rounded">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div class="align-self-center">
+                      <i class='bx bxs-group bx-flashing h1 text-danger' ></i>
+                  </div>
+                  <div class="text-end">
+                    <h3 class="text-danger">{{ suppliers_count }}</h3>
+                    <p class="mb-0 text-muted">All</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+        <div class="card">
+          <div class="card-body bg-white border border-success border-3 shadow-sm  rounded">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                <i class='bx bxs-extension bx-tada h1 text-success' ></i>
+              </div>
+              <div class="text-end">
+                <h3 class="text-success">{{ rpsuppliers_count }}</h3>
+                <p class="mb-0 text-muted">Raw material providers</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+        <div class="card">
+          <div class="card-body bg-white border border-warning border-3 shadow-sm  rounded">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                <i class='bx bx-cog bx-tada h1 text-warning' ></i>
+              </div>
+              <div class="text-end">
+                <h3 class="text-warning">{{ tepsuppliers_count }}</h3>
+                <p class="mb-0 text-muted">Tools&Equipments providers</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+        <div class="card">
+          <div class="card-body bg-white border border-3 border-primary shadow-sm  rounded">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                <i class='bx bxs-gift bx-fade-left h1 text-primary' ></i>
+              </div>
+              <div class="text-end">
+                <h3 class="text-primary">{{ pmsuppliers_count }}</h3>
+                <p class="mb-0 text-muted">Packaging material providers</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="col-12">
+                    <div class="alert alert-primary border-4 mt-2" role="alert">
+                        <form action="" method="get">
+                            <div class="row">
+                            <div class="col-2">
+                                <h4 class="text-dark"><i class='bx bx-filter-alt bx-tada' ></i> FILTER</h4>
+                            </div>
+                            <div class="col-10">
+                                <div class="row">
+                                <div class="col-8">
+                                <input type="text" class="form-control border-secondary" placeholder="Search" name="search_field">
+                                </div>
+                                <div class="col-2">
+                                <input type="submit" class="btn btn-secondary border-dark" value="Search">
+                                </div>
+                                <div class="col-2">
+                                     <input type="submit" class="btn btn bg-primary text-white col-12" value="Export" name="export"/>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+   </div>
+
+           <div class="alert alert-success border-4 mt-3" role="alert">
+                      <div class="card-body ">
+                        <p class="card-text">
+                      <div class="card-body">
+                        <p class="card-text">
+                            <div class="table-responsive">
+                                  <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">ID</th>
+                                          <th scope="col">First Name</th>
+                                          <th scope="col">Last Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+
+                                             {% for supplier in suppliers %}
+                                                 <tr>
+                                                     <th>{{ forloop.counter }}</th>
+                                                     <td>{{ supplier.id }}</td>
+                                                     <td>{{ supplier.first_name }}</td>
+                                                     <td>{{ supplier.last_name }}</td>
+                                                     <td>{{ supplier.email }}</td>
+                                                     <td>{{ supplier.username }}</td>
+                                                     <td>
+                                                         <a class="btn btn-info me-1 border-dark" href="{% url 'SM_dashboard-Supplier-View' supplier.id %}" >
+                                                             <i class="ri-information-line"></i>
+                                                         </a>
+                                                         <a class="btn btn-danger me-1 border-dark" href="{% url 'SM_dashboard-Supplier-Remove' supplier.id %}">
+                                                             <i class="ri-delete-bin-5-line"></i>
+                                                         </a>
+                                                     </td>
+                                                 </tr>
+
+                                             {% endfor %}
+                                      </tbody>
+                                  </table>
+                      </div>
+                      </div>
+                      </div>
+
+                </div>
+      </div>
+    </main>
+
+
+    </section>
+   <center>{% include 'WarehouseManagement/partials/footer.html' %}</center>
+
+{% endblock %}

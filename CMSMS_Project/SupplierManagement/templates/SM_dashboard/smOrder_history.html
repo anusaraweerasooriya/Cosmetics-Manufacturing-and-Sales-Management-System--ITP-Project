@@ -1,0 +1,100 @@
+{% extends 'SM_partials/SM_base.html' %}
+{% block title %}Suppliers page{% endblock %}
+
+{% block content %}
+
+    <div class="home-content">
+            <div class="pagetitle">
+                <span class="text"><i class='bx bx-menu'></i>Order History</span>
+            </div>
+    </div>
+
+    <section class="scroll-card" >
+
+    <div class="row">
+        <div class="col-9"></div>
+        <div class="col-3">
+            <div class="col-12">
+                <input type="submit" class="btn btn bg-primary text-white col-8" value="Export" name="export"/>
+        </div>
+    </div>
+
+
+      <main class="col-11 ms-2">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      </div>
+
+    <div class="col-12">
+           <div class="alert alert-success border-4 mt-4" role="alert">
+                            <h5 class="text-success"><i class='bx bx-history bx-tada h1' ></i>   ORDER HISTORY</h5>
+                            <hr>
+                              <div class="card-body">
+                              <p class="card-text">
+                            <div class="table-responsive">
+                                  <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">OrderID</th>
+                                            <th>ordered from</th>
+                                            <th scope="col">Item</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Ordered Date</th>
+                                            <th scope="col">Due date</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                             {% for order in orders %}
+                                                 <tr>
+                                                     <td>{{ forloop.counter }}</td>
+                                                     <td>{{ order.request_ID }}</td>
+                                                     <td>{{ order.SupplierID }}</td>
+                                                     <td>{{ order.itemName }}</td>
+                                                     <td>{{ order.quantity }}</td>
+                                                     <td>{{ order.invoice.price }}</td>
+                                                     <td>{{ order.order.orderedDate }}</td>
+                                                     <td>{{ order.due_Date }}</td>
+                                                     {% if order.order.viewed_status == 'viewed' %}
+                                                         <td class= "fst-italic text-secondary">Pending</td>
+                                                     {% elif order.order.viewed_status == 'new' %}
+                                                         <td class= "fst-italic text-secondary">Pending</td>
+                                                     {% elif order.order.viewed_status == 'received' %}
+                                                         <td class= "fst-italic text-secondary"><i class='bx bx-check-double h5' style='color:#72757b'  ></i>Received</td>
+                                                     {% endif %}
+                                                     <td>
+                                                             <a class="btn btn-info me-1" href="{% url 'SM_dashboard-OrderHistory-view' order.id %}" >
+                                                                 View
+                                                             </a>
+                                                             {% if order.order.viewed_status != 'received' %}
+                                                              <a class="btn btn-primary me-1" href="{% url 'SM_dashboard-OrderHistory-received' order.id %}" >
+                                                                 Mark Receieved
+                                                             </a>
+                                                              {% else %}
+                                                               <a class="btn btn-warning me-1" href="{% url 'SM_dashboard-ReturnRequest' order.id %}" >
+                                                                 Return
+                                                               </a>
+                                                             {% endif %}
+                                                     </td>
+                                                 </tr>
+                                             {% endfor %}
+                                      </tbody>
+                                  </table>
+                      </div>
+           </div>
+    </div>
+    </div>
+
+      </main></div>
+    </section>
+
+
+
+
+
+
+    <center>{% include 'WarehouseManagement/partials/footer.html' %}</center>
+
+{% endblock %}

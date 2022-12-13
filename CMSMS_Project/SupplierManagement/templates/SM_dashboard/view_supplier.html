@@ -1,0 +1,155 @@
+{% extends 'SM_partials/S_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}View supplier page{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-6">
+
+        <div class="row m-4">
+            <div class="col-12">
+
+
+                <div class="col-12">
+                    <div class="alert alert-muted border-4 mt-2" role="alert">
+                        <form action="" method="get">
+                            <div class="row">
+                            <div class="col-4">
+                                <h4 class="text-dark"><i class='bx bx-filter-alt bx-tada' ></i> FILTER</h4>
+                            </div>
+                            <div class="col-8">
+                                <div class="row">
+                                <div class="col-9">
+                                <input type="text" class="form-control border-secondary" placeholder="Search" name="search_field">
+                                </div>
+                                <div class="col-3">
+                                <input type="submit" class="btn btn-secondary border-dark" value="Search">
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="border border-4 border-warning bg-white p-3">
+                    <h4>PRODUCTS</h4>
+                    <hr>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <div class="table-responsive">
+                                  <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">Product_ID</th>
+                                          <th scope="col">Product Name</th>
+                                          <th scope="col">Unit</th>
+                                          <th scope="col">Unit price</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                         {% for product in products %}
+                                             {% if product.Supplier == item %}
+                                                 <tr>
+                                                     <td>{{ product.id }}</td>
+                                                     <td>{{ product.Product }}</td>
+                                                     <td>{{ product.Unit }}</td>
+                                                     <td>{{ product.Unit_Price }}</td>
+                                                 </tr>
+                                             {% endif %}
+                                         {% endfor %}
+                                      </tbody>
+                                  </table>
+                            </div>
+                      </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-6">
+
+        <div class="row m-4">
+            <div class="col-12">
+                <div class="card border border-5  border-success bg-opacity-25">
+                    <div class="row p-3">
+                        <div class="col-md-8">
+                            <table class="table table-borderless">
+                                <thead>
+                                    <span class="h4">SUPPLIER INFORMATION</span>
+                                    <hr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">SUPPLIER ID</th>
+                                        <td>{{ item.id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">FIRST NAME</th>
+                                        <td>{{ item.first_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">LAST NAME </th>
+                                        <td>{{ item.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">EMAIL </th>
+                                        <td>{{ item.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">USERNAME</th>
+                                        <td>{{ item.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">ADDRESS</th>
+                                        <td>{{ item.supplierinfo.address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">CONTACT NO</th>
+                                        <td>{{ item.supplierinfo.contact_no }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">ACCOUNT NUMBER</th>
+                                        <td>{{ item.supplierinfo.account_no }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">BANK </th>
+                                        <td>{{ item.supplierinfo.bankWithBranch }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">PRODUCT CATEGORY</th>
+                                        <td>{{ item.supplierinfo.product_category }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-4 mt-5">
+                            <img class="img-thumbnail" src="{{ item.supplierinfo.profile_image.url }}" alt="profile-image">
+                        </div>
+                    </div>
+                   </div>
+                </div>
+           </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-11"></div>
+       <div class="col-1">
+        <a class="btn btn-secondary px-4" href="{% url 'SM_dashboard-Suppliers' %}">
+           <i class="ri-arrow-left-circle-fill"></i> Back
+        </a>
+       </div>
+</div>
+
+{% endblock %}

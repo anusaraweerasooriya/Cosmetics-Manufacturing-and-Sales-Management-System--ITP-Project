@@ -1,0 +1,78 @@
+{% extends 'SM_partials/S_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Reject Supplier page{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-7 offset-md-3">
+
+
+                {% for message in messages %}
+                {% if message %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endif %}
+                {% endfor %}
+                <div class="border border-5 border-secondary bg-light col-md-8 shadow p-3 mb-5 bg-white rounded " >
+                    <br/>
+                    <h5 class="text-center text-danger">ARE YOU SURE YOU WANT TO REJECT THIS APPLICANT??</h5>
+                    <br/>
+                    <form method="POST" class="p-4">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+
+                        <div class="row">
+                        <div class="col-12">
+                            <table class="table table-borderless">
+                                <tbody>
+
+                                    <tr class="col-12">
+                                        <th scope="row">FIRST NAME</th>
+                                        <td>{{ supplier.first_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">LAST NAME </th>
+                                        <td>{{ supplier.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">ADDRESS</th>
+                                        <td>{{ supplier.address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">CONTACT NO</th>
+                                        <td>{{ supplier.contact_no }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">EMAIL</th>
+                                        <td>{{ supplier.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">PRODUCT CATEGORY</th>
+                                        <td>{{ supplier.product_category }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                            <br/>
+                            <div class="row">
+                                <a class="btn btn-secondary btn-lg btn-block p-1" href="{% url 'SM_dashboard-NewSupplier' %}">Cancel</a><hr>
+                               <input class="btn btn-danger btn-lg btn-block p-1" type="submit" value="Reject">
+                            </div>
+
+
+                    </form>
+                </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

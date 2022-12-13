@@ -1,0 +1,192 @@
+{% extends 'SM_partials/SM_base.html' %}
+{% block title %}Order Requests page{% endblock %}
+
+{% block content %}
+      <div class="home-content">
+            <div class="pagetitle">
+                <span class="text"><i class='bx bx-menu'></i>Order Requests</span>
+
+            </div>
+      </div>
+
+    <section class="scroll-card" >
+
+     <main class="col-11 ms-2">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      </div>
+
+
+
+    <div class="container-fluid">
+  <section>
+    <div class="row">
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+          <a href="{% url 'SM_dashboard-OrderRequests' %}" style="text-decoration: none">
+        <div class="card border border-success border-3 bg-light shadow">
+          <div class="card-body ">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                <i class='bx bxs-bar-chart-alt-2 text-success h1'></i>
+              </div>
+              <div class="text-end">
+                <h3 class="text-secondary">{{ order_count }}</h3>
+                <p class="mb-0 text-secondary h6">Total requests</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      </div>
+
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+          <a href="{% url 'SM_dashboard-PendingRequests' %}" style="text-decoration: none">
+        <div class="card border border-warning border-3 bg-light shadow">
+          <div class="card-body">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                <i class='bx bx-loader-alt bx-spin text-warning h1' ></i>
+              </div>
+              <div class="text-end">
+                <h3 class="text-secondary">{{ pending }}</h3>
+                <p class="mb-0 text-secondary h6">Pending Requests</p>
+              </div>
+            </div>
+          </div>
+        </div>
+          </a>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+          <a href="{% url 'SM_dashboard-To_reorder' %}" style="text-decoration: none">
+        <div class="card border border-danger border-3 bg-light shadow">
+          <div class="card-body">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                  <i class='bx bxs-share bx-tada text-danger h1' ></i>
+              </div>
+              <div class="text-end">
+                <h3 class="text-secondary">{{ reorder }}</h3>
+                <p class="mb-0 text-secondary h6">To Re-Order</p>
+              </div>
+            </div>
+          </div>
+        </div>
+          </a>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+          <a href="{% url 'SM_dashboard-ToPay' %}" style="text-decoration: none">
+        <div class="card border border-info border-3 bg-light shadow">
+          <div class="card-body">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                <i class='bx bx-purchase-tag-alt bx-tada text-info h1' ></i>
+              </div>
+              <div class="text-end">
+                <h3 class="text-secondary">{{ topay }}</h3>
+                <p class="mb-0 text-secondary h6">To Pay</p>
+              </div>
+            </div>
+          </div>
+        </div>
+          </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+   <div class="col-12">
+                    <div class="alert alert-primary border-4 mt-2" role="alert">
+                        <form action="" method="get">
+                            <div class="row">
+                            <div class="col-2">
+                                <h4 class="text-dark"><i class='bx bx-filter-alt bx-tada' ></i> FILTER</h4>
+                            </div>
+                            <div class="col-10">
+                                <div class="row">
+                                <div class="col-8">
+                                <input type="text" class="form-control border-secondary" placeholder="Search" name="search_field">
+                                </div>
+                                <div class="col-2">
+                                <input type="submit" class="btn btn-secondary border-dark" value="Search">
+                                </div>
+                                <div class="col-2">
+                                     <input type="submit" class="btn btn bg-primary text-white col-12" value="Export" name="export"/>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+   </div>
+
+    <div class="card-body">
+                  <div class="alert alert-secondary border-4 mt-3" role="alert">
+                        <p class="card-text">
+                            <div class="table-responsive">
+                                  <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">RequestID</th>
+                                          <th scope="col">SupplierID</th>
+                                          <th scope="col">Item</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Due date</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                             {% for order in orders %}
+                                                 <tr>
+                                                     <td>{{ order.request_ID }}</td>
+                                                     <td>{{ order.SupplierID }}</td>
+                                                     <td>{{ order.itemName }}</td>
+                                                     <td>{{ order.quantity }}</td>
+                                                     <td>{{ order.invoice.price }}</td>
+                                                     <td>{{ order.date }}</td>
+                                                     <td>{{ order.due_Date }}</td>
+                                                     <td class= "fst-italic text-secondary">{{ order.status }}</td>
+
+                                                     <td>
+                                                         {% if order.status == 'Rejected' %}
+                                                             <a class="btn btn-danger me-1" href="{% url 'SM_dashboard-RequestOrder-Reorder' order.id %}" >
+                                                                 Re-order
+                                                             </a>
+                                                         {% elif order.status == 'Pending' %}
+                                                             <a class="btn btn-warning me-1" href="{% url 'SM-dashboard-RequestOrder-Cancel' order.id %}">
+                                                                 Cancel
+                                                             </a>
+                                                         {% elif order.status == 'Accepted'%}
+                                                              <a class="btn btn-warning me-1" href="{% url 'SM-dashboard-RequestOrder-Order' order.id %}" >
+                                                                 Order now
+                                                             </a>
+                                                             <a href="{% url 'SM-dashboard-RequestOrder-Invoice' order.id %}" >
+                                                                <i class='bx bxs-file-pdf h4' style='color:#bd4f39'  ></i>
+                                                             </a>
+                                                         {% elif order.status == 'Canceled' %}
+                                                              <a class="btn btn-secondary me-1" href="{% url 'SM_dashboard-RequestOrder-Reorder' order.id %}" >
+                                                                 Re-order
+                                                              </a>
+                                                         {% else %}
+                                                             <a class="btn btn-danger me-1" href="{% url 'SM-dashboard-RequestOrder-Remove' order.id %}" >
+                                                                 Remove
+                                                             </a>
+                                                         {% endif %}
+                                                     </td>
+                                                 </tr>
+
+                                              {% endfor %}
+                                      </tbody>
+                                  </table>
+                      </div>
+           </div>
+
+    </div>
+
+
+
+</main>
+    </section>
+    <center>{% include 'WarehouseManagement/partials/footer.html' %}</center>
+{%  endblock %}

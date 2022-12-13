@@ -1,0 +1,54 @@
+{% extends 'SM_partials/S_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}View newsuppliers page{% endblock %}
+
+{% block content %}
+
+<div class="alert alert-info" role="alert">
+  <div class="row mt-5">
+        <div class="col-md-5 offset-md-3 alert alert-info">
+                <div class="card border border-dark shadow p-3 mb-5 bg-white rounded">
+
+                            <table class="table table-borderless">
+                                <thead>
+                                <br/><span class="h4 text-center">APPLICANT INFORMATION</span><hr><br/><br/>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">FIRST NAME</th>
+                                        <td>{{ supplier.first_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">LAST NAME </th>
+                                        <td>{{ supplier.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">ADDRESS</th>
+                                        <td>{{ supplier.address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">CONTACT NO</th>
+                                        <td>{{ supplier.contact_no }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">EMAIL</th>
+                                        <td>{{ supplier.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">PRODUCT CATEGORY</th>
+                                        <td>{{ supplier.product_category }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                           <br/>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-secondary px-4" href="{% url 'SM_dashboard-NewSupplier' %}">
+                                <i class="ri-arrow-left-circle-fill"></i> Back</a>
+</div>
+
+{% endblock %}

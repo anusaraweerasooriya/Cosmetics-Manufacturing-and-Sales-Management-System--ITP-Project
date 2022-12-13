@@ -1,0 +1,77 @@
+{% extends 'SM_partials/S_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Accept Supplier page{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-7">
+            <div class="col-8 offset-2 mt-3">
+                <div class="alert alert-success border-success border-4 mt-5" role="alert">
+                    <h3 class="text-center">CREATE NEW SUPPLIER FORM</h3>
+                    <hr>
+                    <form method="POST" class="p-4">
+                        {% csrf_token %}
+                        {{ Createuserform|crispy }}
+                        <input class="btn btn-success btn-block mt-5" type="submit" value="Create User">
+
+                    </form>
+                </div>
+           </div>
+        </div>
+        <div class="col-5">
+            <div class="col-10 offset-1 mt-3">
+                <div class="alert alert-primary border-primary border-4 mt-5" role="alert">
+                    <div class="row p-3">
+                        <div class="col-md-8">
+                            <table class="table table-borderless ">
+                                <thead>
+                                    <span class="h4">SUPPLIER INFORMATION</span>
+                                    <hr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">FIRST NAME</th>
+                                        <td>{{ supplier.first_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">LAST NAME </th>
+                                        <td>{{ supplier.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">ADDRESS</th>
+                                        <td>{{ supplier.address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">CONTACT NO</th>
+                                        <td>{{ supplier.contact_no }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">EMAIL</th>
+                                        <td>{{ supplier.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">CATEGORY</th>
+                                        <td>{{ supplier.product_category }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">USERNAME</th>
+                                        <td>{{ supplier.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">PASSWORD</th>
+                                        <td>{{ supplier.password }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                   </div>
+                </div>
+        </div>
+    </div>
+
+
+{% endblock %}

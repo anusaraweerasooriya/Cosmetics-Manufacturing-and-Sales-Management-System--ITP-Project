@@ -1,0 +1,128 @@
+{% extends 'SM_partials/SM_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}To refund/Ship again{% endblock %}
+
+{% block content %}
+
+    <div class="home-content">
+      <div class="pagetitle">
+                <span class="text"><i class='bx bx-menu'></i>To refun/Ship again</span>
+      </div>
+    </div>
+
+    <section class="scroll-card" >
+
+     <main class="col-11 ms-2">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      </div>
+
+        <div class="col-12">
+                    <div class="alert alert-success border-4 mt-2" role="alert">
+                        <form action="" method="get">
+                            <div class="row">
+                            <div class="col-2">
+                                <h4 class="text-dark"><i class='bx bx-filter-alt bx-tada' ></i> FILTER</h4>
+                            </div>
+                            <div class="col-10">
+                                <div class="row">
+                                <div class="col-9">
+                                <input type="text" class="form-control border-secondary" placeholder="Search" name="search_field">
+                                </div>
+                                <div class="col-3">
+                                <input type="submit" class="btn btn-secondary border-dark" value="Search">
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+   </div>
+
+
+   <div class="col-12">
+                <div class="alert alert-warning mt-3" role="alert">
+                    <h4>To refund/Ship again</h4>
+                    <hr>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <div class="table-responsive">
+                                  <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                            <th scope="col">RequestID</th>
+                                            <th scope="col">Ordered date</th>
+                                            <th scope="col">Item</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Requested method</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+
+                                                {% for order in orders %}
+                                                    {% if order.SupplierID == user.supplierinfo %}
+
+                                                 <tr>
+
+                                                     <td>{{ order.returns.request_ID }}</td>
+                                                     <td>{{ order.order.orderedDate }}</td>
+                                                     <td>{{ order.itemName }}</td>
+                                                     <td>{{ order.quantity }}</td>
+                                                     <td>{{ order.invoice.price }}</td>
+                                                     <td>
+                                                         {% if order.returns.return_status == True %}
+                                                             refund
+                                                         {% elif order.returns.Ship_again == True %}
+                                                             Ship again
+                                                         {% else %}
+                                                             refund
+                                                         {% endif %}
+                                                     </td>
+                                                     <td>
+                                                         {% if order.returns.return_status == 'pending' %}
+                                                             new
+                                                         {% elif order.returns.return_status == 'refunded' %}
+                                                             refunded
+                                                         {% else %}
+                                                             shipped again
+                                                         {% endif %}
+
+                                                     </td>
+                                                     <td>
+                                                         {% if order.returns.return_status == 'pending' %}
+                                                         <a class="btn btn-success me-1 border border-dark" href="{% url 'S_dashboard-Refund' order.id %}" >
+                                                             Refund
+                                                         </a>
+                                                         <a class="btn btn-info me-1 border border-dark" href="{% url 'S_dashboard-Requests-View' order.id %}" >
+                                                             View
+                                                         </a>
+                                                         {% else %}
+                                                         <a class="btn btn-info me-1 border border-dark" href="{% url 'S_dashboard-Requests-View' order.id %}" >
+                                                             View
+                                                         </a>
+                                                         {% endif %}
+                                                     </td>
+                                                 </tr>
+
+                                                    {% endif %}
+                                             {% endfor %}
+                                      </tbody>
+                                  </table>
+                      </div>
+                  </div>
+              </div>
+
+    </div>
+    </div>
+
+</main>
+</section>
+
+    <center>{% include 'WarehouseManagement/partials/footer.html' %}</center>
+{% endblock %}
+
+

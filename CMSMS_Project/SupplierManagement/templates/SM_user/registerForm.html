@@ -1,0 +1,49 @@
+{% extends 'SM_partials/S_base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Supplier Registration page{% endblock %}
+
+{% block content %}
+
+
+<main style="background: url({% static 'images/login-bg.jpg' %}); background-size: cover">
+
+<section class="scroll-card" >
+    <div class="row">
+        <div class="col-7">
+            <div class="col-8 offset-2 mt-3">
+
+
+                    <div class="alert alert-secondary mt-3" role="alert">
+                      <h4 class="text-center">SUPPLIER REGISTRATION FORM</h4>
+                        <hr>
+                        <form method="POST" class="p-2" >
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <br/><i><P class="text-danger">Please change this password once you login to the system.</P></i>
+                            <input class="btn btn-warning btn-block mt-1" type="submit" value="Register">
+                        </form>
+                    </div>
+       </div>
+
+
+        </div>
+        <div class="col-5">
+            <div class="col-10 offset-1">
+               <div class="alert alert-warning mt-5" role="alert">
+                      <h4 class="alert-heading text-center">IMPORTANT!</h4>
+                      <h6>Please note that your application will be directed to one of our managers. You will be allowed to login to the system once he allowed. Please be patient and remeber to use the same username and password to login to you account and then you can change It.</h6>
+                      <hr>
+                      <p class="mb-0">Thank you for choosing our company :)</p>
+               </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+</main>
+
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'SM_partials/SM_base.html' %}
+{% block title %}New Suppliers page{% endblock %}
+
+{% block content %}
+
+      <div class="home-content">
+      <div class="pagetitle">
+          <span class="text"><i class='bx bx-menu'></i>New Suppliers</span>
+            </div>
+    </div>
+
+    <section class="scroll-card" >
+
+     <main class="col-11 ms-2">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      </div>
+
+   <div class="col-12">
+                    <div class="alert alert-success border-4 mt-5" role="alert">
+                        <form action="" method="get">
+                            <div class="row">
+                            <div class="col-2">
+                                <h4 class="text-dark"><i class='bx bx-filter-alt bx-tada' ></i> FILTER</h4>
+                            </div>
+                            <div class="col-10">
+                                <div class="row">
+                                <div class="col-8">
+                                <input type="text" class="form-control border-secondary" placeholder="Search" name="search_field">
+                                </div>
+                                <div class="col-2">
+                                <input type="submit" class="btn btn-secondary border-dark" value="Search">
+                                </div>
+                                <div class="col-2">
+                                     <input type="submit" class="btn btn bg-primary text-white col-12" value="Export" name="export"/>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+   </div>
+
+            <div class="col-12">
+                <div class="alert alert-secondary  border-4 mt-5" role="alert">
+                    <h5 class="text-success"><i class='bx bxs-group bx-tada h1' ></i>    NEWLY APPLIED SUPPLIERS</h5>
+                    <hr>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <div class="table-responsive">
+                                  <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Product Category</th>
+                                            <th scope="col">Address</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+
+                                                {% for supplier in suppliers %}
+
+                                                 <tr>
+
+                                                     <td>{{ supplier.first_name }} {{ supplier.last_name }}</td>
+                                                     <td>{{ supplier.product_category }}</td>
+                                                     <td>{{ supplier.address }}</td>
+                                                     {% if supplier.status == 'Pending' %}
+                                                         <td class= "fst-italic text-secondary">Pending</td>
+                                                     {% elif supplier.status == 'Accepted' %}
+                                                         <td class= "fst-italic text-secondary">Accepted</td>
+                                                     {% elif supplier.status == 'Rejected' %}
+                                                         <td class= "fst-italic text-secondary">Rejected</td>
+                                                     {% endif %}
+                                                     <td>
+                                                         <a class="btn btn-info me-1" href="{% url 'SM_dashboard-NewSupplier-View' supplier.id %}" >
+                                                             View
+                                                         </a>
+                                                         {% if supplier.status == 'Pending' %}
+                                                         <a class="btn btn-success me-1" href="{% url 'SM_dashboard-NewSupplier-Accept' supplier.id %}" >
+                                                             Accept
+                                                         </a>
+                                                         <a class="btn btn-danger me-1" href="{% url 'SM_dashboard-NewSupplier-Reject' supplier.id %}" >
+                                                             Reject
+                                                         </a>
+
+                                                          {% elif supplier.status == 'Accepted' or supplier.status == 'Rejected' %}
+                                                             <a class="btn btn-danger me-1" href="{% url 'SM_dashboard-NewSupplier-Remove' supplier.id %}" >
+                                                             Remove
+                                                         </a>
+                                                         {% endif %}
+                                                     </td>
+
+                                                 </tr>
+                                             {% endfor %}
+                                      </tbody>
+                                  </table>
+                      </div>
+                  </div>
+              </div>
+    </div>
+
+
+    </main>
+    </section>
+
+
+    <center>{% include 'WarehouseManagement/partials/footer.html' %}</center>
+
+
+{% endblock %}
+

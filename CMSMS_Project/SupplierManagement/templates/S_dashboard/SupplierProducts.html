@@ -1,0 +1,121 @@
+{% extends 'SM_partials/SM_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Supplier Products{% endblock %}
+
+{% block content %}
+
+<div class="home-content">
+      <div class="pagetitle">
+                <span class="text"><i class='bx bx-menu'></i>My Products</span>
+      </div>
+</div>
+
+    <section class="scroll-card" >
+
+     <main class="col-11 ms-2">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      </div>
+
+
+     <div class="col-12">
+                    <div class="alert alert-primary border-4 mt-2" role="alert">
+                        <form action="" method="get">
+                            <div class="row">
+                            <div class="col-2">
+                                <h4 class="text-dark"><i class='bx bx-filter-alt bx-tada' ></i> FILTER</h4>
+                            </div>
+                            <div class="col-10">
+                                <div class="row">
+                                <div class="col-9">
+                                <input type="text" class="form-control border-secondary" placeholder="Search" name="search_field">
+                                </div>
+                                <div class="col-3">
+                                <input type="submit" class="btn btn-secondary border-dark" value="Search">
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+   </div>
+
+     <div class="container col-12">
+        <div class="row my-5">
+
+            <div class="col-4">
+
+                <div class="alert alert-success border-4 mt-3 col-10 offset-0" role="alert">
+                    <span class="h4 text-center">ADD NEW PRODUCTS</span>
+                    <hr>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <br/>
+                        <input class="btn btn-success btn-block col-12 border-dark" type="submit" value="Add">
+
+                    </form>
+                </div>
+             </div>
+
+            <div class="col-8">
+                <div class="alert alert-secondary border-4 mt-1" role="alert">
+                    <h4 class="text-success">MY PRODUCTS</h4>
+                    <hr>
+                      <div class="card-body ">
+                        <p class="card-text">
+                            <div class="table-responsive">
+                                  <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Unit</th>
+                                            <th scope="col">UnitPrice</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+
+                                      {% for item in items %}
+                                          {% if item.Supplier == user %}
+
+                                                 <tr>
+
+                                                     <th scope="row">{{ forloop.counter }}</th>
+                                                     <td>{{ item.id }}</td>
+                                                     <td>{{ item.Product }}</td>
+                                                     <td>{{ item.Unit }}</td>
+                                                     <td>{{ item.Unit_Price }}</td>
+                                                     <td>
+                                                         <a class="btn btn-secondary me-1 border-dark" href="{% url 'S_dashboard-Products-update' item.id %}" >
+                                                             Update
+                                                         </a>
+                                                         <a class="btn btn-danger me-1 border-dark" href="{% url 'S_dashboard-Products-delete' item.id %}" >
+                                                             Delete
+                                                         </a>
+                                                     </td>
+                                                 </tr>
+                                          {% endif %}
+                                      {% endfor %}
+                                      </tbody>
+                                  </table>
+                        </div>
+                    </div>
+
+
+                 </div>
+
+
+            </div>
+        </div>
+    </div>
+    </main>
+
+
+</section>
+
+    <center>{% include 'WarehouseManagement/partials/footer.html' %}</center>
+{% endblock %}
