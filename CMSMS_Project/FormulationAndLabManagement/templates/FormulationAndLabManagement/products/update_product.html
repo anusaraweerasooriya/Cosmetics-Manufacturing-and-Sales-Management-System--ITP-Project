@@ -1,0 +1,29 @@
+{% extends 'FormulationAndLabManagement/base/base.html' %}
+{% load static %}
+
+{% block title %} Update Product {% endblock %}
+
+{% block content %}
+
+<div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text">Update Product</span>
+</div>
+    <hr class="title-hr">
+
+    <section class="scroll-card" >
+    <div class="w3-main" style="margin-left:380px;margin-right:380px;">
+        <div class="card shadow border" style="padding: 50px; border-radius: 15px">
+        <h2 align="center">Update Product</h2>
+        <div class="form-group">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.media }}
+                {{form.as_p}}
+                <input type="submit" name="Update Product" value="Update Product" class="btn btn-success btn-lg btn-block">
+            </form>
+        </div>
+        </div>
+    </div>
+ </section>
+{% endblock content %}

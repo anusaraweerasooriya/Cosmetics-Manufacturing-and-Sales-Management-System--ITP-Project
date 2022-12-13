@@ -1,0 +1,117 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Glamour Cosmetics</title>
+
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <style>
+        body{
+            margin-top:20px;
+            font-family: "Helvetica Neue", serif;
+            background: url({% static 'images/lbg5.png' %});
+            background-size: cover;
+            color: #c79292;
+        }
+
+        .coloured-cards .card {
+            margin-top: 30px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgb(197, 145, 145);
+            backdrop-filter: blur( 5.5px );
+            -webkit-backdrop-filter: blur( 5.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            color: #000000;
+        }
+
+        .card:hover {
+            margin-bottom: 20px;
+            position: relative;
+            background: rgb(197, 145, 145);
+            box-shadow: 0 8px 32px 0 rgba(126, 3, 24, 0.77);
+            backdrop-filter: blur( 5.5px );
+            -webkit-backdrop-filter: blur( 5.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            color: #ffffff;
+        }
+
+        .card.card-just-text .content {
+            padding: 50px 65px;
+            text-align: center;
+        }
+        .card .content {
+            padding: 20px 20px 10px 20px;
+        }
+
+        a:hover, a {
+            text-decoration: none;
+        }
+
+        h1 {
+            font-size: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row my-5 pb-5">
+            <h4 class="text-center text-uppercase">Welcome to</h4>
+            <h1 class="text-center text-uppercase fw-bold">Glamour Cosmetics</h1>
+            <h4 class="text-center text-uppercase my-4">Continue as a</h4>
+
+        </div>
+        <div class="row m-5 ms-5 ps-5 gx-5 pt-5">
+
+            <div class="col content-card">
+                <div class="card-big-shadow">
+                    <a href="{% url 'customer_home' %}">
+                        <div class="card card-just-text">
+                            <div class="content">
+                                <h2 class="title text-uppercase">Customer</h2>
+                            </div>
+                        </div> <!-- end card -->
+                    </a>
+                </div>
+            </div>
+
+            <div class="col content-card">
+                <div class="card-big-shadow">
+                    <a href="{% url 'user-login' %}">
+                        <div class="card card-just-text">
+                            <div class="content">
+                                <h2 class="title text-uppercase">Employee</h2>
+                            </div>
+                        </div> <!-- end card -->
+                    </a>
+                </div>
+            </div>
+
+            <div class="col content-card">
+                <div class="card-big-shadow">
+                    <a href="{% url 'user-login' %}">
+                        <div class="card card-just-text">
+                            <div class="content">
+                                <h2 class="title text-uppercase">Supplier</h2>
+                            </div>
+                        </div> <!-- end card -->
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+{% extends 'FormulationAndLabManagement/base/base.html' %}
+{% load static %}
+
+{% block title %} Equipments {% endblock %}
+
+{% block content %}
+<div class="home-content">
+  <i class='bx bx-menu' ></i>
+  <span class="text">Equipments</span>
+</div>
+<hr class="title-hr">
+
+    <section class="scroll-card" >
+      <div class="w3-main" style="margin-left:100px;margin-right:40px;">
+        <br>
+        <br>
+        <table class="table table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Equipment ID</th>
+            <th scope="col">Category</th>
+            <th scope="col">Condition</th>
+            <th></th>
+              <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for i in equipment %}
+          <tr>
+            <td>{{i.equipment_id}}</td>
+            <td>{{i.category}}</td>
+            <td>{{i.condition}}</td>
+            <td><a href="{% url 'FL_updateequipment' i.id %}"><button type="button" class="btn btn-sm btn-success">Update</button></a></td>
+            <td><a href="{% url 'FL_deleteequipment' i.id %}"><button type="button" class="btn btn-sm btn-danger">Delete</button></a></td>
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+      </div>
+    </section>
+{% endblock content %}

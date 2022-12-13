@@ -1,0 +1,150 @@
+{% extends 'FormulationAndLabManagement/base/base.html' %}
+{% load static %}
+
+{% block title %} Product Dashboard {% endblock %}
+
+{% block content %}
+    <style>
+      .dev1{
+        width: 50%;
+        float: left;
+        display: flex;
+      }
+
+      .dev2{
+        width: 50%;
+        float: right;
+        display: flex;
+      }
+    </style>
+
+<div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text">Products Dashboard</span>
+</div>
+    <hr class="title-hr">
+
+    <section class="scroll-card" >
+
+
+<!-- Main -->
+
+          <div class="w3-container" style="margin-left:-20px;margin-right:-20px;">
+            <a href="{% url 'FL_addproducts' %}" class="dev1">
+                <button type="button" class="btn btn-warning btn-lg btn-block">Add New Product</button>
+            </a>
+            <a href="{% url 'FL_products' %}" class="dev2">
+                <button type="button" class="btn btn-info btn-lg btn-block">View Products List</button>
+            </a>
+          </div>
+
+        <div class="main-cards">
+
+        <a href="{% url 'FL_filterhaircosmetics' %}" style="color: black;">
+          <div class="card" style="background-image:url('{% static 'images/formulation/hair.png' %}');background-size: cover;height:160px;">
+            <div class="card-inner">
+              <h2 align="center">HAIR COSMETICS</h2>
+            </div>
+          </div>
+        </a>
+
+          <a href="{% url 'FL_filterskincosmetics' %}" style="color: black;">
+          <div class="card" style="background-image:url('{% static 'images/formulation/skin.png' %}');background-size: cover;height:160px;">
+            <div class="card-inner">
+              <h2 align="center">SKIN COSMETICS</h2>
+            </div>
+          </div>
+          </a>
+
+          <a href="{% url 'FL_filternailcosmetics' %}" style="color: black;">
+          <div class="card" style="background-image:url('{% static 'images/formulation/nail.png' %}');background-size: cover;height:160px;">
+            <div class="card-inner">
+              <h2 align="center">NAIL COSMETICS</h2>
+            </div>
+          </div>
+          </a>
+
+          <a href="{% url 'FL_filterfacemakeup' %}" style="color: black;">
+          <div class="card" style="background-image:url('{% static 'images/formulation/makeup.png' %}');background-size:cover;height:160px;">
+            <div class="card-inner">
+              <h2 align="center">FACE MAKEUP</h2>
+            </div>
+          </div>
+          </a>
+        </div>
+         <div class="main-cards">
+          <div class="charts">
+
+          <div class="charts-card">
+            <p class="chart-title">Products Analysis</p>
+            <canvas id="myChart1" width="720" height="300"></canvas>
+                <script>
+                    var ctx = document.getElementById('myChart1').getContext('2d');
+                    var myChart1 = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: [{% for category in categorylist %} '{{category}}', {% endfor %}],
+                    datasets: [{
+                        label: 'Number of Products',
+                        data: [{% for count in categorycount %} {{ count }}, {% endfor %}],
+                        backgroundColor: [
+                            'rgba(111, 111, 111, 1)',
+                            'rgba(250, 210, 181, 1)',
+                            'rgba(141, 178, 247, 1)',
+                            'rgba(234, 141, 247, 1)',
+                            'rgba(153, 102, 255, 1)',
+                        ],
+
+                    }]
+                        },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                    });
+                </script>
+          </div>
+
+          <div class="charts-card">
+            <p class="chart-title">Products Analysis</p>
+            <canvas id="myChart2" width="720" height="300"></canvas>
+                <script>
+                    var ctx = document.getElementById('myChart2').getContext('2d');
+                    var myChart1 = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: [{% for category in categorylist %} '{{category}}', {% endfor %}],
+                    datasets: [{
+                        label: 'Number of tests',
+                        data: [{% for count in categorycount %} {{ count }}, {% endfor %}],
+                        backgroundColor: [
+                            'rgba(111, 111, 111, 1)',
+                            'rgba(250, 210, 181, 1)',
+                            'rgba(141, 178, 247, 1)',
+                            'rgba(234, 141, 247, 1)',
+                            'rgba(153, 102, 255, 1)',
+                        ],
+
+                    }]
+                        },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                    });
+                </script>
+          </div>
+          </div>
+        </div>
+    </section>
+{% endblock content %}

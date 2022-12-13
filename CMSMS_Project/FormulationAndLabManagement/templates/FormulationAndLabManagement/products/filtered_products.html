@@ -1,0 +1,39 @@
+{% extends 'FormulationAndLabManagement/base/base.html' %}
+{% load static %}
+
+{% block title %} Products {% endblock %}
+
+{% block content %}
+<div class="home-content">
+  <i class='bx bx-menu' ></i>
+  <span class="text">Products</span>
+</div>
+<hr class="title-hr">
+
+    <section class="scroll-card" >
+      <div class="w3-main" style="margin-left:100px;margin-right:40px;">
+        <table class="table table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Description</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for i in product %}
+          <tr>
+            <td>{{i.product_name}}</td>
+            <td>{{i.product_category}}</td>
+            <td>{{i.description}}</td>
+            <td><a href="{% url 'FL_productprofile' i.id %}"><button type="button" class="btn btn-info btn-sm">View Product</button></a></td>
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+      </div>
+      </section>
+{% endblock content %}

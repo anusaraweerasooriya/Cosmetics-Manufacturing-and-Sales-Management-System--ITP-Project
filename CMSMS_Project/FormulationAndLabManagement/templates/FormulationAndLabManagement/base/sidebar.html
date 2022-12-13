@@ -1,0 +1,99 @@
+{% load static %}
+
+<div class="sidebar close">
+
+    <div class="logo-details">
+      <i class='bx bxl-slack'></i>
+      <span class="logo_name">GLAMOUR</span>
+    </div>
+
+    <ul class="nav-links">
+      <li>
+        <a href="{% url 'FL_dashboard' %}">
+          <i class='fas fa-qrcode' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'FL_dashboard' %}">Dashboard</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'FL_productsdashboard' %}">
+          <i class='fa-solid fa-bag-shopping' ></i>
+          <span class="link_name">Products</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'FL_productsdashboard' %}">Products</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'FL_equipments' %}">
+          <i class='fa-solid fa-flask-vial'></i>
+          <span class="link_name">Equipments</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'FL_equipments' %}">Equipments</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'FL_test' %}">
+          <i class='fa-solid fa-vial-circle-check'></i>
+          <span class="link_name">Tests</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'FL_test' %}">Tests</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'FL_chemicallist' %}">
+          <i class='fa fa-flask' ></i>
+          <span class="link_name">Chemicals</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'FL_chemicallist' %}">Chemicals</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'FL_producthistory' %}">
+          <i class='fa-sharp fa-solid fa-clock-rotate-left'></i>
+          <span class="link_name">Product History</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'FL_producthistory' %}">Product History</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'SM_user-Profile' %}">
+          <i class='fa-sharp fa-solid fa-user'></i>
+          <span class="link_name">Profile</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'SM_user-Profile' %}">Profile</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'user-logout' %}">
+          <i class='fa-solid fa-right-from-bracket'></i>
+          <span class="link_name">Logout</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'user-logout' %}">Logout</a></li>
+        </ul>
+      </li>
+
+      {% if user.is_authenticated %}
+        <li>
+          <div class="profile-details">
+            <div class="profile-content">
+              <img src="/images/avatar.png" alt="profileImg">
+            </div>
+            <div class="name-job">
+              <div class="profile_name">{{ request.user }}</div>
+              <div class="job">Manager</div>
+            </div>
+          </div>
+        </li>
+      {% endif %}
+
+    </ul>
+</div>

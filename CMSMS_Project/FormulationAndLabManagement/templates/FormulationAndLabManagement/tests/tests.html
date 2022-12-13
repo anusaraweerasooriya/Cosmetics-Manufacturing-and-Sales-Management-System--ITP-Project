@@ -1,0 +1,143 @@
+{% extends 'FormulationAndLabManagement/base/base.html' %}
+{% load static %}
+
+{% block title %} Scheduled Tests {% endblock %}
+
+
+
+
+{% block content %}
+
+<style>
+      .dev1{
+        background-color:#FFFFFF;
+        width: 48%;
+        float: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 25px;
+        box-sizing: border-box;
+        border: 1px solid #d2d2d3;
+        border-radius: 5px;
+        box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+      }
+
+      .dev2{
+        background-color:#FFFFFF;
+        width: 48%;
+        float: right;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 25px;
+        box-sizing: border-box;
+        border: 1px solid #d2d2d3;
+        border-radius: 5px;
+        box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+      }
+
+      .dev3{
+
+      }
+    </style>
+
+<div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text">Tests Dashboard</span>
+</div>
+    <hr class="title-hr">
+
+    <section class="scroll-card" >
+
+
+<!-- Main -->
+      <div class="w3-container" style="margin-left:-20px;margin-right:-10px;">
+          <a href="{% url 'FL_scheduledtestlist' %}">
+          <div class="dev1" style="background-image:url('{% static 'images/formulation/schedule.png' %}');background-size: cover;height:280px;">
+            <h1 align="center" style="color:black">Scheduled Tests</h1>
+          </div>
+          </a>
+          <a href="{% url 'FL_scheduletest' %}">
+          <div class="dev2" style="background-image:url('{% static 'images/formulation/online.png' %}');background-size: cover;height:280px;">
+            <h1 align="center" style="color:black">Online Tests</h1>
+          </div>
+          </a>
+            </div>
+          <hr>
+
+        <div class="charts">
+
+          <div class="charts-card">
+            <p class="chart-title">Scheduled Test Analysis</p>
+            <canvas id="myChart1" width="350" height="200"></canvas>
+                <script>
+                    var ctx = document.getElementById('myChart1').getContext('2d');
+                    var myChart1 = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: [{% for status in statuslist %} '{{status}}', {% endfor %}],
+                    datasets: [{
+                        label: 'Number of Products',
+                        data: [{% for count in statuscountlist %} {{ count }}, {% endfor %}],
+                        backgroundColor: [
+                            'rgba(55, 158, 62, 1)',
+                            'rgba(63, 159, 249, 1)',
+                            'rgba(250, 98, 85, 1)',
+                        ],
+
+                    }]
+                        },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                    });
+                </script>
+          </div>
+
+          <div class="charts-card">
+            <p class="chart-title">Online Tests Analysis</p>
+            <canvas id="myChart2" width="350" height="200"></canvas>
+                <script>
+                    var ctx = document.getElementById('myChart2').getContext('2d');
+                    var myChart1 = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: [{% for status in statuslist %} '{{status}}', {% endfor %}],
+                    datasets: [{
+                        label: 'Number of tests',
+                        data: [{% for count in statuscountlist %} {{ count }}, {% endfor %}],
+                        backgroundColor: [
+                            'rgba(55, 158, 62, 1)',
+                            'rgba(63, 159, 249, 1)',
+                            'rgba(250, 98, 85, 1)',
+                        ],
+
+                    }]
+                        },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                    });
+                </script>
+          </div>
+
+        </div>
+        </div>
+      </main>
+    </section>
+{% endblock content %}
+
+

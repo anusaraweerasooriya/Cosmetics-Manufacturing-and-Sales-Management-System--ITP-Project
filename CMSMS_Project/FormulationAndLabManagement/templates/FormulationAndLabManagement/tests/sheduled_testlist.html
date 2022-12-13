@@ -1,0 +1,57 @@
+{% extends 'FormulationAndLabManagement/base/base.html' %}
+{% load static %}
+
+{% block title %} Scheduled Tests {% endblock %}
+
+{% block content %}
+<div class="home-content">
+  <i class='bx bx-menu' ></i>
+  <span class="text">Scheduled Tests</span>
+</div>
+<hr class="title-hr">
+
+    <section class="scroll-card" >
+        <div class="w3-main" style="margin-left:80px;margin-right:80px;">
+          <div class="w3-container" style="margin-left:0px;margin-right:30px;" align="center">
+              <form method="get" class="border border-dark">
+                  <div class="card-body row no-gutters align-items-center">
+                    <div class="col-auto">
+                        {{testFilter.form}}
+                        <button class="btn btn-secondary" type="submit">Search</button>
+                        <a href="{% url 'FL_scheduletest' %}"><button class="btn btn-warning" type="button">Schedule Test</button></a>
+                        <a href="{% url 'FL_scheduledtesttreport' %}"> <button class="btn btn-primary" type="button"><i class="bx bxs-file-export"></i> Export</button></a>
+                    </div>
+                  </div>
+              </form>
+          </div>
+
+
+          <br>
+
+
+          <br>
+          <table class="table table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Product Name</th>
+              <th scope="col">Test Name</th>
+                <th scope="col">Status</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for i in schedule_tests %}
+            <tr>
+              <td>{{i.product}}</td>
+              <td>{{i.test_name}}</td>
+                <td>{{i.status}}</td>
+              <td><a href="{% url 'FL_testdetails' i.id %}"><button type="button" class="btn btn-info btn-sm">View Test</button></a></td>
+            </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+        </div>
+    </section>
+{% endblock content %}

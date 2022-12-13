@@ -1,0 +1,142 @@
+{% extends 'FormulationAndLabManagement/base/base.html' %}
+{% load static %}
+
+{% block title %} Formulation Dashboard {% endblock %}
+
+{% block content %}
+
+<div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text">Formulation and Laboratory Management/ Dashboard</span>
+</div>
+    <hr class="title-hr">
+
+    <section class="scroll-card" >
+
+<!-- Main -->
+        <div class="main-cards">
+
+
+          <div class="card" style="height:150px;">
+            <a href="{% url 'FL_productsdashboard' %}">
+            <div class="card-inner">
+              <p class="text-primary">PRODUCTS</p>
+                <span class="material-icons-outlined text-blue">inventory_2</span>
+            </div>
+            </a>
+            <span class="text-primary font-weight-bold" style="margin-left:100px;">{{ productcount }}</span>
+          </div>
+
+
+          <div class="card" style="height:150px;">
+            <a href="{% url 'FL_test' %}">
+            <div class="card-inner">
+              <p class="text-primary">TESTS</p>
+              <span class="material-icons-outlined text-orange">check_circle</span>
+            </div>
+            </a>
+            <span class="text-primary font-weight-bold" style="margin-left:100px;">{{ testscount }}</span>
+          </div>
+
+
+          <div class="card" style="height:150px;">
+            <a href="{% url 'FL_equipments' %}">
+            <div class="card-inner">
+              <p class="text-primary">EQUIPMENTS</p>
+              <span class="material-icons-outlined text-green">lightbulb</span>
+            </div>
+            </a>
+            <span class="text-primary font-weight-bold" style="margin-left:100px;">{{ equipmentscount }}</span>
+          </div>
+
+
+          <div class="card" style="height:150px;">
+            <a href="{% url 'FL_chemicallist' %}">
+            <div class="card-inner">
+              <p class="text-primary">CHEMICALS</p>
+              <span class="material-icons-outlined text-red">thermostat</span>
+            </div>
+            </a>
+            <span class="text-primary font-weight-bold" style="margin-left:100px;">{{ chemicalscount }}</span>
+          </div>
+          </a>
+        </div>
+
+      <div class="main-cards">
+        <div class="charts">
+
+          <div class="charts-card">
+            <p class="chart-title">Products Analysis</p>
+            <canvas id="myChart1" width="720" height="300"></canvas>
+                <script>
+                    var ctx = document.getElementById('myChart1').getContext('2d');
+                    var myChart1 = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: [{% for category in categorylist %} '{{category}}', {% endfor %}],
+                    datasets: [{
+                        label: 'Number of Products',
+                        data: [{% for count in categorycount %} {{ count }}, {% endfor %}],
+                        backgroundColor: [
+                            'rgba(111, 111, 111, 1)',
+                            'rgba(250, 210, 181, 1)',
+                            'rgba(141, 178, 247, 1)',
+                            'rgba(234, 141, 247, 1)',
+                            'rgba(153, 102, 255, 1)',
+                        ],
+
+                    }]
+                        },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                    });
+                </script>
+          </div>
+
+          <div class="charts-card">
+            <p class="chart-title">Test Analysis</p>
+            <canvas id="myChart2" width="720" height="300"></canvas>
+                <script>
+                    var ctx = document.getElementById('myChart2').getContext('2d');
+                    var myChart1 = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: [{% for status in statuslist %} '{{status}}', {% endfor %}],
+                    datasets: [{
+                        label: 'Number of tests',
+                        data: [{% for count in statuscountlist %} {{ count }}, {% endfor %}],
+                        backgroundColor: [
+                            'rgba(55, 158, 62, 1)',
+                            'rgba(63, 159, 249, 1)',
+                            'rgba(250, 98, 85, 1)',
+                        ],
+
+                    }]
+                        },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                    });
+                </script>
+          </div>
+
+        </div>
+      </div>
+      <!-- End Main -->
+    </section>
+
+{% endblock content %}
+

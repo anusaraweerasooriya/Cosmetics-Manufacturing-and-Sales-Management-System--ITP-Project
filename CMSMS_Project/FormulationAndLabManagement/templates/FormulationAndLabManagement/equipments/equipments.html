@@ -1,0 +1,220 @@
+{% extends 'FormulationAndLabManagement/base/base.html' %}
+{% load static %}
+
+{% block title %} Equipments Dashboard {% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style>
+    .dev1{
+        width: 50%;
+        float: left;
+        display: flex;
+      }
+
+      .dev2{
+        width: 50%;
+        float: right;
+        display: flex;
+      }
+  </style>
+
+<div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text">Equipments Dashboard</span>
+</div>
+    <hr class="title-hr">
+
+    <section class="scroll-card" >
+
+<!-- Main -->
+          <div class="w3-container" style="margin-left:-20px;margin-right:-20px;">
+          <a href="{% url 'FL_addequipments' %}" class="dev1">
+            <button type="button" class="btn btn-warning btn-lg btn-block">Add New Equipment</button>
+          </a>
+          <a href="{% url 'FL_equipmentlist' %}" class="dev2">
+            <button type="button" class="btn btn-info btn-lg btn-block">View All Equipments</button>
+          </a>
+          </div>
+
+        <div class="main-cards">
+
+        <a href="{% url 'FL_filtertesttubes' %}">
+          <div class="card" style="background:#FFFFFF">
+            <div class="card-inner">
+              <h4>TEST_TUBES</h4>
+                <span>
+                  <img src="{% static 'images/formulation/test_tube.jpg' %}" style="width:30%; margin-left:90px;" onclick="onClick(this)" alt="Test Tube" class="img-circle">
+                </span>
+            </div>
+            <span class="text-primary font-weight-bold">{{testtube_count}}</span>
+          </div>
+        </a>
+
+          <a href="{% url 'FL_filterbeakers' %}">
+          <div class="card" style="background:#FFFFFF;">
+            <div class="card-inner">
+              <h4>BEAKERS</h4>
+              <span>
+                <img src="{% static 'images/formulation/beaker.jpg' %}" style="width:30%; margin-left:100px;" onclick="onClick(this)" alt="Beaker" class="img-circle">
+              </span>
+            </div>
+            <span class="text-primary font-weight-bold">{{beaker_count}}</span>
+          </div>
+          </a>
+
+          <a href="{% url 'FL_filterflasks' %}">
+          <div class="card" style="background:#FFFFFF;">
+            <div class="card-inner">
+              <h4>FLASKS</h4>
+              <span>
+                <img src="{% static 'images/formulation/flask.jpg' %}" style="width:30%; margin-left:100px;" onclick="onClick(this)" alt="Flask" class="img-circle">
+              </span>
+            </div>
+            <span class="text-primary font-weight-bold">{{ flask_count }}</span>
+          </div>
+          </a>
+
+          <a href="{% url 'FL_filtercylinders' %}">
+          <div class="card" style="background:#FFFFFF;">
+            <div class="card-inner">
+              <h4>CYLINDERS</h4>
+              <span>
+                <img src="{% static 'images/formulation/cylinder.jpg' %}" style="width:30%; margin-left:90px;" onclick="onClick(this)" alt="Cylinder" class="img-circle">
+              </span>
+            </div>
+            <span class="text-primary font-weight-bold">{{ cylinder_count }}</span>
+          </div>
+          </a>
+
+        </div>
+
+        <div class="main-cards">
+
+          <a href="{% url 'FL_filterpipettes' %}">
+          <div class="card" style="background:#FFFFFF;">
+            <div class="card-inner">
+              <h4>PIPETTES</h4>
+                <span>
+                  <img src="{% static 'images/formulation/pipet.jpg' %}" style="width:30%; margin-left:100px;" onclick="onClick(this)" alt="pipette" class="img-circle">
+                </span>
+            </div>
+            <span class="text-primary font-weight-bold">{{ pipette_count}}</span>
+          </div>
+          </a>
+
+          <a href="{% url 'FL_filterburettes' %}">
+          <div class="card" style="background:#FFFFFF;">
+            <div class="card-inner">
+              <h4>BURETTES</h4>
+              <span>
+                <img src="{% static 'images/formulation/biurette.webp' %}" style="width:30%; margin-left:100px;" onclick="onClick(this)" alt="burette" class="img-circle">
+              </span>
+            </div>
+            <span class="text-primary font-weight-bold">{{ burette_count }}</span>
+          </div>
+            </a>
+
+          <a href="{% url 'FL_filterstands' %}">
+          <div class="card" style="background:#FFFFFF;">
+            <div class="card-inner">
+              <h4>STANDS</h4>
+              <span>
+                <img src="{% static 'images/formulation/stand.jpg' %}" style="width:30%; margin-left:100px;" onclick="onClick(this)" alt="stand" class="img-circle">
+              </span>
+            </div>
+            <span class="text-primary font-weight-bold">{{ stand_count }}</span>
+          </div>
+            </a>
+
+          <a href="{% url 'FL_filterfunnels' %}">
+          <div class="card" style="background:#FFFFFF;">
+            <div class="card-inner">
+              <h4>FUNNELS</h4>
+              <span>
+                <img src="{% static 'images/formulation/funnel.jpg' %}" style="width:30%; margin-left:100px;" onclick="onClick(this)" alt="stand" class="img-circle">
+              </span>
+            </div>
+            <span class="text-primary font-weight-bold">{{ funnel_count }}</span>
+          </div>
+          </a>
+        </div>
+
+          <div class="charts">
+
+          <div class="charts-card">
+            <p class="chart-title">Equipment Analysis</p>
+            <canvas id="myChart1" width="400" height="180"></canvas>
+                <script>
+                    var ctx = document.getElementById('myChart1').getContext('2d');
+                    var myChart1 = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: [{% for equipment in equipmentlist %} '{{equipment}}', {% endfor %}],
+                    datasets: [{
+                        label: 'Number of Products',
+                        data: [{% for count in equipmentcount %} {{ count }}, {% endfor %}],
+                        backgroundColor: [
+                            '#CCFC8F',
+                            '#FCDA8F',
+                            '#8FE9FC',
+                            '#C48FFC',
+                            '#F0F39B',
+                            '#8F8FFC',
+                            '#7EB083',
+                            '#8FD0FC',
+                        ],
+
+                    }]
+                        },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                    });
+                </script>
+          </div>
+
+          <div class="charts-card">
+            <p class="chart-title">Condition Analysis</p>
+            <canvas id="myChart2" width="400" height="180"></canvas>
+                <script>
+                    var ctx = document.getElementById('myChart2').getContext('2d');
+                    var myChart1 = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: [{% for category in conditionlist %} '{{category}}', {% endfor %}],
+                    datasets: [{
+                        label: 'Number of tests',
+                        data: [{% for count in countlist %} {{ count }}, {% endfor %}],
+                        backgroundColor: [
+                            '#40764E',
+                            '#10D0F7',
+                            '#9B0E0C',
+                        ],
+
+                    }]
+                        },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                    });
+                </script>
+          </div>
+
+
+        </div>
+      </section>
+{% endblock content %}

@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Product Profile</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{% static '/css/FL_ProductProfile.css'%}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+</head>
+<body style="background-image:url('{% static 'images/formulation/addproduct.png' %}');background-size: cover;">
+
+<div class="w3-main" style="margin-left:0px;margin-right:800px;">
+    <div class="container-fluid bg-2 text-center" style="margin-left:400px;margin-right:400px">
+        <img src="{{product.product_image.url}}" class="img-circle" alt="Product Image" width="350" height="350">
+        <h3>{{product.product_name}}</h3>
+        <h3>Category : {{product.product_category}}</h3>
+        <h4>{{product.description}}</h4>
+    </div>
+
+    <div class="container-fluid bg-3 text-justify " style="margin-left:400px;margin-right:400px">
+        <h2 align="center">Preparation Method</h2>
+        <h4 align="left">{{product.preparation_method}}</h4>
+
+        <br><br><br><br>
+
+        <h3 align="center">Formulation</h3>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><h3>Raw Materials</h3></th>
+                    <th><h3>Quantity(for 100g)</h3></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in formulations %}
+                <tr>
+                    <td><h5>{{ i.raw_material }}</h5></td>
+                    <td><h5>{{ i.formulation_qty }}</h5></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'FL_addformulation' product.id %}"><button class="btn btn-outline-warning px-4"><h4>Add Formulation</h4></button></a>
+        <a href="{% url 'FL_editformulation' product.id %}"><button class="btn btn-outline-success px-4 ms-3"><h4>Edit Formulation</h4></button></a>
+
+        <br><br><br><br><br>
+
+        <a href="{% url 'FL_updateproduct' product.id %}"><button type="button" class="btn btn-success btn-lg btn-block"><h3>Update Product</h3></button></a>
+
+        <!--<a href="{% url 'FL_deleteproduct' product.id %}"><button type="button" class="btn btn-danger btn-lg btn-block"><h3>Delete Product</h3></button></a>--
+    </div>
+</div>
+{% include 'FormulationAndLabManagement/base/footer.html' %}
+</body>
+</html>

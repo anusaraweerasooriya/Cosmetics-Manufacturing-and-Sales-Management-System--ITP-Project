@@ -1,0 +1,30 @@
+{% extends 'FormulationAndLabManagement/base/base.html' %}
+{% load static %}
+
+{% block title %} Add Chemical {% endblock %}
+
+{% block content %}
+
+<div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text">Add Chemical</span>
+</div>
+    <hr class="title-hr">
+
+    <section class="scroll-card" >
+        <div class="w3-main" style="margin-left:450px;margin-right:450px;">
+            <div class="card shadow border" style="padding: 50px; border-radius: 15px">
+            <h2 align="center">Add Chemical</h2>
+            <div class="form-group">
+                <h5>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" name="Add Chemical" value="Add Chemical" class="btn btn-success btn-lg btn-block">
+                </form>
+                </h5>
+            </div>
+        </div>
+        </div>
+    </section>
+{% endblock content %}

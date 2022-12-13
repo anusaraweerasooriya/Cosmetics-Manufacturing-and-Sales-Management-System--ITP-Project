@@ -1,0 +1,28 @@
+{% extends 'FormulationAndLabManagement/base/base.html' %}
+{% load static %}
+
+{% block title %} Schedule Test {% endblock %}
+
+{% block content %}
+
+<div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text">Schedule Test</span>
+</div>
+    <hr class="title-hr">
+
+    <section class="scroll-card" >
+    <div class="w3-main" style="margin-left:450px;margin-right:450px;">
+        <div class="card shadow border" style="padding: 50px; border-radius: 15px">
+        <h2 align="center">Scedule Test</h2>
+        <div class="form-group">
+            <form action="" method="POST" >
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" name="Schedule Test" value="Schedule Test" class="btn btn-success btn-lg btn-block">
+            </form>
+        </div>
+        </div>
+    </div>
+    </section>
+{% endblock content %}

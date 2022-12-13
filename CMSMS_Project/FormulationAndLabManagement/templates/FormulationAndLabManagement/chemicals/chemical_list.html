@@ -1,0 +1,98 @@
+{% extends 'FormulationAndLabManagement/base/base.html' %}
+{% load static %}
+
+{% block title %} Laboratory Chemicals {% endblock %}
+
+{% block content %}
+
+<div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text">Laboratory Chemicals</span>
+</div>
+    <hr class="title-hr">
+
+    <section class="scroll-card" >
+    <h5>
+    <div class="w3-container" style="margin-left:100px;margin-right:100px;" align="center">
+      <form method="get" class="border border-dark">
+          <div class="card-body row no-gutters align-items-center">
+            <div class="">
+                {{chemicalFilter.form}}
+                <button class="btn btn-secondary" type="submit">Search</button>
+              <a href="{% url 'FL_addechemical' %}"><button class="btn btn-warning" type="button">Add Chemical</button></a>
+              <a href="{% url 'FL_chemicalsreport' %}"><button class="btn btn-primary" type="button"><i class="bx bxs-file-export"></i> Export</button></a>
+            </div>
+          </div>
+      </form>
+    </div>
+    </h5>
+    <br><hr>
+    <div class="w3-container" style="margin-left:150px;width:80%">
+          <div class="cardchart">
+
+          <div class="charts-card">
+            <p class="chart-title" align="center">Chemical Analysis</p>
+            <canvas id="myChart1" width="700" height="250"></canvas>
+                <script>
+                    var ctx = document.getElementById('myChart1').getContext('2d');
+                    var myChart1 = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: [{% for chemical in chemicallist %} '{{chemical}}', {% endfor %}],
+                    datasets: [{
+                        label: 'Number of Products',
+                        data: [{% for count in chemicalcount %} {{ count }}, {% endfor %}],
+                        backgroundColor: [
+                            '#02BA2F',
+                            '#BA2902',
+                        ],
+
+                    }]
+                        },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                    });
+                </script>
+          </div>
+          </div>
+        </div>
+
+  <br>
+  <br>
+        <div class="w3-container" style="margin-left:100px;margin-right:100px;" align="center">
+  <table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Chemical Name</th>
+      <th scope="col">Available Quantity(g)</th>
+      <th scope="col">Status</th>
+      <th></th>
+        <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for i in chemicals %}
+    <tr>
+      <td>{{i.chemical_name}}</td>
+      <td>{{i.available_quantity}}</td>
+      <td>{{i.status}}</td>
+      <td><a href="{% url 'FL_updatechemical' i.id %}"><button type="button" class="btn btn-sm btn-success">Update</button></a></td>
+        <td><a href="{% url 'FL_deletechemical' i.id %}"><button type="button" class="btn btn-sm btn-danger">Delete</button></a></td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+</div>
+    </section>
+
+
+{% endblock %}

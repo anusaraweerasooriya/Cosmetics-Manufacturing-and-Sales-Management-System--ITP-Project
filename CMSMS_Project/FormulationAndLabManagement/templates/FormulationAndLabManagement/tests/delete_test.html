@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Test</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="w3-main" style="margin-left:500px;margin-right:450px;">
+        <div class="row">
+            <div class="col-md-15">
+                <div class="card card-body">
+                    <h4>Are you sure you want to delete {{schedule_tests.test_name}} ?</h4>
+                    <form action="{% url 'FL_deletetest' schedule_tests.id %}" method="POST">
+                        {% csrf_token %}
+                        <a class="btn btn-primary" href="{% url 'FL_scheduledtestlist' %}">Cancel</a>
+                        <input class="btn btn-danger" type="submit" name="Confirm" value="Delete">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
