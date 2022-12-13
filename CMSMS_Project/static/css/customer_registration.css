@@ -1,0 +1,37 @@
+{% load static %}
+
+body {
+  background: #007bff;
+  background: linear-gradient(to right, #f5af7a, #f6d7b9);
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.card-img-left {
+  width: 45%;
+  /* Link to your background image using in the property below! */
+  background: scroll center url('../images/customer_registration.jpg');
+  background-size: cover;
+}
+
+.card-body{
+  background: #ffd9ca;
+}
+
+.btn-login {
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  padding: 0.75rem 1rem;
+}
+
+.input-group-text {
+  background: #037c5d !important;
+  color: white !important;
+  border: 0 !important;
+  height: 3rem;
+  width: 2.5rem;
+  border-radius: 0.25rem 0 0 0.25rem !important;
+}

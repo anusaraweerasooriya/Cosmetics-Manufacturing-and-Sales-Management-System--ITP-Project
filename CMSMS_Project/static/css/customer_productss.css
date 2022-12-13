@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+
+.product-card{
+    border-radius: 20px;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.card-sl {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card-image{
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+.card-bottom{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.selling-price{
+    color: #fa142e;
+}
+
+.card-image img {
+
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.card-action {
+    position: relative;
+    float: right;
+    margin-top: -25px;
+    margin-right: 20px;
+    z-index: 2;
+    color: #E26D5C;
+    background: #fff;
+    border-radius: 100%;
+    padding: 15px;
+    font-size: 15px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card-action:hover {
+    color: #fff;
+    background: #E26D5C;
+    -webkit-animation: pulse 1.5s infinite;
+}
+
+.card-heading {
+    font-size: 18px;
+    font-weight: bold;
+    background: #eef5fd;
+    padding: 10px 15px;
+}
+
+.card-text {
+    padding: 10px 15px;
+    background: #eef5fd;
+    color: #636262;
+}
