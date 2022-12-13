@@ -1,0 +1,185 @@
+{% extends 'WarehouseManagement/partials/base.html' %}
+{% load static %}
+
+{% block title %}
+    ES Dashboard | Warehouse
+{% endblock %}
+
+{% block content %}
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1><i class='bx bx-menu'></i> Dashboard</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Warehouse</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="container-fluid mt-3">
+            <div class="row">
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Products</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-briefcase-4-fill h1 text-success"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ products_count }}</span><br>
+                                    <span class="text-success small fw-bold">Categories</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Orders</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-shopping-cart-fill h1 text-dark"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ order_count }}</span><br>
+                                    <span class="text-dark small fw-bold">New</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Employees</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-team-fill h1 text-danger"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ employee_count }}</span><br>
+                                    <span class="text-danger small fw-bold">All</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Factory</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class='bx bxs-factory h1 text-info'></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ req_count }}</span><br>
+                                    <span class="text-info small fw-bold">Requests</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="container">
+                        <div class=" card py-3 px-5">
+                            <h3 class="text-center">Orders</h3>
+                            <div id="donutChart" style="min-height: 400px;" class="echart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="container">
+                        <div class="card py-3 px-5">
+                            <h3 class="text-center">Employees</h3>
+                            <div id="chart" class="d-flex justify-content-center py-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            document.addEventListener("DOMContentLoaded", () => {
+                echarts.init(document.querySelector("#donutChart")).setOption({
+                    tooltip: {
+                    trigger: 'item'
+                    },
+                    legend: {
+                    top: '5%',
+                    left: 'center'
+                    },
+                    series: [{
+                        name: 'Access From',
+                        type: 'pie',
+                        radius: ['40%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            label: {
+                                show: true,
+                                fontSize: '18',
+                                fontWeight: 'bold'
+                            }
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        data: [{
+                                value: {{ not_start }},
+                                name: 'Not Started'
+                            },
+                            {
+                                value: {{ started }},
+                                name: 'Preparing'
+                            },
+                            {
+                                value: {{ completed }},
+                                name: 'Completed'
+                            },
+                        ]
+                    }]
+                });
+            });
+
+            var options = {
+                chart: {
+                    type: 'bar'
+                },
+                series: [{
+                    name: 'sales',
+                    data: [{{ not_working }}, {{ working }}]
+                }],
+                xaxis: {
+                    categories: ['Free', 'Working']
+                }
+            }
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+
+        </script>
+
+    </main>
+
+    {% include 'WarehouseManagement/partials/footer.html' %}
+
+{% endblock %}

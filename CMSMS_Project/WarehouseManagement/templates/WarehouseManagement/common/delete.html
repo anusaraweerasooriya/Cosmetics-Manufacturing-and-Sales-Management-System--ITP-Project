@@ -1,0 +1,33 @@
+{% extends 'WarehouseManagement/partials/base.html' %}
+{% load static %}
+
+{% block title %}
+    Delete | Warehouse
+{% endblock %}
+
+{% block content %}
+
+    <main id="main" class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-lg-12 offset-xl-2 offset-lg-0">
+                    <div class="card p-4 mt-3">
+                        <form action="" method="post" class="alert alert-danger">
+                            {% csrf_token %}
+                            <div>
+                                <h4 class="alert-heading">Delete {{ title }}</h4>
+                                <p>Are you sure you want to Delete this {{ title }} ? </p>
+                                <hr>
+                                <div class="float-end">
+                                    <a href="{% url 'wm-products' %}" class="btn btn-secondary">Cancel</a>
+                                    <input type="submit" class="btn btn-danger " value="Confirm">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

@@ -1,0 +1,195 @@
+{% extends 'WarehouseManagement/partials/base.html' %}
+{% load static %}
+
+{% block title %}
+    Employees | Warehouse
+{% endblock %}
+
+{% block content %}
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1><i class='bx bx-menu'></i> Employees</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Warehouse</a></li>
+                    <li class="breadcrumb-item active">Employees</li>
+                </ol>
+            </nav>
+        </div>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <div class="container-fluid p-0">
+                        <div class="row">
+                            <div class="alert {{ message.tags }} alert-dismissible fade show col-xl-8 offset-xl-2 p-2" role="alert">
+                                <div class="text-center">
+                                    {{ message }}
+                                    <button type="button" class="btn-close pt-2 pe-3" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="container-fluid mt-3">
+            <div class="row">
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Employees</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-team-fill h1 text-warning"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ employees_count }}</span><br>
+                                    <span class="text-warning small fw-bold">Working</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">New</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-user-2-fill h1 text-info"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ new_count }}</span><br>
+                                    <span class="text-info small fw-bold">Employees</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Free Employees</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-user-unfollow-fill h1 text-danger"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ free_count }}</span><br>
+                                    <span class="text-danger small fw-bold">Available</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Working</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-user-follow-fill h1 text-success"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ working_count }}</span><br>
+                                    <span class="text-success small fw-bold">Employees</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-12 card p-4 table-responsive-lg">
+                    <h1 class="text-center text-uppercase">New Employees</h1>
+                    <hr>
+                    <table class="table table-hover table-light text-start" id="example">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for employee in employees %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ employee.code }}</td>
+                                    <td>{{ employee.firstname }} {{ employee.middlename }} {{ employee.lastname }}</td>
+                                    <td>{{ employee.contact }}</td>
+
+                                    <td>
+                                        <a href="{% url 'wm-new-employee-view' employee.id %}" class="btn btn-info">View</a>
+                                        {% if employee.status == 'Pending' %}
+                                            <a href="{% url 'wm-employee-accept' employee.id %}" class="btn btn-success">Accept</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col">
+                    <div class="card p-4 table-responsive">
+                        <h1 class="text-center text-uppercase">Working Employees</h1>
+                        <hr>
+                        <table class="table table-hover table-light text-start" id="example">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Sector</th>
+                                    <th>Availability</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for labour in labours %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ labour.employee.code }}</td>
+                                        <td>{{ labour.employee.firstname }} {{ labour.employee.lastname }}</td>
+                                        <td>{{ labour.workingArea }}</td>
+                                        <td>{{ labour.availability }}</td>
+
+                                        <td>
+                                            <a href="{% url 'wm-employee-view' labour.id %}" class="btn btn-info">View</a>
+                                            <a href="{% url 'wm-employee-update' labour.id %}" class="btn btn-success">Update</a>
+
+                                            {% if labour.availability == 'Free' %}
+                                                <a href="{% url 'wm-employee-assign' labour.id %}" class="btn btn-secondary">Assign</a>
+                                            {% else %}
+                                                <a href="{% url 'wm-employee-free' labour.id %}" class="btn btn-warning">Done</a>
+                                            {% endif %}
+
+                                            <a href="{% url 'wm-employee-remove' labour.id %}" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    {% include 'WarehouseManagement/partials/footer.html' %}
+
+{% endblock %}

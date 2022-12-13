@@ -1,0 +1,280 @@
+<!-- Sidebar -->
+{% if user.is_authenticated %}
+    {% if user.groups.all.0.name == "WarehouseManager" %}
+
+    <div class="sidebar close">
+
+        <div class="logo-details">
+            <i class='bx bxl-slack'></i>
+            <span class="logo_name">GLAMOUR</span>
+        </div>
+
+        <ul class="nav-links">
+            <li>
+                <a href="{% url 'wm-dashboard' %}">
+                    <i class='bx bxs-dashboard' ></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-dashboard' %}">Dashboard</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-products' %}">
+                    <i class="ri-briefcase-4-fill"></i>
+                    <span class="link_name">Products</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-products' %}">Products</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-batch-received' %}">
+                    <i class='bx bxs-truck'></i>
+                    <span class="link_name">Received</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-batch-received' %}">Received</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <div class="iocn-link">
+                    <a href="{% url 'wm-inventory' %}">
+                        <i class="ri-store-2-fill"></i>
+                        <span class="link_name">Inventory</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow' ></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="{% url 'wm-inventory' %}">Inventory</a></li>
+                    <li><a href="{% url 'wm-raw-materials' %}">RawMaterials</a></li>
+                    <li><a href="{% url 'wm-equipments' %}">Equipments</a></li>
+                    <li><a href="{% url 'wm-packaging' %}">Packaging</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-orders' %}">
+                    <i class='bx bxs-cart'></i>
+                    <span class="link_name">Orders</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-orders' %}">Orders</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-employees' %}">
+                    <i class="ri-team-fill"></i>
+                    <span class="link_name">Employees</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-employees' %}">Employees</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-history' %}">
+                    <i class='bx bx-history'></i>
+                    <span class="link_name">History</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-history' %}">History</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-reorder' %}">
+                    <i class='bx bxs-comment-edit'></i>
+                    <span class="link_name">Make a Request</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-reorder' %}">Request</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-requests-supplier' %}">
+                    <i class='bx bxs-plane-alt'></i>
+                    <span class="link_name">To Supplier</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-requests-supplier' %}">To Supplier</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-requests-batch' %}">
+                    <i class='bx bxs-factory'></i>
+                    <span class="link_name">To Factory</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-requests-batch' %}">To Factory</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-requests-from-batch' %}">
+                    <i class="ri-building-2-fill"></i>
+                    <span class="link_name">From Factory</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-requests-from-batch' %}">From Factory</a></li>
+                </ul>
+            </li>
+
+            {% if user.is_authenticated %}
+                <li>
+                    <div class="profile-details">
+                        <div class="profile-content">
+                            <img src="/images/avatar.png" alt="profileImg">
+                        </div>
+                        <div class="name-job">
+                            <div class="profile_name">{{ request.user }}</div>
+                            <div class="job">Manager</div>
+                        </div>
+                    </div>
+                </li>
+            {% endif %}
+
+        </ul>
+    </div>
+
+{% else %}
+
+        <div class="sidebar close">
+
+        <div class="logo-details">
+            <i class='bx bxl-slack'></i>
+            <span class="logo_name">GLAMOUR</span>
+        </div>
+
+        <ul class="nav-links">
+            <li>
+                <a href="{% url 'wm-dashboard' %}">
+                    <i class='bx bxs-dashboard' ></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-dashboard' %}">Dashboard</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-products' %}">
+                    <i class="ri-briefcase-4-fill"></i>
+                    <span class="link_name">Products</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-products' %}">Products</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-batch-received' %}">
+                    <i class='bx bxs-truck'></i>
+                    <span class="link_name">Received</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-batch-received' %}">Received</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <div class="iocn-link">
+                    <a href="{% url 'wm-inventory' %}">
+                        <i class="ri-store-2-fill"></i>
+                        <span class="link_name">Inventory</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow' ></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="{% url 'wm-inventory' %}">Inventory</a></li>
+                    <li><a href="{% url 'wm-raw-materials' %}">RawMaterials</a></li>
+                    <li><a href="{% url 'wm-equipments' %}">Equipments</a></li>
+                    <li><a href="{% url 'wm-packaging' %}">Packaging</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-orders' %}">
+                    <i class='bx bxs-cart'></i>
+                    <span class="link_name">Orders</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-orders' %}">Orders</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-employees' %}">
+                    <i class="ri-team-fill"></i>
+                    <span class="link_name">Employees</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-employees' %}">Employees</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-reorder' %}">
+                    <i class='bx bxs-comment-edit'></i>
+                    <span class="link_name">Make a Request</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-reorder' %}">Request</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-requests-supplier' %}">
+                    <i class='bx bxs-plane-alt'></i>
+                    <span class="link_name">To Supplier</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-requests-supplier' %}">To Supplier</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-requests-batch' %}">
+                    <i class='bx bxs-factory'></i>
+                    <span class="link_name">To Factory</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-requests-batch' %}">To Factory</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{% url 'wm-requests-from-batch' %}">
+                    <i class="ri-building-2-fill"></i>
+                    <span class="link_name">From Factory</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{% url 'wm-requests-from-batch' %}">From Factory</a></li>
+                </ul>
+            </li>
+
+            {% if user.is_authenticated %}
+                <li>
+                    <div class="profile-details">
+                        <div class="profile-content">
+                            <img src="/images/avatar.png" alt="profileImg">
+                        </div>
+                        <div class="name-job">
+                            <div class="profile_name">{{ request.user }}</div>
+                            <div class="job">Manager</div>
+                        </div>
+                    </div>
+                </li>
+            {% endif %}
+
+        </ul>
+    </div>
+
+    {% endif %}
+{% endif %}

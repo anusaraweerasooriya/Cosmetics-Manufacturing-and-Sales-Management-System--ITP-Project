@@ -1,0 +1,87 @@
+{% extends 'WarehouseManagement/partials/base.html' %}
+{% load static %}
+
+{% block title %}
+    Received | Warehouse
+{% endblock %}
+
+{% block content %}
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1><i class='bx bx-menu'></i> Batch Received</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Warehouse</a></li>
+                    <li class="breadcrumb-item">Products</li>
+                    <li class="breadcrumb-item active">Batch Received</li>
+                </ol>
+            </nav>
+        </div>
+    
+        <!-- Main Body -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-lg-12">
+                    <div class="card p-4">
+                        <form action="" method="get">
+                            <h4><i class='bx bx-filter-alt bx-tada'></i> &nbsp; FILTER</h4>
+                            <div class="input-group my-3">
+                                <input type="text" class="form-control" placeholder="Search" name="search_field">
+                                <input type="submit" class="input-group-text" value="Search" name="search">
+                            </div>
+                        </form>
+                        <form action="" method="get">
+                            <div class="d-grid gap-2 mt-5 mb-3">
+                                <h4><i class='bx bxs-file-export bx-tada bx-rotate-180'></i> &nbsp; GENERATE</h4>
+                                <input type="submit" value="Export" class="btn btn-primary" name="export">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right Side of the main -->
+                <div class="col-xl-9 col-lg-12 text-center">
+                    <div class="card p-4 table-responsive-lg">
+                        <h1 class="text-center text-uppercase">Batch Received</h1>
+                        <hr>
+                        <table class="table table-striped text-start" id="example">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product Name</th>
+                                    <th>Category</th>
+                                    <th>Quantity</th>
+                                    <th>Expire Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for batch in batches %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ batch.schedule_id.product_code.product_name }}</td>
+                                        <td>{{ batch.schedule_id.product_code.product_category }}</td>
+                                        <td>{{ batch.batch_quantity }}</td>
+                                        <td>{{ batch.expiry_date }}</td>
+                                        <td class="fst-italic">{{ batch.status }}</td>
+                                        {% if batch.status == 'Dispatched' %}
+                                            <td><a href="{% url 'wm-batch-status-change' batch.id %}" class="btn btn-success">Received</a></td>
+                                        {% else %}
+                                            <td class="fw-bold text-danger">Done</td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include 'WarehouseManagement/partials/footer.html' %}
+
+
+{% endblock %}

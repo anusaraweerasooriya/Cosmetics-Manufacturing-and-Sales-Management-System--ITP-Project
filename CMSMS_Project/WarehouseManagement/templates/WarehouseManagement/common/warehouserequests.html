@@ -1,0 +1,103 @@
+{% extends 'WarehouseManagement/partials/base.html' %}
+{% load static %}
+
+{% block title %}
+    Requests | Warehouse
+{% endblock %}
+
+{% block content %}
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1><i class='bx bx-menu'></i> {{ title }}</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Warehouse</a></li>
+                    <li class="breadcrumb-item"><a href="">Requests</a></li>
+                    <li class="breadcrumb-item active">{{ breadcrumb }}</li>
+                </ol>
+            </nav>
+        </div>
+        <!-- Main Body -->
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div class="col-xl-3 col-md-12">
+                    <div class="card p-4">
+                        <form action="" method="get">
+                            <h4><i class='bx bx-filter-alt bx-tada'></i> &nbsp; FILTER</h4>
+                            <div class="input-group my-3">
+                                <input type="text" class="form-control" placeholder="Search" name="search_field">
+                                <input type="submit" class="input-group-text" value="Search" name="search">
+                            </div>
+                        </form>
+                        <form action="" method="get">
+                            <div class="d-grid gap-2 mt-5 mb-3">
+                                <h4><i class='bx bxs-file-export bx-tada bx-rotate-180'></i> &nbsp; GENERATE</h4>
+                                <input type="submit" value="Export" class="btn btn-primary" name="export">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Right Side of the main -->
+                <div class="col-xl-9 col-md-12 text-center">
+                    <div class="card p-4 table-responsive-lg">
+                        <h1 class="text-center text-uppercase">{{ title }}</h1>
+                        <hr>
+                        <table class="table table-hover mt-3 text-start" id="example">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Request ID</th>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Request Date</th>
+                                    <th>Due Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for wh_request in wh_requests %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ wh_request.request_ID }}</td>
+                                        <td>{{ wh_request.itemName }}</td>
+                                        <td>{{ wh_request.quantity }}</td>
+                                        <td>{{ wh_request.date }}</td>
+                                        <td>{{ wh_request.due_Date }}</td>
+
+                                        {% if wh_request.status == 'Accepted' %}
+                                            <td class="fst-italic">Confirmed</td>
+                                        {% elif wh_request.status == 'Pending' %}
+                                            <td class="fst-italic">Pending</td>
+                                        {% else %}
+                                            <td class="fst-italic">Completed</td>
+                                        {% endif %}
+
+                                        {% if wh_request.status == 'Pending' %}
+                                            <td>
+                                                <a href="{% url 'wm-request-update' wh_request.id %}"
+                                                   class="btn btn-success">Update
+                                                </a>
+                                                <a href="{% url 'wm-request-delete' wh_request.id %}"
+                                                   class="btn btn-danger">Delete
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td></td>
+                                        {% endif %}
+
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include 'WarehouseManagement/partials/footer.html' %}
+
+
+{% endblock %}

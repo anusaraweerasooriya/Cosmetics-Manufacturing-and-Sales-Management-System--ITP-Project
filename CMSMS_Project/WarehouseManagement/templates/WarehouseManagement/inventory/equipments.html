@@ -1,0 +1,211 @@
+{% extends 'WarehouseManagement/partials/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Equipments | Warehouse
+{% endblock %}
+
+{% block content %}
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1><i class='bx bx-menu'></i> Equipments</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Warehouse</a></li>
+                    <li class="breadcrumb-item"><a href="">Inventory</a></li>
+                    <li class="breadcrumb-item active">Equipments</li>
+                </ol>
+            </nav>
+        </div>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <div class="container-fluid p-0">
+                        <div class="row">
+                            <div class="alert {{ message.tags }} alert-dismissible fade show col-xl-8 offset-xl-2 p-2" role="alert">
+                                <div class="text-center">
+                                    {{ message }}
+                                    <button type="button" class="btn-close pt-2 pe-3" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="container-fluid mt-3">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Equipments</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-tools-fill h1 text-secondary"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ item_count }}</span><br>
+                                    <span class="text-secondary small fw-bold">Count</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Categories</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-apps-fill h1 text-info"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ category_count }}</span><br>
+                                    <span class="text-info small fw-bold">of Equipments</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Fair</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-emotion-unhappy-fill h1 text-warning"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ fair_count }}</span><br>
+                                    <span class="text-warning small fw-bold">Status</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">To Maintain</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-alarm-warning-fill h1 text-danger"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ maintain_count }}</span><br>
+                                    <span class="text-danger small fw-bold">Equipments</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid mt-2">
+            <div class="row">
+                <div class="col-xl-4 col-lg-12">
+                    <form action="" method="post" class="alert alert-light card">
+                        {% csrf_token %}
+                        <h3 class="text-center text-uppercase">Add a Equipment</h3>
+                        <hr>
+                        <div class="row my-2">
+                            <div class="col-6">
+                                {{ form.itemID|as_crispy_field }}
+                            </div>
+                            <div class="col-6">
+                                {{ form.itemName|as_crispy_field }}
+                            </div>
+                        </div>
+                        {{ form.category|as_crispy_field }}
+                        <div class="row my-2">
+                            <div class="col-6">
+                                {{ form.quantity|as_crispy_field }}
+                            </div>
+                            <div class="col-6">
+                                {{ form.status|as_crispy_field }}
+                            </div>
+                        </div>
+                        {{ form.description|as_crispy_field }}
+                        <div class="row my-2">
+                            <div class="col-6">
+                                {{ form.lastMaintenanceDate|as_crispy_field }}
+                            </div>
+                            <div class="col-6">
+                                {{ form.nextMaintenanceDate|as_crispy_field }}
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-warning my-2 col-12 float-start" value="Add">
+                    </form>
+                </div>
+
+                <div class="col-xl-8 col-lg">
+                    <div class="card px-5 py-2">
+                        <form action="" method="get">
+                            <h4><i class='bx bx-filter-alt bx-tada pt-3' ></i> &nbsp; FILTER</h4>
+                            <div class="input-group my-2">
+                                <input type="text" class="form-control" placeholder="Search" name="search_field">
+                                <input type="submit" class="input-group-text" value="Search" name="search">
+                            </div>
+                        </form>
+                        <form action="" method="get">
+                            <div class="d-grid gap-2 my-3">
+                                <input type="submit" value="Export" class="btn btn-primary" name="export">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="alert alert-light ps-2 card table-responsive-lg">
+                        <h1 class="text-center text-uppercase"> Equipments</h1>
+                        <hr>
+                        <table class="table table-striped text-start" id="withsearch">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Quantity</th>
+                                    <th>Maintain</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for equipment in equipments %}
+
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ equipment.itemName }}</td>
+                                        <td>{{ equipment.category }}</td>
+                                        <td>{{ equipment.quantity }}</td>
+                                        <td>{{ equipment.nextMaintenanceDate }}</td>
+                                        <td>
+                                            <a href="{% url 'wm-equipment-view' equipment.id %}"
+                                               class="btn btn-info">View
+                                            </a>
+                                            <a href="{% url 'wm-equipment-update' equipment.id %}"
+                                               class="btn btn-success">Update
+                                            </a>
+                                            <a href="{% url 'wm-equipment-delete' equipment.id %}"
+                                               class="btn btn-danger">Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include 'WarehouseManagement/partials/footer.html' %}
+
+{% endblock %}

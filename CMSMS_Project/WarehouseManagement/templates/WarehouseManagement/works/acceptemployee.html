@@ -1,0 +1,81 @@
+{% extends 'WarehouseManagement/partials/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Accept Employee | Warehouse
+{% endblock %}
+
+{% block content %}
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1><i class='bx bx-menu'></i> Accept Employee</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Warehouse</a></li>
+                    <li class="breadcrumb-item"><a href="">Employee</a></li>
+                    <li class="breadcrumb-item active"><a href="">Accept Employee</a></li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="card py-4 mt-3">
+                        <form action="" method="post" class="col-10 mx-auto">
+                            {% csrf_token %}
+                            <h1 class="text-center text-uppercase">Accept</h1>
+                            <hr class="my-4">
+                            {{ form|crispy }}
+                            <input type="submit" class="btn btn-success my-4 float-start" value="Accept">
+                         </form>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card py-4 mt-3">
+                        <div class="card-body">
+                            <h1 class="text-center">Employee Details</h1>
+                            <hr>
+                            <div class="row">
+                                <div class="col-4">Employee ID</div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">{{ employee.code }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">Employee Name</div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">{{ employee.firstname }} {{ employee.lastname }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">DOB</div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">{{ employee.dob }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">Email</div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">{{ employee.email }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">Address</div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">{{ employee.address }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">Gender</div>
+                                <div class="col-1">:</div>
+                                <div class="col-7">{{ employee.gender }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include 'WarehouseManagement/partials/footer.html' %}
+
+{% endblock %}

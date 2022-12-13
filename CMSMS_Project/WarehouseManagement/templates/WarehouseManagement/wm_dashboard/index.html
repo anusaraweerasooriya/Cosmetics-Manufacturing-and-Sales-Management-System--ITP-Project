@@ -1,0 +1,217 @@
+{% extends 'WarehouseManagement/partials/base.html' %}
+{% load static %}
+
+{% block title %}
+    Dashboard | Warehouse
+{% endblock %}
+
+{% block content %}
+
+    <div class="home-content">
+
+        <div class="pagetitle">
+            <h1><i class='bx bx-menu'></i> Dashboard</h1>
+            <nav class="ps-5">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Warehouse</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <section class="scroll-card" >
+
+    <main id="main" class="main">
+
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Products</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-briefcase-4-fill h1 text-info"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ product_count }}</span><br>
+                                    <span class="text-info small fw-bold">Categories</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">RawMaterials</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-leaf-fill h1 text-success"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ raw_count }}</span><br>
+                                    <span class="text-success small fw-bold">Types</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Equipments</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-tools-fill h1 text-danger"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ equipment_count }}</span><br>
+                                    <span class="text-danger small fw-bold">Categories</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Packagings</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-archive-fill h1 text-secondary"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ pack_count }}</span><br>
+                                    <span class="text-secondary small fw-bold">Types</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Batch Reqs </h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-folder-received-fill h1 text-warning"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ batch_count }}</span><br>
+                                    <span class="text-warning small fw-bold">Requests</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="container">
+                        <div class=" card py-3 px-5">
+                            <h3 class="text-center">Products</h3>
+                            <div id="chart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="container">
+                        <div class="card py-3 px-5">
+                            <h3 class="text-center">Raw Materials</h3>
+                            <div id="pie" class="d-flex justify-content-center py-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            var options = {
+                series: [{
+                    data: [
+                        {% for product in products %}
+                            {{ product.quantity }},
+                        {% endfor %}
+                    ]
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 300
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 4,
+                        horizontal: true,
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    categories: [
+                        {% for product in products %}
+                            '{{ product.itemName }}',
+                        {% endfor %}
+                    ],
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+
+
+
+            var options = {
+                series: [
+                    {% for rawmaterial in rawmaterials %}
+                        {{ rawmaterial.quantity }},
+                    {% endfor %}
+                ],
+                chart: {
+                    width: 500,
+                    type: 'pie',
+                },
+                labels: [
+                    {% for rawmaterial in rawmaterials %}
+                        '{{ rawmaterial.itemName }}',
+                    {% endfor %}
+                ],
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#pie"), options);
+            chart.render();
+
+        </script>
+
+    </main>
+
+    </section>
+
+
+    {% include 'WarehouseManagement/partials/footer.html' %}
+
+
+{% endblock %}

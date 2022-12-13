@@ -1,0 +1,142 @@
+{% extends 'WarehouseManagement/partials/base.html' %}
+{% load static %}
+
+{% block title %}
+    Inventory | Warehouse
+{% endblock %}
+
+{% block content %}
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1><i class='bx bx-menu'></i> Inventory</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Warehouse</a></li>
+                    <li class="breadcrumb-item active">Inventory</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="container-fluid mt-3">
+            <div class="row">
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Raw Materials</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-leaf-fill h1 text-success"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ materials_count }}</span><br>
+                                    <span class="text-success small fw-bold">Count</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Equipments</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-tools-fill h1 text-secondary"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ equipments_count }}</span><br>
+                                    <span class="text-secondary small fw-bold">Types</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Packagings</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class='bx bxs-package h1 text-warning'></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ packagings_count }}</span><br>
+                                    <span class="text-warning small fw-bold">Varieties</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Body -->
+        <div class="container-fluid mt-3">
+            <div class="row">
+                <div class="col-xl-3 col-lg-12">
+                <div class="card p-4">
+                    <form action="" method="get">
+                        <h4><i class='bx bx-filter-alt bx-tada' ></i> &nbsp; FILTER</h4>
+                        <div class="input-group my-3">
+                            <input type="text" class="form-control" placeholder="Search" name="search_field">
+                            <input type="submit" class="input-group-text" value="Search" name="search">
+                        </div>
+                    </form>
+                    <form action="" method="get">
+                        <div class="d-grid gap-2 mt-5 mb-3">
+                            <h4><i class='bx bxs-file-export bx-tada bx-rotate-180'></i> &nbsp; GENERATE</h4>
+                            <input type="submit" value="Export" class="btn btn-primary" name="export">
+                        </div>
+                    </form>
+                </div>
+                </div>
+                <!-- Right Side of the main -->
+                <div class="col-xl-9 col-lg-12 table-responsive text-center">
+                    <div class="card p-4">
+                        <h1 class="text-center text-uppercase">Inventory</h1>
+                        <hr>
+                        <table class="table table-hover table-striped mt-3 text-start" id="example">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Item ID</th>
+                                    <th>Item Name</th>
+                                    <th>Category</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in items %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ item.itemID }}</td>
+                                        <td>{{ item.itemName }}</td>
+                                        <td>{{ item.category }}</td>
+                                        {% if item.quantity < item.reorderLevel %}
+                                            <td class="text-danger fw-bold fs-6">{{ item.quantity }}</td>
+                                        {% else %}
+                                            <td>{{ item.quantity }}</td>
+                                        {% endif %}
+
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </main>
+
+    {% include 'WarehouseManagement/partials/footer.html' %}
+
+
+{% endblock %}

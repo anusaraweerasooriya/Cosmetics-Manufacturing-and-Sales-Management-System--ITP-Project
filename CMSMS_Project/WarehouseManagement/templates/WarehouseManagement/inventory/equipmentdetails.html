@@ -1,0 +1,127 @@
+{% extends 'WarehouseManagement/partials/base.html' %}
+{% load static %}
+
+{% block title %}
+    Equipment Details | Warehouse
+{% endblock %}
+
+{% block content %}
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1><i class='bx bx-menu'></i> {{ item }} Details</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Warehouse</a></li>
+                    <li class="breadcrumb-item"><a href="">Equipments</a></li>
+                    <li class="breadcrumb-item active">{{ item }} Details</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-7 offset-xl-3 col-md-12 offset-md-0">
+                    <div class="card p-4 mt-3">
+                        <h1 class="text-center mb-4 text-uppercase">{{ item }} &nbsp; Details</h1>
+                        <hr>
+                        <div class="container-fluid">
+                            <div class="row py-2">
+                                <div class="col-5">
+                                    <h5>Item ID</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-6">
+                                    <p>{{ material.itemID }}</p>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-5">
+                                    <h5>Item Name</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-6">
+                                    <p>{{ material.itemName }}</p>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-5">
+                                    <h5>Category</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-6">
+                                    <p>{{ material.category }}</p>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-5">
+                                    <h5>Description</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-6">
+                                    <p>{{ material.description }}</p>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-5">
+                                    <h5>Quantity</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-6">
+                                    <p>{{ material.quantity }}</p>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-5">
+                                    <h5>Status</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-6">
+                                    <p>{{ material.status }}</p>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-5">
+                                    <h5>Last Maintenance Date</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-6">
+                                    <p>{{ material.lastMaintenanceDate }}</p>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-5">
+                                    <h5>Next Maintenance Date</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-6">
+                                    <p>{{ material.nextMaintenanceDate }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    {% include 'WarehouseManagement/partials/footer.html' %}
+
+{% endblock %}

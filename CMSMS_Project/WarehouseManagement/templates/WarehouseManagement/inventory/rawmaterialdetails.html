@@ -1,0 +1,135 @@
+{% extends 'WarehouseManagement/partials/base.html' %}
+{% load static %}
+
+{% block title %}
+    Raw Material Details | Warehouse
+{% endblock %}
+
+{% block content %}
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1><i class='bx bx-menu'></i> {{ item }} Details</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Warehouse</a></li>
+                    <li class="breadcrumb-item"><a href="">Raw Materials</a></li>
+                    <li class="breadcrumb-item active">{{ item }} Details</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-7 offset-xl-3 col-md offset-md-0">
+                    <div class="card p-4 mt-3">
+                        <h1 class="text-center mb-4 text-uppercase">{{ item }} &nbsp; Details</h1>
+                        <hr>
+                        <div class="container-fluid">
+                            <div class="row py-2">
+                                <div class="col-3">
+                                    <h5>Item ID</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-8">
+                                    <p>{{ material.itemID }}</p>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-3">
+                                    <h5>Item Name</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-8">
+                                    <p>{{ material.itemName }}</p>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-3">
+                                    <h5>Category</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-8">
+                                    <p>{{ material.category }}</p>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-3">
+                                    <h5>Description</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-8">
+                                    <p>{{ material.description }}</p>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-3">
+                                    <h5>Quantity</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-8">
+                                    <p>{{ material.quantity }}</p>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-3">
+                                    <h5>Reorder Level</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-8">
+                                    <p>{{ material.reorderLevel }}</p>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-3">
+                                    <h5>Expire Date</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-8">
+                                    <p>{{ material.expireDate }}</p>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-3">
+                                    <h5>Receive Date</h5>
+                                </div>
+                                <div class="col-1">
+                                    :
+                                </div>
+                                <div class="col-8">
+                                    <p>{{ material.receivedDate }}</p>
+                                </div>
+                            </div>
+                            <div class="row mx-4 my-2">
+                            <div class="col-12">
+                            {% if user.groups.all.0.name == "WarehouseManager" %}
+                                {% if material.quantity < material.reorderLevel %}
+                                    <a href="{% url 'wm-raw-material-reorder' material.id %}" class="btn btn-warning col-12">Reorder</a>
+                                {% endif %}
+                            {% endif %}
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    {% include 'WarehouseManagement/partials/footer.html' %}
+
+{% endblock %}

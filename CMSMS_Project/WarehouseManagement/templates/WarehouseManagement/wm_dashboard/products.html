@@ -1,0 +1,168 @@
+{% extends 'WarehouseManagement/partials/base.html' %}
+{% load static %}
+
+{% block title %}
+    Products | Warehouse
+{% endblock %}
+zz
+{% block content %}
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1><i class='bx bx-menu'></i> Products</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Warehouse</a></li>
+                    <li class="breadcrumb-item active">Products</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Products</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-briefcase-4-fill h1 text-info"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ products_count }}</span><br>
+                                    <span class="text-info small fw-bold">Count</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Categories</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-apps-fill h1 text-success"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ category_count }}</span><br>
+                                    <span class="text-success small fw-bold">of Products</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Reorder</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-ship-fill h1 text-danger"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ reorder_count }}</span><br>
+                                    <span class="text-danger small fw-bold">Products</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Expired</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-alarm-warning-fill h1 text-warning"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ expire_count }}</span><br>
+                                    <span class="text-warning small fw-bold">Products</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Main Body -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-lg-12">
+                    <div class="card p-4">
+                        <form action="" method="get">
+                            <h4><i class='bx bx-filter-alt bx-tada'></i> &nbsp; FILTER</h4>
+                            <div class="input-group my-3">
+                                <input type="text" class="form-control" placeholder="Search" name="search_field">
+                                <input type="submit" class="input-group-text" value="Search" name="search">
+                            </div>
+                        </form>
+                        <form action="" method="get">
+                            <div class="d-grid gap-2 mt-5 mb-3">
+                                <h4><i class='bx bxs-file-export bx-tada bx-rotate-180'></i> &nbsp; GENERATE</h4>
+                                <input type="submit" value="Export" class="btn btn-primary" name="export">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right Side of the main -->
+                <div class="col-xl-9 col-lg-12 text-center">
+                    <div class="card p-4 table-responsive-lg">
+                        <h1 class="text-center text-uppercase">All Products</h1>
+                        <hr>
+                        <table class="table table-striped text-start" id="example">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product Name</th>
+                                    <th>Category</th>
+                                    <th>Quantity</th>
+                                    <th>Expire Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ product.product.schedule_id.product_code.product_name }}</td>
+                                        <td>{{ product.product.schedule_id.product_code.product_category }}</td>
+                                        {% if product.quantity < product.reorderLevel %}
+                                            <td class="text-danger fw-bold fs-6">{{ product.quantity }}</td>
+                                        {% else %}
+                                            <td>{{ product.quantity }}</td>
+                                        {% endif %}
+                                        <td>{{ product.product.expiry_date }}</td>
+                                        <td>
+                                            <a href="{% url 'wm-products-view' product.id %}"
+                                               class="btn btn-info">View
+                                            </a>
+                                            <a href="{% url 'wm-products-update' product.id %}"
+                                               class="btn btn-success">Update
+                                            </a>
+                                            <a href="{% url 'wm-products-delete' product.id %}"
+                                               class="btn btn-danger">Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include 'WarehouseManagement/partials/footer.html' %}
+
+
+{% endblock %}

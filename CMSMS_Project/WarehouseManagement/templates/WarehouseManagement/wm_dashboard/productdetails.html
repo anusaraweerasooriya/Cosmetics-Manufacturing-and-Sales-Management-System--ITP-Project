@@ -1,0 +1,130 @@
+{% extends 'WarehouseManagement/partials/base.html' %}
+{% load static %}
+
+{% block title %}
+    Product Details | Warehouse
+{% endblock %}
+
+{% block content %}
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1><i class='bx bx-menu'></i> Product Details</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Warehouse</a></li>
+                    <li class="breadcrumb-item"><a href="">Products</a></li>
+                    <li class="breadcrumb-item active">Product Details</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 offset-xl-3 col-md offset-md-0">
+                    <div class="card py-4 mt-3">
+                        <h1 class="text-center mb-4 text-uppercase">Product &nbsp; Details</h1>
+                        <div class="row mx-4 my-2">
+                            <div class="col-5 fw-bold">
+                                Product Name
+                            </div>
+                            <div class="col-2">
+                                :
+                            </div>
+                            <div class="col-5">
+                                {{ products.product.schedule_id.product_code.product_name }}
+                            </div>
+                        </div>
+                        <div class="row mx-4 my-2">
+                            <div class="col-5 fw-bold">
+                                Batch ID
+                            </div>
+                            <div class="col-2">
+                                :
+                            </div>
+                            <div class="col-5">
+                                {{ products.product.id }}
+                            </div>
+                        </div>
+                        <div class="row mx-4 my-2">
+                            <div class="col-5 fw-bold">
+                                Description
+                            </div>
+                            <div class="col-2">
+                                :
+                            </div>
+                            <div class="col-5">
+                                {{ products.product.schedule_id.product_code.description }}
+                            </div>
+                        </div>
+                        <div class="row mx-4 my-2">
+                            <div class="col-5 fw-bold">
+                                Category
+                            </div>
+                            <div class="col-2">
+                                :
+                            </div>
+                            <div class="col-5">
+                                {{ products.product.schedule_id.product_code.product_category }}
+                            </div>
+                        </div>
+                        <div class="row mx-4 my-2">
+                            <div class="col-5 fw-bold">
+                                In Stock
+                            </div>
+                            <div class="col-2">
+                                :
+                            </div>
+                            <div class="col-5">
+                                {{ products.quantity }}
+                            </div>
+                        </div>
+                        <div class="row mx-4 my-2">
+                            <div class="col-5 fw-bold">
+                                Reorder Level
+                            </div>
+                            <div class="col-2">
+                                :
+                            </div>
+                            <div class="col-5">
+                                {{ products.reorderLevel }}
+                            </div>
+                        </div>
+                        <div class="row mx-4 my-2">
+                            <div class="col-5 fw-bold">
+                                Manufacturing Date
+                            </div>
+                            <div class="col-2">
+                                :
+                            </div>
+                            <div class="col-5">
+                                {{ products.product.manufacture_date }}
+                            </div>
+                        </div>
+                        <div class="row mx-4 my-2">
+                            <div class="col-5 fw-bold">
+                                Expire Date
+                            </div>
+                            <div class="col-2">
+                                :
+                            </div>
+                            <div class="col-5">
+                                {{ products.product.expiry_date }}
+                            </div>
+                        </div>
+                        <div class="row mx-4 my-2">
+                            <div class="col-12">
+                                {% if products.quantity < products.reorderLevel %}
+                                    <a href="{% url 'wm-products-reorder' products.id %}" class="btn btn-warning col-12">Reorder</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    {% include 'WarehouseManagement/partials/footer.html' %}
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'WarehouseManagement/partials/base.html' %}
+{% load static %}
+
+{% block title %}
+    History | Warehouse
+{% endblock %}
+
+{% block content %}
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1><i class='bx bx-menu'></i> History</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Warehouse</a></li>
+                    <li class="breadcrumb-item active">History</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row px-3">
+                <div class="col card p-4 table-responsive">
+                    <h1 class="text-center text-uppercase">History</h1>
+                    <hr>
+                    <table class="table table-hover table-light text-start" id="example">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Item ID</th>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Last Update</th>
+                                <th>Table</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in records %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ record.itemID }}</td>
+                                    <td>{{ record.itemName }}</td>
+                                    <td>{{ record.quantity }}</td>
+                                    <td>{{ record.create_date }}</td>
+                                    <td>{{ record.affect_table }}</td>
+                                    <td>{{ record.action }}</td>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+                <a href="{% url 'wm-history-clean' %}" class="btn btn-danger col-2">Clear History</a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    {% include 'WarehouseManagement/partials/footer.html' %}
+
+{% endblock %}

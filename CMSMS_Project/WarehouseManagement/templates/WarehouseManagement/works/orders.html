@@ -1,0 +1,162 @@
+{% extends 'WarehouseManagement/partials/base.html' %}
+{% load static %}
+
+{% block title %}
+    Orders | Warehouse
+{% endblock %}
+
+{% block content %}
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1><i class='bx bx-menu'></i> Orders</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Warehouse</a></li>
+                    <li class="breadcrumb-item active">Orders</li>
+                </ol>
+            </nav>
+        </div>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <div class="container-fluid p-0">
+                        <div class="row">
+                            <div class="alert {{ message.tags }} alert-dismissible fade show col-xl-8 offset-xl-2 p-2" role="alert">
+                                <div class="text-center">
+                                    {{ message }}
+                                    <button type="button" class="btn-close pt-2 pe-3" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="container-fluid mt-3">
+            <div class="row">
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Orders</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-shopping-cart-fill h1 text-secondary"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ tot_orders }}</span><br>
+                                    <span class="text-secondary small fw-bold">Total</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Not Started</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-spam-2-fill h1 text-danger"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ not_started }}</span><br>
+                                    <span class="text-danger small fw-bold">Orders</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">On Progress</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class='bx bxs-hourglass h1 text-info'></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ on_going }}</span><br>
+                                    <span class="text-info small fw-bold">Working</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body px-4 pt-3">
+                            <h4 class="pb-2">Completed</h4>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="ri-checkbox-multiple-fill h1 text-success"></i>
+                                </div>
+                                <div class="ps-5 text-end">
+                                    <span class="h3">{{ completed }}</span><br>
+                                    <span class="text-success small fw-bold">Done</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row px-3">
+                <div class="col card p-4 table-responsive">
+                    <h1 class="text-center text-uppercase">Orders</h1>
+                    <hr>
+                    <table class="table table-hover table-light text-start" id="example">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Order ID</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Received Date</th>
+                                <th>Progress</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ order.orderID }}</td>
+                                    <td>{{ order.product.product.schedule_id.product_code.product_name }}</td>
+                                    <td>{{ order.quantity }}</td>
+                                    <td>{{ order.receivedDate }}</td>
+                                    <td>{{ order.progress }}</td>
+                                    <td>
+                                        {% if order.progress == 'Received' %}
+                                            <a href="{% url 'wm-order-start' order.id %}" class="btn btn-info">Start</a>
+                                        {% elif order.progress == 'Preparing' %}
+                                            <a href="{% url 'wm-order-complete' order.id %}" class="btn btn-success">Complete</a>
+                                            <a href="{% url 'wm-order-reset' order.id %}" class="btn btn-secondary">Reset</a>
+                                        {% elif order.progress == 'Dispatched' %}
+                                            <a href="{% url 'wm-order-finish' order.id %}" class="btn btn-warning">Finish</a>
+                                            <a href="{% url 'wm-order-reset' order.id %}" class="btn btn-secondary">Reset</a>
+                                        {% elif order.progress == 'Delivered' %}
+                                            <a href="{% url 'wm-order-remove' order.id %}" class="btn btn-danger">Delete</a>
+                                            <a href="{% url 'wm-order-reset' order.id %}" class="btn btn-secondary">Reset</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    {% include 'WarehouseManagement/partials/footer.html' %}
+
+{% endblock %}
