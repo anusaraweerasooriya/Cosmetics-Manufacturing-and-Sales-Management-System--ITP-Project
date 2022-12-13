@@ -1,0 +1,76 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+    BatchProduction | Productions | DeleteProduction
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Delete Scheduled Production </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <div class="row align-items-center">
+            <div class="col-6 mx-auto">
+                <div class="card shadow border" style="padding: 20px">
+                    <div class="text-center">
+                        <h4 class="text-center fw-bold">Delete {{ production.product_code }} production</h4>
+                    </div>
+                    <hr><br>
+                    <p style="margin-left: 10px">Are you sure you want to delete the production of {{production.product_code}} on-Hold, scheduled for {{production.due_date}} ?</p>
+                    <hr><br>
+                    <table class="table">
+                        <tr>
+                            <th>Production ID</th>
+                            <td>{{ production.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Product</th>
+                            <td>{{ production.product_code }}</td>
+                        </tr>
+                        <tr>
+                            <th>Target Quantity</th>
+                            <td>{{ production.target_quantity }}</td>
+                        </tr>
+                        <tr>
+                            <th>Product Net-weight</th>
+                            <td>{{ production.net_weight }}</td>
+                        </tr>
+                        <tr>
+                            <th>Production Due-Date</th>
+                            <td>{{ production.due_date }}</td>
+                        </tr>
+                        <tr>
+                            <th>Production Status</th>
+                            <td>{{ production.status }}</td>
+                        </tr>
+                    </table>
+
+                    <form action="{% url 'bp_delete_production' production.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col d-grid">
+                                <a href="{% url 'bp_bproductions' %}" class="btn btn-secondary ">Cancel</a>
+                            </div>
+                            <div class="col d-grid">
+                                <input class="btn btn-danger" type="submit" name="Confirm" value="Delete">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+    </section>
+
+
+{% endblock content %}

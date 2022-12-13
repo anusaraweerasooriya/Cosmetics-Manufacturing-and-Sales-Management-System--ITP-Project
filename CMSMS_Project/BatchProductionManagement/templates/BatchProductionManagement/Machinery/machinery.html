@@ -1,0 +1,93 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+    BatchProduction | Machinery
+{% endblock %}
+
+
+{% block content %}
+<!-- datatables -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Machinery </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <br>
+        <div style="padding: 10px;">
+
+            {% for message in messages %}
+                <div class="alert alert-warning text-center" style="height: 55px">
+                    <p style="font-weight: bold">{{message}}</p>
+                </div>
+            {% endfor %}
+
+            <div>
+                <a class="btn btn-sm btn-block btn-warning" href="{% url 'bp_add_machinery' %}">ADD MACHINERY <i class='bx bx-plus'></i></a>
+                <a class="btn btn-sm btn-block btn-primary" href="{% url 'bp_machinery_csv' %}">Export <i class="bx bxs-file-export"></i></a>
+            </div>
+
+            <br>
+            <table class="table table-striped table-hover" id="table_id">
+                <thead class="table text-white" style="background:#1F3C88;">
+                    <tr>
+                        <th>Machine#</th>
+                        <th>Item Name</th>
+                        <th>Model</th>
+                        <th>Year</th>
+                        <th>Date Purchased</th>
+                        <th>Last Repair</th>
+                        <th>Next Repair</th>
+                        <th>Condition</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                {% for machine in machines %}
+                    <tr>
+                        <td>{{machine.id}}</td>
+                        <td>{{machine.item_name}}</td>
+                        <td>{{machine.model}}</td>
+                        <td>{{machine.year}}</td>
+                        <td>{{machine.date_purchased}}</td>
+                        <td>{{machine.calcLastRepair}}</td>
+                        <td>{{machine.calcNextRepair}}</td>
+                        <td>{{machine.condition}}</td>
+                        <td>
+                            <a class="btn btn-sm btn-block btn-info" href="{% url 'bp_view_machinery' machine.id %}">View</a>&nbsp;
+                            <a class="btn btn-sm btn-block btn-success" href="{% url 'bp_update_machinery' machine.id %}">Update</a>&nbsp;
+                            <a class="btn btn-sm btn-block btn-danger" href="{% url 'bp_delete_machinery' machine.id %}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+
+
+
+    </section>
+
+<!-- datatables -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $('#table_id').DataTable({
+        paging:true,
+        pageLength: 10,
+        LengthChange: true,
+        autoWidth: true,
+        searching: true,
+        bInfo: true,
+        bSort: true,
+    })
+</script>
+
+
+{% endblock content %}

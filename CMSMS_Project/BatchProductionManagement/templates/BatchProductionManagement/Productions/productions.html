@@ -1,0 +1,97 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+    BatchProduction | Productions
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Monthly Production Details </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <!--counter boxes-->
+        {% include 'BatchProductionManagement/Productions/productions_counter.html' %}
+
+        {% for message in messages %}
+            <div class="alert alert-warning text-center" style="height: 55px">
+                <p style="font-weight: bold">{{message}}</p>
+            </div>
+        {% endfor %}
+
+        <div>
+            <a class="btn btn-block btn-primary" href="{% url 'bp_productions_csv' %}">Export <i class="bx bxs-file-export"></i></a>
+        </div>
+
+        <br>
+        <table class="table table-bordered table-hover">
+            <thead class="table text-white" style="background:#1F3C88;">
+                <tr>
+                    <th>Schedule ID</th>
+                    <th>Product Code</th>
+                    <th>Product Name</th>
+                    <th>Product Category</th>
+                    <th>Target Quantity</th>
+                    <th>Due Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-secondary fw-bold">
+                    <td colspan="8" ><span class="fa-solid fa-clock"></span>&nbsp;&nbsp;Scheduled</td>
+                </tr>
+                {% for schedule in monthly_scheduled_list %}
+                    <tr>
+                        <td>{{schedule.id}}</td>
+                        <td>{{schedule.product_code.id}}</td>
+                        <td>{{schedule.product_code.product_name}}</td>
+                        <td>{{schedule.product_code.product_category}}</td>
+                        <td>{{schedule.target_quantity}}</td>
+                        <td>{{schedule.due_date}}</td>
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-info" href="{% url 'bp_view_scheduled' schedule.id %}">View</a>
+                            <a class="btn btn-sm btn-success" href="{% url 'bp_update_production' schedule.id %}">Update</a>
+                            <a class="btn btn-sm btn-warning" href="{% url 'bp_proceed_production' schedule.id %}">Proceed <i class='bx bxs-chevrons-right'></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr><td class="border-0"></td></tr>
+
+                {% if monthly_onhold_list %}
+                    <tr class="table-secondary fw-bold">
+                        <td colspan="8" ><span class="fa-solid fa-pause"></span>&nbsp;&nbsp;On Hold</td>
+                    </tr>
+                        {% for schedule in monthly_onhold_list %}
+                            <tr>
+                                <td>{{schedule.id}}</td>
+                                <td>{{schedule.product_code.id}}</td>
+                                <td>{{schedule.product_code.product_name}}</td>
+                                <td>{{schedule.product_code.product_category}}</td>
+                                <td>{{schedule.target_quantity}}</td>
+                                <td>{{schedule.due_date}}</td>
+                                <td class="text-center">
+                                    <a class="btn btn-sm btn-info" href="{% url 'bp_view_onhold' schedule.id %}">View</a>
+                                    <a class="btn btn-sm btn-success" href="{% url 'bp_update_production' schedule.id %}">Update</a>
+                                    <a class="btn btn-sm btn-danger" href="{% url 'bp_delete_production' schedule.id %}">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+
+
+
+
+
+
+    </section>
+
+
+{% endblock content %}

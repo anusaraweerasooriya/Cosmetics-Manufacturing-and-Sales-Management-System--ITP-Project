@@ -1,0 +1,76 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+    BatchProduction | RawMaterials | Delete Machinery
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Delete Machinery </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <div class="row align-items-center">
+            <div class="col-6 mx-auto">
+                <div class="card shadow border" style="padding: 20px">
+                    <div class="text-center">
+                        <h4 class="text-center fw-bold">Delete {{ machine.item_name }}</h4>
+                    </div>
+                    <hr><br>
+                    <p class="offset-1">Are you sure you want to <strong>delete '{{machine.item_name}}'</strong> from factory machinery ?</p>
+                    <hr><br>
+                    <table class="table">
+                        <tr>
+                            <th>Machine ID</th>
+                            <td>{{ machine.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ machine.item_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Model</th>
+                            <td>{{ machine.model }}</td>
+                        </tr>
+                        <tr>
+                            <th>Year</th>
+                            <td>{{ machine.year }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date Purchased</th>
+                            <td>{{ machine.date_purchased }}</td>
+                        </tr>
+                        <tr>
+                            <th>Condition</th>
+                            <td>{{ machine.condition }}</td>
+                        </tr>
+                    </table>
+
+                    <form action="{% url 'bp_delete_machinery' machine.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col d-grid">
+                                <a href="{% url 'bp_machinery' %}" class="btn btn-secondary ">Cancel</a>
+                            </div>
+                            <div class="col d-grid">
+                                <input class="btn btn-danger" type="submit" name="Confirm" value="Delete">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+    </section>
+
+
+{% endblock content %}

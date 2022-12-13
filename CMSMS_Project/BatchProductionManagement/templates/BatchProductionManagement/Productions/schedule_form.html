@@ -1,0 +1,93 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+    BatchProduction | Products | Schedule Form
+{% endblock %}
+
+
+{% block content %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!--prevent selection of past dates-->
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                var dtToday = new Date();
+
+                var month = dtToday.getMonth() + 1;
+                var day = dtToday.getDate();
+                var year = dtToday.getFullYear();
+                if(month<10)
+                    month = '0' + month.toString();
+                if(day<10)
+                    day = '0' + day.toString();
+
+                var maxDate = year + '-' + month + '-' + day;
+
+                $('#date').attr('min', maxDate);
+            });
+        })
+    </script>
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Schedule Form </span>
+    </div>
+
+    <section class="scroll-card">
+
+        <div class="container" style="margin-top: 5%">
+            <div class="row align-items-center">
+                <div class="col-11 mx-auto">
+                    <div class="card shadow border" style="padding: 50px; border-radius: 15px">
+                        <h4 class="text-center fw-bold">Production</h4>
+                        <hr>
+                        <form action="" method="POST" class="row g-3">
+                            {% csrf_token %}
+                            <div class="col-md-4">
+                                <label class="form-label">Product Code</label>
+                                {{schedule_form.product_code}}
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Product Name</label>
+                                <input type="text" class="form-control" value="{{f_product_code.product_name}}" readonly>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Category</label>
+                                <input type="text" class="form-control" value="{{f_product_code.product_category}}" readonly>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Target Quantity</label>
+                                {{schedule_form.target_quantity}}
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Net Weight of a product</label>
+                                {{schedule_form.net_weight}}
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Due Date</label>
+                                {{schedule_form.due_date}}
+                            </div>
+                            <button type="submit" name="Submit" class="btn btn-success">Proceed <i class='bx bxs-chevrons-right'></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </section>
+
+
+
+{% endblock content %}

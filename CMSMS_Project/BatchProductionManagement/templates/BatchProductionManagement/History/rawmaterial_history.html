@@ -1,0 +1,71 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+    BatchProduction | History | Raw-Materials
+{% endblock %}
+
+
+{% block content %}
+<!-- datatables -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Raw-Material History </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card" >
+
+        <br>
+        <div class="container">
+            <table class="table table-bordered table-hover" id="table_id">
+                <thead>
+                    <tr class="table table-secondary">
+                        <th>Raw-Material Name</th>
+                        <th>Quantity Available</th>
+                        <th>Re-Order Level</th>
+                        <th>Last Updated</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                {% for material in materials %}
+                    <tr>
+                        <td>{{material.name}}</td>
+                        <td>{{material.quantity}}</td>
+                        <td>{{material.reorder_level}}</td>
+                        <td>{{material.last_updated}}</td>
+                        <td>{{material.action}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <a href="{% url 'bp_clear_material_history' %}" class="btn btn-danger">Clear History</a>
+        </div>
+
+
+
+
+
+    </section>
+
+<!-- datatables -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $('#table_id').DataTable({
+        paging:true,
+        pageLength: 10,
+        LengthChange: true,
+        autoWidth: true,
+        searching: true,
+        bInfo: true,
+        bSort: true,
+    })
+</script>
+
+
+{% endblock content %}
+

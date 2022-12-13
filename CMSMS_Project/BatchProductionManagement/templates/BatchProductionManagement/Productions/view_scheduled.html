@@ -1,0 +1,114 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+{% load mathfilters %}
+
+{% block title %}
+    BatchProduction | Scheduled Production
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Production Scheduled</span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <div class="container">
+
+            <div class="offset-2">
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold"><label class="form-label">Schedule ID</label></div>
+                    <div class="col-md-4"><input type="text" class="col form-control" value="{{schedule.id}}" readonly></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold"><label class="form-label">Product</label></div>
+                    <div class="col-md-1"><input type="text" class="col form-control" value="{{schedule.product_code.id}}" readonly></div>
+                    <div class="col-md-3"><input type="text" class="col form-control" value="{{schedule.product_code.product_name}}" readonly></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold"><label class="form-label">Production Target</label></div>
+                    <div class="col-md-4"><input type="text" class="col form-control" value="{{schedule.target_quantity}} pieces" readonly></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold"><label class="form-label">Net weight of a product</label></div>
+                    <div class="col-md-4"><input type="text" class="col form-control" value="{{schedule.net_weight}} g" readonly></div>
+                </div>
+            </div>
+
+            {% for message in messages %}
+                <div class="alert alert-warning text-center" style="height: 55px">
+                    <p style="font-weight: bold">{{message}}</p>
+                </div>
+            {% endfor %}
+
+            <table class="table table-hover table-bordered">
+                <tr class="table-dark">
+                    <th>Raw Material</th>
+                    <th>Quantity for 100g</th>
+                    <th>Total Quantity Required (kg)</th>
+                    <th>Available Quantity (inventory)</th>
+                    <th>Deficiency (inventory)</th>
+                    <th></th>
+                </tr>
+                {% for raw in i_raw_materials %}
+                    {% for material in f_raw_materials %}
+                        {% if material.raw_material == raw.name %}
+                            {% if raw.quantity < schedule.target_quantity|mul:schedule.net_weight|mul:material.formulation_qty|div:100000 %}
+                                <tr class="table table-danger">
+                                    <td>{{material.raw_material}}</td>
+                                    <td>{{material.formulation_qty}} g</td>
+                                    <td>{{schedule.target_quantity|mul:schedule.net_weight|mul:material.formulation_qty|div:100000}} kg</td>
+                                    <td>{{ raw.quantity }} kg</td>
+                                    <td>{{ schedule.target_quantity|mul:schedule.net_weight|mul:material.formulation_qty|div:100000|sub:raw.quantity }} kg</td>
+                                    <td style="text-align:center">
+                                        {% if raw.deficiency_request == True %}
+                                            <a class="btn btn-block btn-danger disabled" disabled=True>Requested</a>&nbsp;
+                                        {% else %}
+                                            <a class="btn btn-block btn-danger"
+                                               href="{% url 'bp_deficiency_request_on_schedule' raw.id schedule.target_quantity|mul:schedule.net_weight|mul:material.formulation_qty|div:100000|sub:raw.quantity %}">Request
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                 </tr>
+                            {% else %}
+                                <tr class="table table-success">
+                                    <td>{{material.raw_material}}</td>
+                                    <td>{{material.formulation_qty}} g</td>
+                                    <td>{{schedule.target_quantity|mul:schedule.net_weight|mul:material.formulation_qty|div:100000}} kg</td>
+                                    <td class="table-secondary">{{ raw.quantity }} kg</td>
+                                    <td class="table-secondary"></td>
+                                    {% comment %}<td style="text-align:center">
+                                        <a class="btn btn-block btn-primary" href="{% url 'bp_reserve_material' raw.id schedule.target_quantity|mul:schedule.net_weight|mul:material.formulation_qty|div:100000 %}">Reserve</a>
+                                    </td>{% endcomment %}
+                                    <td style="text-align: center"><img src="https://i.imgur.com/O18mJ1K.png" width="23" class="mb-4"></td>
+                                 </tr>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </table>
+
+
+            <a class="btn btn-secondary" href="{% url 'bp_bproductions' %}"><i class='bx bx-arrow-back'></i> Back</a>
+            <a class="btn btn-warning" href="{% url 'bp_proceed_production' schedule.id %}" style="float: right">Proceed Production <i class='bx bxs-chevrons-right'></i></a>
+
+
+        </div>
+
+
+
+
+
+
+
+    </section>
+
+
+
+
+{% endblock content %}

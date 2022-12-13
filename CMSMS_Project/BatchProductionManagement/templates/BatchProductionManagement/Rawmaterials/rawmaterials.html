@@ -1,0 +1,111 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+    BatchProduction | Raw-materials
+{% endblock %}
+
+
+{% block content %}
+<!-- datatables -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Raw Materials </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <br>
+        <div style="padding: 40px;">
+
+            <div class="alert alert-primary border-2 mt-2">
+                <form method="GET" role="search">
+                    {{material_filter.form}}
+                <button class="btn btn-sm btn-block btn-secondary" type="submit">Search </button>
+              </form>
+            </div>
+
+            <br>
+            {% for message in messages %}
+                <div class="alert alert-warning text-center" style="height: 55px">
+                    <p style="font-weight: bold">{{message}}</p>
+                </div>
+            {% endfor %}
+
+            <div>
+                <a class="btn btn-sm btn-block btn-warning" href="{% url 'bp_create_rawmaterial' %}">Add Raw-Material <i class='bx bx-plus'></i></a>
+                <a class="btn btn-sm btn-block btn-primary" href="{% url 'bp_materials_csv' %}">Export <i class="bx bxs-file-export"></i></a>
+            </div>
+
+            <br>
+            <table class="table table-striped table-borderless table-hover" id="table_id">
+                <thead class="table text-white" style="background:#1F3C88;">
+                    <tr>
+                        <th>#</th>
+                        <th>Raw-Material</th>
+                        <th>Quantity Available (kg)</th>
+                        <th>Re-Order Level (kg)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                {% for material in rawmaterials %}
+                    {% if material.quantity < material.reorder_level %}
+                        <tr>
+                            <td>{{material.id}}</td>
+                            <td>{{material.name}}</td>
+                            <td style="color: red">{{material.quantity}}</td>
+                            <td>{{material.reorder_level}}</td>
+                            <td style="text-align: center">
+                                {% if material.deficiency_request == True %}
+                                    <!--<a class="btn btn-sm btn-block btn-success" href="{% url 'bp_update_rawmaterial' material.id %}">Update</a>-->
+                                    <a class="btn btn-sm btn-block btn-primary disabled" disabled=True>Requested</a>
+                                {% else %}
+                                    <a class="btn btn-sm btn-block btn-primary" href="{% url 'bp_deficiency_request' material.id %}">Request</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>{{material.id}}</td>
+                            <td>{{material.name}}</td>
+                            <td>{{material.quantity}}</td>
+                            <td>{{material.reorder_level}}</td>
+                            <td style="text-align: center">
+                                {% if material.deficiency_request == True %}
+                                    <!--<a class="btn btn-sm btn-block btn-success" href="{% url 'bp_update_rawmaterial' material.id %}">Update</a>-->
+                                    <a class="btn btn-sm btn-block btn-primary disabled" disabled=True>Requested</a>&nbsp
+                                {% else %}
+                                    <a class="btn btn-sm btn-block btn-success" href="{% url 'bp_update_rawmaterial' material.id %}">Update</a>
+                                    <a class="btn btn-sm btn-block btn-danger" href="{% url 'bp_delete_rawmaterial' material.id %}">Delete</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </section>
+
+
+<!-- datatables -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $('#table_id').DataTable({
+        paging:true,
+        pageLength: 10,
+        LengthChange: true,
+        autoWidth: true,
+        searching: true,
+        bInfo: true,
+        bSort: true,
+    })
+</script>
+
+
+{% endblock content %}

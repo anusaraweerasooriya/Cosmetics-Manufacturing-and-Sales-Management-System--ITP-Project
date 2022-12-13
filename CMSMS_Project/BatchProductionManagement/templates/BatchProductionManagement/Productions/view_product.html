@@ -1,0 +1,218 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+      BatchProduction | Products
+{% endblock %}
+
+
+{% block content %}
+<style>
+    .card {
+        color: #fff;
+    }
+
+    .bg-c-blue {
+        background: linear-gradient(45deg,#4099ff,#73b4ff);
+    }
+
+    .bg-c-green {
+        background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+    }
+
+    .bg-c-yellow {
+        background: linear-gradient(45deg,#FFB64D,#ffcb80);
+    }
+</style>
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Cosmetic Products / {{f_product.product_name}} </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-5">
+                    <img src="{{f_product.product_image.url}}" alt="" style="height:300px;">
+                </div>
+                <div class="col-7">
+                    <table class="table table-borderless">
+                      <tr>
+                        <th>Product Code :</th>
+                        <td>{{f_product.id}}</td>
+                      </tr>
+                      <tr>
+                        <th>Product Name :</th>
+                        <td>{{f_product.product_name}}</td>
+                      </tr>
+                      <tr>
+                        <th>Product Category :</th>
+                        <td>{{f_product.product_category}}</td>
+                      </tr>
+                      <tr><td></td></tr>
+                      <tr>
+                        <th colspan="2">Product description :</th>
+                      </tr>
+                      <tr>
+                        <td colspan="2">{{f_product.description}}</td>
+                      </tr>
+                    </table>
+            </div>
+        </div>
+
+        <br><hr><br>
+
+        <div class="row">
+
+          <div class="col-4">
+            <div class="card bg-c-blue">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h3 class="primary">{{scheduled}}</h3>
+                      <span>Productions Due</span>
+                    </div>
+                    <div style="margin-left: 25%">
+                      <i class="fa-solid fa-hourglass-start font-large-2"></i>
+                    </div>
+                  </div><br>
+                  <div class="progress mt-1 mb-0" style="height: 7px;">
+                    <div class="progress-bar" role="progressbar" style="width: {{scheduled}}%; background-color: #000080;" aria-valuenow="{{scheduled}}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="card bg-c-green">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h3 class="warning">{{onhold}}</h3>
+                      <span>Productions On-Hold</span>
+                    </div>
+                    <div style="margin-left: 25%">
+                      <i class="fa-solid fa-pause font-large-2"></i>
+                    </div>
+                  </div><br>
+                  <div class="progress mt-1 mb-0" style="height: 7px;">
+                    <div class="progress-bar" role="progressbar" style="width: {{onhold}}%; background-color: #000080;" aria-valuenow="{{onhold}}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="card bg-c-yellow">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h3 class="success">{{completed}}</h3>
+                      <span>Completed Batches</span>
+                    </div>
+                    <div style="margin-left: 25%">
+                      <i class="bx bxs-calendar-check font-large-2"></i>
+                    </div>
+                  </div><Br>
+                  <div class="progress mt-1 mb-0" style="height: 7px;">
+                    <div class="progress-bar" role="progressbar" style="width: {{completed}}%; background-color: #000080;" aria-valuenow="{{completed}}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="card shadow border offset-2" style="width: 70%; padding: 20px;">
+            <canvas id="productChart"></canvas>
+        </div>
+
+        <br><hr>
+
+        <div>
+            <table class="table table-borderless">
+                <tr colspan="2">
+                    <th>Product Formulation :</th>
+                </tr>
+                <tr class="table text-white" style="background:#1F3C88;">
+                    <th>Raw-Materials</th>
+                    <th>Quantity Required for 100 g</th>
+                    <th>Raw-Material Availability</th>
+                </tr>
+                {% for material in f_raw_materials %}
+                    <tr>
+                        <td>{{material.raw_material}}</td>
+                        <td>{{material.formulation_qty}} g</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    </section>
+
+
+    <script>
+      const labels = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December',
+      ];
+
+      const data = {
+        labels: labels,
+        datasets: [{
+          label: 'Total {{f_product.product_name}} Batch Productions',
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(255, 99, 132)',
+          data: [{{jan}}, {{feb}}, {{mar}}, {{apr}}, {{may}}, {{jun}}, {{jul}}, {{aug}}, {{sep}}, {{oct}}, {{nov}}, {{dec}}],
+        }]
+      }
+
+      const config = {
+        type: 'line',
+        data: data,
+        options: {}
+      };
+
+      const myChart = new Chart(
+        document.getElementById('productChart'),
+        config
+      );
+    </script>
+
+
+
+
+{% endblock content %}

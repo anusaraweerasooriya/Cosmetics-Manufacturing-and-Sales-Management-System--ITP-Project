@@ -1,0 +1,104 @@
+{% load static %}
+
+<div class="sidebar close">
+
+    <div class="logo-details">
+      <i class='bx bxl-slack'></i>
+      <span class="logo_name">GLAMOUR</span>
+    </div>
+
+    <ul class="nav-links">
+      <li>
+        <a href="{% url 'bp_dashboard' %}">
+          <i class='bx bxs-dashboard' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'bp_dashboard' %}">Dashboard</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'bp_products' %}">
+          <i class='bx bxs-shopping-bag'></i>
+          <span class="link_name">Products</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'bp_products' %}">Products</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'bp_bproductions' %}">
+          <i class='bx bxs-factory'></i>
+          <span class="link_name">Productions</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'bp_bproductions' %}">Productions</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="{% url 'bp_rawmaterials' %}">
+            <i class='bx bxs-calendar-check' ></i>
+            <span class="link_name">Inventory</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{% url 'bp_rawmaterials' %}">Inventory</a></li>
+          <li><a href="{% url 'bp_rawmaterials' %}">Raw-Materials</a></li>
+          <li><a href="{% url 'bp_batches' %}">Batches</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="{% url 'bp_requests' %}">
+            <i class='bx bxs-comment-dots' ></i>
+            <span class="link_name">Requests</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{% url 'bp_requests' %}">Requests</a></li>
+          <li><a href="{% url 'bp_requests' %}">Raw-Material Requests</a></li>
+          <li><a href="{% url 'bp_batch_requests' %}">Batch Requests</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'bp_machinery' %}">
+          <i class='bx bxs-cog' ></i>
+          <span class="link_name">Machinery</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{% url 'bp_machinery' %}">Machinery</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="{% url 'bp_material_history' %}">
+          <i class='bx bx-history'></i>
+            <span class="link_name">History</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{% url 'bp_material_history' %}">History</a></li>
+          <li><a href="{% url 'bp_material_history' %}">Raw-Material History</a></li>
+        </ul>
+      </li>
+
+      {% if user.is_authenticated %}
+        <li>
+          <div class="profile-details">
+            <div class="profile-content">
+              <img src="/images/avatar.png" alt="profileImg">
+            </div>
+            <div class="name-job">
+              <div class="profile_name">{{ request.user }}</div>
+              <div class="job">Batch Production Manager</div>
+            </div>
+          </div>
+        </li>
+      {% endif %}
+
+    </ul>
+</div>

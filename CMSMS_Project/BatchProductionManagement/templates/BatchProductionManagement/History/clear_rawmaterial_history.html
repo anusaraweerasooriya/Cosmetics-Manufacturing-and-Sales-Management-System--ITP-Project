@@ -1,0 +1,50 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+    BatchProduction | RawMaterials | Delete RawMaterial
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Delete RawMaterial History</span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <div class="row align-items-center">
+            <div class="col-6 mx-auto">
+                <div class="card shadow border" style="padding: 20px">
+                    <div class="text-center">
+                        <h4 class="text-center fw-bold">Delete Raw-Material History</h4>
+                    </div>
+                    <hr><br>
+                    <p class="offset-1">Are you sure you want to <strong>delete all 'Raw-Material' history</strong> details ?</p>
+                    <hr><br>
+
+                    <form action="{% url 'bp_clear_material_history' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col d-grid">
+                                <a href="{% url 'bp_material_history' %}" class="btn btn-secondary ">Cancel</a>
+                            </div>
+                            <div class="col d-grid">
+                                <input class="btn btn-danger" type="submit" name="Confirm" value="Delete">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+    </section>
+
+
+{% endblock content %}

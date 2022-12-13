@@ -1,0 +1,304 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+    BatchProduction | Dashboard
+{% endblock %}
+
+
+{% block content %}
+    {% comment %}<style>
+        .breadcrumb {
+            margin-bottom: -20px;
+        }
+        .scroll-card {
+          height: calc(100% - 125px);
+        }
+    </style>{% endcomment %}
+
+    <style>
+        .card {
+            color: #fff;
+        }
+
+        .bg-c-blue {
+            background: linear-gradient(45deg,#4099ff,#73b4ff);
+        }
+
+        .bg-c-green {
+            background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+        }
+
+        .bg-c-yellow {
+            background: linear-gradient(45deg,#FFB64D,#ffcb80);
+        }
+
+        .bg-c-pink {
+            background: linear-gradient(45deg,#FF5370,#ff869a);
+        }
+    </style>
+
+    <div class="home-content">
+        <i class='bx bx-menu' ></i>
+        <span class="text"> Dashboard </span>
+    </div>
+    {% comment %}<ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="">Batch Production Manager</a></li>
+        <li class="breadcrumb-item active"><a href="">Test Page</a></li>
+    </ol>{% endcomment %}
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+      <br>
+      <div class="container">
+        <div class="row">
+
+          <div class="col-xl-3 col-sm-6 col-12">
+              <a href="{% url 'bp_batch_requests' %}" style="text-decoration: none;">
+                <div class="card bg-c-blue">
+                  <div class="card-content">
+                    <div class="card-body">
+                      <div class="media d-flex">
+                        <div class="media-body text-left">
+                          <h3 class="primary">{{ pending_batch_req }}</h3>
+                          <span>Pending Batch Requests</span>
+                        </div>
+                        <div style="margin-left: 40px">
+                          <i class="bx bx-message-dots primary font-large-2 float-right"></i>
+                        </div>
+                      </div><br>
+                      <div class="progress mt-1 mb-0" style="height: 7px;">
+                        <div class="progress-bar" role="progressbar" style="width: {{ pending_batch_req }}%; background-color: #0053b3;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+          </div>
+
+          <div class="col-xl-3 col-sm-6 col-12">
+              <a href="{% url 'bp_requests' %}" style="text-decoration: none;">
+                <div class="card bg-c-green">
+                  <div class="card-content">
+                    <div class="card-body">
+                      <div class="media d-flex">
+                        <div class="media-body text-left">
+                          <h3 class="warning">{{ pending_material_req }}</h3>
+                          <span>Material Requests</span>
+                        </div>
+                        <div style="margin-left: 90px">
+                          <i class="icon-bubbles warning font-large-2 float-right"></i>
+                        </div>
+                      </div><br>
+                      <div class="progress mt-1 mb-0" style="height: 7px;">
+                        <div class="progress-bar" role="progressbar" style="width: {{ pending_material_req }}%; background-color: #146c5a;" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+          </div>
+
+
+          <div class="col-xl-3 col-sm-6 col-12">
+              <a href="{% url 'bp_bproductions' %}" style="text-decoration: none;">
+                <div class="card bg-c-yellow">
+                  <div class="card-content">
+                    <div class="card-body">
+                      <div class="media d-flex">
+                        <div class="media-body text-left">
+                          <h3 class="success">{{ scheduled_productions }}</h3>
+                          <span>Scheduled Productions</span>
+                        </div>
+                        <div style="margin-left: 50px">
+                          <i class="bx bx-timer font-large-2 float-right"></i>
+                        </div>
+                      </div><Br>
+                      <div class="progress mt-1 mb-0" style="height: 7px;">
+                        <div class="progress-bar" role="progressbar" style="width: {{ scheduled_productions }}%; background-color: #b36800;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+          </div>
+
+
+          <div class="col-xl-3 col-sm-6 col-12">
+              <a href="{% url 'bp_machinery' %}" style="text-decoration: none;">
+                <div class="card bg-c-pink">
+                  <div class="card-content">
+                    <div class="card-body">
+                      <div class="media d-flex">
+                        <div class="media-body text-left">
+                          <h3 class="success">{{ due_repairs }}</h3>
+                          <span>Due Machine Repairs</span>
+                        </div>
+                        <div style="margin-left: 70px">
+                          <i class="bx bx-cog font-large-2 float-right"></i>
+                        </div>
+                      </div><br>
+                      <div class="progress mt-1 mb-0" style="height: 7px;">
+                        <div class="progress-bar" role="progressbar" style="width: {{ due_repairs }}%; background-color: #cc0022;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+          </div>
+
+        </div>
+      </div>
+
+      {# CHARTS #}
+      <section>
+         <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="card" style="height: 27rem; width: 40rem; padding: 20px;">
+                        <canvas width="800" height="450" id="bp-bar-chart"></canvas>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card" style="height: 27rem; width: 40rem; padding: 20px;">
+                        <canvas width="10" height="10" id="bp-line-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+         </div>
+      </section>
+
+
+
+
+
+
+
+
+
+    </section>
+
+// Bar chart
+<script type="text/javascript">
+new Chart(document.getElementById("bp-bar-chart"), {
+    type: 'bar',
+    data: {
+      labels: [{% for category in product_categories %} '{{ category }}',  {% endfor %}],
+      datasets: [
+        {
+          label: "Total Batch Productions",
+          backgroundColor: ["#37E2D5", "#590696","#C70A80","#FBCB0A"],
+          data: [{% for count in product_category_count %} '{{ count }}',  {% endfor %}]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Predicted world population (millions) in 2050'
+      }
+    }
+});
+</script>
+
+//Line chart
+<script type="text/javascript">
+    var ctx = document.getElementById("bp-line-chart");
+    var myLineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [{% for days in day_list %} '{{ days }}',  {% endfor %}],
+        datasets: [{
+          label: "Productions Due This Week",
+          lineTension: 0.3,
+          backgroundColor: "rgba(78, 115, 223, 0.05)",
+          borderColor: "rgba(78, 115, 223, 1)",
+          pointRadius: 3,
+          pointBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointBorderColor: "rgba(78, 115, 223, 1)",
+          pointHoverRadius: 3,
+          pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+          pointHitRadius: 10,
+          pointBorderWidth: 2,
+          data: [{% for productions in production_list %} '{{ productions }}',  {% endfor %}],
+        }],
+      },
+      options: {
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            left: 10,
+            right: 25,
+            top: 25,
+            bottom: 0
+          }
+        },
+        scales: {
+          xAxes: [{
+            time: {
+              unit: 'date'
+            },
+            gridLines: {
+              display: false,
+              drawBorder: false
+            },
+            ticks: {
+              maxTicksLimit: 7
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              maxTicksLimit: 5,
+              padding: 10,
+              // Include a dollar sign in the ticks
+              callback: function(value, index, values) {
+                return '$' + number_format(value);
+              }
+            },
+            gridLines: {
+              color: "rgb(234, 236, 244)",
+              zeroLineColor: "rgb(234, 236, 244)",
+              drawBorder: false,
+              borderDash: [2],
+              zeroLineBorderDash: [2]
+            }
+          }],
+        },
+        legend: {
+          display: false
+        },
+        tooltips: {
+          backgroundColor: "rgb(255,255,255)",
+          bodyFontColor: "#858796",
+          titleMarginBottom: 10,
+          titleFontColor: '#6e707e',
+          titleFontSize: 14,
+          borderColor: '#dddfeb',
+          borderWidth: 1,
+          xPadding: 15,
+          yPadding: 15,
+          displayColors: false,
+          intersect: false,
+          mode: 'index',
+          caretPadding: 10,
+          callbacks: {
+            label: function(tooltipItem, chart) {
+              var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+              return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+            }
+          }
+        }
+      }
+    });
+</script>
+
+
+<!-- charts.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+
+{% endblock content %}

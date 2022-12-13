@@ -1,0 +1,218 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+    BatchProduction | Batch Details
+{% endblock %}
+
+
+{% block content %}
+
+    <style>
+        .order-card {
+            color: #000000;
+        }
+        .bg-hair {
+            background-image:url('{% static 'images/formulation/hair.png' %}');
+            background-size: cover;
+            height:160px;
+        }
+        .bg-skin {
+            background-image:url('{% static 'images/formulation/skin.png' %}');
+            background-size: cover;
+            height:160px;
+        }
+        .bg-nail {
+            background-image:url('{% static 'images/formulation/nail.png' %}');
+            background-size: cover;
+            height:160px;
+        }
+        .bg-face {
+            background-image:url('{% static 'images/formulation/opacemakeup.png' %}');
+            background-size: cover;
+            height:160px;
+        }
+        .card {
+            max-height: 20vmin;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border: none;
+            margin-bottom: 30px;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+        .card .card-block {
+            padding: 20px;
+        }
+        .order-card h6 {
+            font-weight: bold;
+            margin-left: 26%;
+        }
+        .order-card h2 {
+            margin-top: 20px;
+            color: #000000
+        }
+        .dispatch {
+            padding: 30px;
+            margin-top: -48px;
+            font-weight: bold;
+            opacity: 0.5;
+        }
+        .order-card i {
+            font-size: 26px;
+            margin-left: 50px;
+        }
+        .f-left {
+            float: left;
+        }
+        .f-right {
+            float: right;
+        }
+    </style>
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Batch Details </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+            <br>
+            <div class="container">
+                <div class="container">
+                <div class="row">
+
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-face order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20" style="margin-left: 29%">FACE MAKEUP</h6>
+                                <h2><span style="margin-left: 48%">{{face_makeup_batch_count}}</span></h2>
+                            </div>
+                        </div>
+                        <p class="m-b-0 dispatch">Ready to be dispatched<span class="f-right">{{face_makeup_ready_batch_count}}</span></p>
+                    </div>
+
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-skin order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">SKIN COSMETICS</h6>
+                                <h2><span style="margin-left: 48%">{{skin_cosmetics_batch_count}}</span></h2>
+                            </div>
+                        </div>
+                        <p class="m-b-0 dispatch">Ready to be dispatched<span class="f-right">{{skin_cosmetics_ready_batch_count}}</span></p>
+                    </div>
+
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-nail order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">NAIL COSMETICS</h6>
+                                <h2><span style="margin-left: 48%">{{nail_cosmetics_batch_count}}</span></h2>
+                            </div>
+                        </div>
+                        <p class="m-b-0 dispatch">Ready to be dispatched<span class="f-right">{{nail_cosmetics_ready_batch_count}}</span></p>
+                    </div>
+
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-hair order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">HAIR COSMETICS</h6>
+                                <h2><span style="margin-left: 48%">{{hair_cosmetics_batch_count}}</span></h2>
+                            </div>
+                        </div>
+                        <p class="m-b-0 dispatch">Ready to be dispatched<span class="f-right">{{hair_cosmetics_ready_batch_count}}</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-primary border-2 mt-2">
+                <form method="GET" role="search">
+                    {{batch_filter.form}}
+                    <button class="btn btn-secondary" type="submit">Search </button>
+                    <a class="btn btn-block btn-primary" href="{% url 'bp_batches_csv' %}">Export <i class="bx bxs-file-export"></i></a>
+                </form>
+            </div>
+            <br>
+
+
+            {% for batch in batches %}
+                <table class="table table-hover">
+                    <tr class="table text-white" style="background:#1F3C88;">
+                        <th>Batch Number</th>
+                        <td>{{batch.id}}</td>
+                    </tr>
+                    <tr>
+                        <th class="table-secondary">Schedule ID</th>
+                        <td>{{batch.schedule_id.id}}</td>
+                    </tr>
+                    <tr>
+                        <th class="table-secondary">Product Code</th>
+                        <td>{{batch.schedule_id.product_code.id}}</td>
+                    </tr>
+                    <tr>
+                        <th class="table-secondary">Product Name</th>
+                        <td>{{batch.schedule_id.product_code.product_name}}</td>
+                    </tr>
+                    <tr>
+                        <th class="table-secondary">Product Category</th>
+                        <td>{{batch.schedule_id.product_code.product_category}}</td>
+                    </tr>
+                    <tr>
+                        <th class="table-secondary">Product Description</th>
+                        <td>{{batch.schedule_id.product_code.description}}</td>
+                    </tr>
+                    <tr>
+                        <th class="table-secondary">Batch Quantity</th>
+                        <td>{{batch.batch_quantity}}</td>
+                    </tr>
+                    <tr>
+                        <th class="table-secondary">Product Net Weight</th>
+                        <td>{{batch.schedule_id.net_weight}} g/ml</td>
+                    </tr>
+                    <tr>
+                        <th class="table-secondary">Manufacture Date</th>
+                        <td>{{batch.manufacture_date | date:'Y-m-d'}}</td>
+                    </tr>
+                    <tr>
+                        <th class="table-secondary">Expiry Date</th>
+                        <td>{{batch.expiry_date | date:'Y-m-d'}}</td>
+                    </tr>
+                    <tr>
+                        <th class="table-secondary">Batch Details</th>
+                        <td>{{batch.batch_details}}</td>
+                    </tr>
+                    <tr>
+                        <th class="table-secondary">Batch Status</th>
+                        <td>{{batch.status}}
+                            {% if batch.status == "Ready" %}
+                                <a href="{% url 'bp_batch_dispatch' batch.id %}">
+                                    <input type="button" class="btn btn-sm btn-success" value="Dispatch" style="float: right">
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            {% endfor %}
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </section>
+
+
+
+{% endblock content %}

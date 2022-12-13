@@ -1,0 +1,93 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+      BatchProduction | Machinery
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> {{machine.item_name}} </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <div class="card container" style="padding: 40px;">
+            <div class="row">
+                <div class="col-5">
+                    <img src="{{machine.image.url}}" alt="" style="height:500px;">
+                </div>
+                <br>
+
+                <div class="col-7">
+                    <form class="row g-3">
+                          <div class="col-md-6">
+                            <label class="form-label">Machine ID</label>
+                            <input class="form-control" value="{{machine.id}}">
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Name</label>
+                            <input class="form-control" value="{{machine.item_name}}">
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Model</label>
+                            <input class="form-control" value="{{machine.model}}">
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Year</label>
+                            <input class="form-control" value="{{machine.year}}">
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label">Description</label>
+                            <input class="form-control" value="{{machine.description}}">
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Power Consumption</label>
+                            <input class="form-control" value="{{machine.power_consumption}}">
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Net-Weight</label>
+                            <input class="form-control" value="{{machine.net_weight}}">
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Dimensions</label>
+                            <input class="form-control" value="{{machine.dimensions}}">
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Date Purchased</label>
+                            <input class="form-control" value="{{machine.date_purchased}}">
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Condition</label>
+                            <input class="form-control" value="{{machine.condition}}">
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Repair After</label>
+                            <input class="form-control" value="{{machine.repair_duration}} days">
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Last Repair</label>
+                            <input class="form-control" value="{{machine.last_repair}}">
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label">Next Repair</label>
+                            <input class="form-control" value="{{machine.next_repair}}">
+                          </div>
+                          <div>
+                              <a class="btn btn-sm btn-block btn-secondary" href="{% url 'bp_machinery' %}"><i class='bx bx-arrow-back'></i> Back</a>
+                            <a class="btn btn-sm btn-block btn-success" href="{% url 'bp_update_machinery' machine.id %}">Update</a>
+                          </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock content %}

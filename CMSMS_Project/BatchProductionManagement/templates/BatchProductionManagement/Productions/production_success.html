@@ -1,0 +1,39 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+{% load mathfilters %}
+
+{% block title %}
+    BatchProduction | Productions | Proceed Production
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+    </div>
+
+    <section class="scroll-card" style="height: calc(100% - 90px);"><br>
+
+        <link rel="stylesheet" href="{% static '/css/batch_proceed_production.css' %}">
+
+        <div class="form" id="forms">
+            <div class="text-center" style="margin-top: 20%;">
+                <img src="https://i.imgur.com/O18mJ1K.png" width="50" class="mb-4">
+                <h3>Production Completed</h3>
+                <span>View Batch details for further information.</span>
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 20%;">
+                <a href="{% url 'bp_batches' %}" class="btn btn-sm btn-primary">View Batch Details</a>
+                <a href="{% url 'bp_bproductions' %}" class="btn btn-sm btn-outline-primary">Return to Productions</a>
+            </div>
+        </div>
+
+
+    </section>
+
+
+    <script src="{% static '/js/batch_proceed_production.js' %}"></script>
+
+{% endblock content %}

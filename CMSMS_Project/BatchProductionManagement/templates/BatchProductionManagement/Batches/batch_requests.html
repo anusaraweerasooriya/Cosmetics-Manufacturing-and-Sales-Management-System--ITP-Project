@@ -1,0 +1,77 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+    BatchProduction | Batch Requests
+{% endblock %}
+
+
+{% block content %}
+<!-- datatables -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Batch Requests </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <br>
+        <div class="container">
+
+            <br>
+            <table class="table table-striped" id="table_id">
+                <thead class="table text-white" style="background:#1F3C88;">
+                    <tr>
+                        <th>Request#</th>
+                        <th>Type</th>
+                        <th>Product Name</th>
+                        <th>Requested Quantity</th>
+                        <th>Requested Date</th>
+                        <th>Due Date</th>
+                        <th>Request Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                {% for request in b_requests %}
+                <tr>
+                    <td>{{request.request_ID}}</td>
+                    <td>{{request.type}}</td>
+                    <td>{{request.itemName}}</td>
+                    <td>{{request.quantity}}</td>
+                    <td>{{request.date}}</td>
+                    <td>{{request.due_Date}}</td>
+                    <td>{{request.status}}</td>
+                    <td>
+                        <a class="btn btn-sm btn-block btn-info" href="{% url 'bp_view_batch_request' request.request_ID %}">View Request</a>&nbsp;
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+
+
+
+    </section>
+
+<!-- datatables -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $('#table_id').DataTable({
+        paging:true,
+        pageLength: 10,
+        LengthChange: true,
+        autoWidth: true,
+        searching: true,
+        bInfo: true,
+        bSort: true,
+    })
+</script>
+
+
+{% endblock content %}

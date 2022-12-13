@@ -1,0 +1,55 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+    BatchProduction | RawMaterials | Request Form
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Request Form </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-8 mx-auto">
+                    <div class="card shadow border" style="padding: 50px; border-radius: 15px">
+                        <h4 class="text-center fw-bold">Raw Material Request</h4>
+                        <hr>
+                        <form class="row g-3" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="form-label">Raw-Material Name*</label>
+                                {{request_form.rawmaterial}}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Requesting Quantity (kg)*</label>
+                                {{request_form.quantity}}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Description</label>
+                                {{request_form.description}}
+                            </div>
+                            <button type="submit" name="Submit" class="btn btn-success">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </section>
+
+
+{% endblock content %}

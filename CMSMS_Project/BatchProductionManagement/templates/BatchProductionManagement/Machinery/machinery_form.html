@@ -1,0 +1,82 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+    BatchProduction | Machinery | Machinery Form
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Machinery Form </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-8 mx-auto">
+                    <div class="card shadow border" style="padding: 50px; border-radius: 15px">
+                        <h4 class="text-center fw-bold">Factory Machine</h4>
+                        <hr>
+                        <form class="row g-3" action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="form-label">Machine Name*</label>
+                                {{machinery_form.item_name}}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label">Model*</label>
+                                {{machinery_form.model}}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label">Year*</label>
+                                {{machinery_form.year}}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Description</label>
+                                {{machinery_form.description}}
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="form-label">Power Consumption (KW)</label>
+                                {{machinery_form.power_consumption}}
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="form-label">Net Weight (kg)</label>
+                                {{machinery_form.net_weight}}
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="form-label">Dimensions</label>
+                                {{machinery_form.dimensions}}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Date Purchased*</label>
+                                {{machinery_form.date_purchased}}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Repair Duration</label>
+                                {{machinery_form.repair_duration}}
+                                <small id="emailHelp" class="form-text text-muted">You will be notified when a repair is needed.</small>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Image</label>
+                                {{machinery_form.image}}
+                            </div>
+                            <button type="submit" name="Submit" class="btn btn-success">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </section>
+
+
+{% endblock content %}

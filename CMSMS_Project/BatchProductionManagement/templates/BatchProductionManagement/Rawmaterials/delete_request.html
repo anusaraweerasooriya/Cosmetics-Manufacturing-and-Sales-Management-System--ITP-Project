@@ -1,0 +1,72 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+    BatchProduction | RawMaterials | Delete Request
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Delete Raw-Material Request </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <div class="row align-items-center">
+            <div class="col-6 mx-auto">
+                <div class="card shadow border" style="padding: 20px">
+                    <div class="text-center">
+                        <h4 class="text-center fw-bold">Delete {{ requests.rawmaterial }} request</h4>
+                    </div>
+                    <hr><br>
+                    <p style="margin-left: 10px">Are you sure you want to delete the request for {{requests}} kg, under Request-ID '{{requests.id}}' ?</p>
+                    <hr><br>
+                    <table class="table">
+                        <tr>
+                            <th>Request ID</th>
+                            <td>{{ requests.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Raw-Material</th>
+                            <td>{{ requests.rawmaterial }}</td>
+                        </tr>
+                        <tr>
+                            <th>Requested Quantity</th>
+                            <td>{{ requests.quantity }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date Requested</th>
+                            <td>{{ requests.date_requested }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>{{ requests.status }}</td>
+                        </tr>
+                    </table>
+
+                    <form action="{% url 'bp_delete_request' requests.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col d-grid">
+                                <a href="{% url 'bp_requests' %}" class="btn btn-secondary ">Cancel</a>
+                            </div>
+                            <div class="col d-grid">
+                                <input class="btn btn-danger" type="submit" name="Confirm" value="Delete">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+    </section>
+
+
+{% endblock content %}

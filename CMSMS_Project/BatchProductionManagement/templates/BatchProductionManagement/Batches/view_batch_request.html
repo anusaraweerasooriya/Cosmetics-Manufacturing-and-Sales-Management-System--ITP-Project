@@ -1,0 +1,106 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+
+{% block title %}
+    BatchProduction | Requests | Batch Request
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text"> Batch Request </span>
+    </div>
+    <hr class="title-hr">
+
+    <section class="scroll-card">
+
+        <div class="row align-items-center">
+            <div class="col-6 mx-auto">
+                <div class="card shadow border" style="padding: 20px">
+                    <div class="text-center">
+                        <h4 class="text-center fw-bold">{{ batch.itemName }} Request</h4>
+                    </div>
+                    <hr><br>
+                    <table class="table">
+                        <tr>
+                            <th>Request ID</th>
+                            <td>{{ batch.request_ID }}</td>
+                        </tr>
+                        <tr>
+                            <th>Type</th>
+                            <td>{{ batch.type }}</td>
+                        </tr>
+                        <tr>
+                            <th>Product Name</th>
+                            <td>{{ batch.itemName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Requested Quantity</th>
+                            <td>{{ batch.quantity }}</td>
+                        </tr>
+                        <tr>
+                            <th>Requested Date</th>
+                            <td>{{ batch.date }}</td>
+                        </tr>
+                        <tr>
+                            <th>Due Date</th>
+                            <td>{{ batch.due_Date }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>{{ batch.status }}</td>
+                        </tr>
+                    </table>
+
+                    <div class="row">
+                        <div class="col d-grid">
+                            <a href="{% url 'bp_batch_requests' %}" class="btn btn-secondary "><i class='bx bx-arrow-back'></i> Back</a>
+                        </div>
+                        {% if batch.status == "Pending" %}
+                            <div class="col d-grid">
+                                <a href="{% url 'bp_schedule_batch_request' batch.request_ID %}" class="btn btn-warning ">Schedule Production</a>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        {% if not_dispatched %}
+            <table class="table">
+                <tr class="table-secondary">
+                    <th>Batch Number</th>
+                    <th>Product</th>
+                    <th>Net-weight</th>
+                    <th>Batch Quantity</th>
+                    <th>Manufacture Date</th>
+                    <th>Expiry Date</th>
+                    <th></th>
+                </tr>
+                {% for disp in not_dispatched %}
+                    <tr>
+                        <td>{{ disp.id }}</td>
+                        <td>{{ disp.schedule_id.product_code }}</td>
+                        <td>{{ disp.schedule_id.net_weight }}</td>
+                        <td>{{ disp.batch_quantity }}</td>
+                        <td>{{ disp.manufacture_date }}</td>
+                        <td>{{ disp.expiry_date }}</td>
+                        <td>
+                            <a href="{% url 'bp_dispatch_batch_request' disp.id batch.request_ID %}" class="btn btn-sm btn-success">Dispatch</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+
+
+    </section>
+
+
+{% endblock content %}

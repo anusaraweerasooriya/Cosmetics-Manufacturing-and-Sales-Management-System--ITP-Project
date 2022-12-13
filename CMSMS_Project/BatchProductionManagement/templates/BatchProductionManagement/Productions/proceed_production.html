@@ -1,0 +1,146 @@
+{% extends 'BatchProductionManagement/common/main.html' %}
+{% load static %}
+{% load mathfilters %}
+
+{% block title %}
+    BatchProduction | Productions | Proceed Production
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static '/css/batch_proceed_production.css' %}">
+
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+    </div>
+
+    <section class="scroll-card" style="height: calc(100% - 90px);"><br>
+
+        <form action="{% url 'bp_complete_production' schedule.id %}" class="form" id="forms" method="POST">
+              {% csrf_token %}
+              <h5 class="font-monospace text-center fw-bold">Production In Progress  <i class='bx bxs-chevrons-right  bx-fade-right'></i></h5>
+              <h6 class="font-monospace text-center">Please do not close the window</h6>
+
+              <div class="progressbar">
+                <div class="progress" id="progress"></div>
+
+                <div
+                  class="progress-step progress-step-active"
+                  data-title="Product Details">
+                </div>
+
+                <div class="progress-step" data-title="Raw-Materials"></div>
+                <div class="progress-step" data-title="Manufacture"></div>
+                <div class="progress-step" data-title="Batch Details"></div>
+              </div>
+
+              <div class="step-forms step-forms-active">
+                <div class="row mb-3">
+                    <div class="col-md-4"><label class="form-label">Schedule ID</label></div>
+                    <div class="col"><input type="text" class="col form-control" value="{{schedule.id}}" readonly></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4"><label class="form-label">Product Code</label></div>
+                    <div class="col"><input type="text" class="col form-control" value="{{schedule.product_code.id}}" readonly></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4"><label class="form-label">Product Name</label></div>
+                    <div class="col"><input type="text" class="col form-control" value="{{schedule.product_code.product_name}}" readonly></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4"><label class="form-label">Category</label></div>
+                    <div class="col"><input type="text" class="col form-control" value="{{schedule.product_code.product_category}}" readonly></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4"><label class="form-label">Production Target</label></div>
+                    <div class="col"><input type="text" class="col form-control" value="{{schedule.target_quantity}} pieces" readonly></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4"><label class="form-label">Net Weight</label></div>
+                    <div class="col"><input type="text" class="col form-control" value="{{schedule.net_weight}} g" readonly></div>
+                </div>
+                <div>
+                  <a href="#" class="btn btn-primary btn-next">Next</a>
+                </div>
+              </div>
+
+              <div class="step-forms">
+                <table class="table">
+                    <tr>
+                        <th>Raw-Materials</th>
+                        <th>Required Quantity</th>
+                        <th></th>
+                    </tr>
+                    {% for material in f_raw_materials %}
+                        <tr>
+                            <td>{{material.raw_material}}</td>
+                            <td>{{schedule.target_quantity|mul:schedule.net_weight|mul:material.formulation_qty|div:100000}} kg</td>
+                            <td><i class='bx bxs-check-circle'></i></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <div>
+                  <a href="#" class="btn btn-secondary btn-prev">Previous</a>
+                  <a href="#" class="btn btn-primary btn-next">Next</a>
+                </div>
+              </div>
+
+              <div class="step-forms">
+                <div class="mb-3">
+                    <label class="form-label">Preporation Method</label>
+                    <textarea type="text" class="col form-control" rows="13" readonly>{{schedule.product_code.preparation_method}}</textarea>
+                </div>
+                <div>
+                  <a href="#" class="btn btn-secondary btn-prev">Previous</a>
+                  <a href="#" class="btn btn-primary btn-next">Next</a>
+                </div>
+              </div>
+
+              <div class="step-forms">
+                <div class="row mb-3">
+                  <div class="row g-3">
+                      <div class="col-md-6">
+                          <label class="form-label">Target Quantity</label>
+                          <input type="text" class="form-control" value="{{schedule.target_quantity}}" readonly>
+                      </div>
+                      <div class="col-md-6">
+                          <label class="form-label">Batch Quantity*</label>
+                          <input type="text" class="form-control" value="" name="batch_qty" required>
+                      </div>
+                  </div>
+                  <div class="row g-3">
+                      <div class="col-md-4">
+                          <label class="form-label">Manufacture Date</label>
+                          <input type="text" class="form-control" value="{{date|date:'Y-m-d'}}" name="m_date" readonly>
+                      </div>
+
+                      <div class="col-md-4">
+                          <label class="form-label">Duration</label>
+                          <input type="text" class="form-control" value="{{schedule.product_code.duration}}" readonly>
+                      </div>
+
+                      <div class="col-md-4">
+                          <label class="form-label">Expiry Date</label>
+                          <input type="text" class="form-control" value="{{exp|date:'Y-m-d'}}" name="e_date" readonly>
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Batch Details</label>
+                          <textarea type="text" class="col form-control" rows="3" placeholder="optional" name="details"></textarea>
+                      </div>
+                  </div>
+                  <div>
+                      <a href="#" class="btn btn-secondary btn-prev">Previous</a>
+                      <input type="submit" value="Submit" id="submit-form" class="btn btn-success"/>
+                  </div>
+                </div>
+              </div>
+        </form>
+
+    <script src="{% static '/js/batch_proceed_production.js' %}"></script>
+    </section>
+
+
+
+{% endblock content %}
+
